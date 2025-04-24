@@ -1,16 +1,23 @@
 package util.network;
 
-import util.function.Function;
-
 import java.util.List;
 
 public interface Network {
+    /**
+     * @return layers of the network
+     */
     List<Layer> getLayers();
 
+    /**
+     * @return input size of the network
+     */
     default int getInputSize() {
         return getLayers().get(0).getInputSize();
     }
 
+    /**
+     * @return output size of the network
+     */
     default int getOutputSize() {
         return getLayers().get(getLayers().size() - 1).getOutputSize();
     }
@@ -46,12 +53,11 @@ public interface Network {
         return hidden[layers.size()];
     }
 
-    default double[] calculate(double[] input) {
+    default double[] compute(double[] input) {
         double[] hidden = input;
         for (Layer layer : getLayers()) {
             hidden = layer.compute(hidden);
         }
         return hidden;
     }
-
 }

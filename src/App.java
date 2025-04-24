@@ -21,7 +21,7 @@ public class App {
                 {1},
                 {0}
         };
-        final int epochs = 10000;
+        final int epochs = 100000;
         for (int i = 0; i < epochs; i++) {
             double totalError = 0;
             for (int j = 0; j < inputs.length; j++) {
@@ -29,9 +29,14 @@ public class App {
                 double error = Math.pow(output - targets[j][0], 2) / 2;
                 totalError += error;
             }
-            if (i % 1000 == 0) {
+            if (i % 10000 == 0) {
                 System.out.println("Epoch " + i + ": " + totalError);
             }
+        }
+        System.out.println("Test result:");
+        for (double[] input : inputs) {
+            double output = network.compute(input)[0];
+            System.out.println(input[0] + " " + input[1] + " -> " + output + "(" + (output > 0.5 ? 1 : 0) + ")");
         }
     }
 }
