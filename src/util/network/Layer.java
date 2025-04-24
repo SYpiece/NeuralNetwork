@@ -1,15 +1,13 @@
 package util.network;
 
-public interface Layer {
-    NetworkFunction getActivationFunction();
+import util.function.DerivableFunction;
 
+public interface Layer {
     int getInputSize();
 
     int getOutputSize();
 
-    double[] train(double[] output, double[] target, double learningRate);
+    double[] train(double[] input, double[] output, double[] error, double learningRate);
 
     double[] compute(double[] input);
-
-    double[] computeReversely(double[] output);
 }

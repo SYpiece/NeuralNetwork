@@ -3,7 +3,7 @@ package util.network;
 import util.function.*;
 
 public class NetworkFunctions {
-    public final static NetworkFunction HyperbolicTangent = new NetworkFunction() {
+    public final static DerivableFunction HyperbolicTangent = new DerivableFunction() {
         private final Function derivativeFunction = new Function() {
             @Override
             public Domain getDomain() {
@@ -33,7 +33,7 @@ public class NetworkFunctions {
         }
     };
 
-    public final static NetworkFunction RectifiedLinearUnit = new NetworkFunction() {
+    public final static DerivableFunction RectifiedLinearUnit = new DerivableFunction() {
         private final Function derivativeFunction = new Function() {
             @Override
             public Domain getDomain() {
@@ -62,7 +62,7 @@ public class NetworkFunctions {
         }
     };
 
-    public final static NetworkFunction Sigmoid = new NetworkFunction() {
+    public final static DerivableFunction Sigmoid = new DerivableFunction() {
         private final Function derivativeFunction = new Function() {
             @Override
             public Domain getDomain() {

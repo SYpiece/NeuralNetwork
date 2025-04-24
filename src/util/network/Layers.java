@@ -1,28 +1,26 @@
 package util.network;
 
+import util.function.DerivableFunction;
 import util.function.Function;
 
 import java.util.Random;
 
 public class Layers {
-    public static Layer createFullyConnectedLayer(int inputSize, int outputSize, NetworkFunction activationFunction) {
+    public static Layer createFullyConnectedLayer(int inputSize, int outputSize, DerivableFunction activationFunction) {
         return new Layer() {
-            private final double[][] weights = new double[getOutputSize()][getInputSize()];
+            private final double[][] weights = new double[getInputSize()][getOutputSize()];
             private final double[] biases = new double[getOutputSize()];
 
             {
                 Random random = new Random();
-                for (int i = 0; i < getOutputSize(); i++) {
-                    for (int j = 0; j < getInputSize(); j++) {
-                        weights[i][j] = random.nextDouble() * 2 - 1;
+                for (int i = 0; i < getInputSize(); i++) {
+                    for (int j = 0; j < getOutputSize(); j++) {
+                        weights[i][j] = random.nextDouble() - .5;
                     }
-                    biases[i] = random.nextDouble() * 2 - 1;
                 }
-            }
-
-            @Override
-            public NetworkFunction getActivationFunction() {
-                return activationFunction;
+                for (int j = 0; j < getOutputSize(); j++) {
+                    biases[j] = random.nextDouble() - .5;
+                }
             }
 
             @Override
@@ -36,10 +34,39 @@ public class Layers {
             }
 
             @Override
-            public double[] train(double[] input, double[] target, double learningRate) {
-                if (derivatives.length != getOutputSize()) {
-                    throw new IllegalArgumentException("Derivatives size is not correct");
+            public double[] train(double[] input, double[] output, double[] error, double learningRate) {
+                if (input.length != getInputSize()) {
+                    throw new IllegalArgumentException("Input size is not correct");
                 }
+                if (output.length != getOutputSize()) {
+                    throw new IllegalArgumentException("Output size is not correct");
+                }
+                if (error.length != getOutputSize()) {
+                    throw new IllegalArgumentException("Error size is not correct");
+                }
+
+                final double[] delta = new double[getOutputSize()];
+                final Function derivativeFunction = activationFunction.getDerivativeFunction();
+                for (int i = 0; i < getOutputSize(); i++) {
+                    delta[i] = error[i] * derivativeFunction.calculate(output[i]);
+                }
+
+                for (int i = 0; i < getInputSize(); i++) {
+                    for (int j = 0; j < getOutputSize(); j++) {
+                        weights[i][j] -= learningRate * delta[j] * input[i];
+                    }
+                }
+                for (int j = 0; j < getOutputSize(); j++) {
+                    biases[j] -= learningRate * delta[j];
+                }
+
+                error = new double[getInputSize()];
+                for (int i = 0; i < getInputSize(); i++) {
+                    for (int j = 0; j < getOutputSize(); j++) {
+                        error[i] += weights[i][j] * delta[j];
+                    }
+                }
+                return error;
             }
 
             @Override
@@ -51,10 +78,9 @@ public class Layers {
                 for (int i = 0; i < getOutputSize(); i++) {
                     double sum = 0;
                     for (int j = 0; j < getInputSize(); j++) {
-                        sum += input[j] * weights[i][j];
+                        sum += weights[j][i] * input[j];
                     }
                     output[i] = activationFunction.calculate(sum + biases[i]);
-//                    output[i] = activationFunction.calculate(sum);
                 }
                 return output;
             }
