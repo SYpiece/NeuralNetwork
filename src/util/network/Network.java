@@ -1,5 +1,8 @@
 package util.network;
 
+import util.matrix.Vector;
+import util.matrix.Vectors;
+
 import java.util.List;
 
 public interface Network {
@@ -22,30 +25,23 @@ public interface Network {
         return getLayers().get(getLayers().size() - 1).getOutputSize();
     }
 
-    default double[] train(double[] input, double[] target, double learningRate) {
-        final double[][] hidden = new double[getLayers().size() + 1][];
-        if (input.length != getInputSize()) {
+    default Vector train(Vector input, Vector target, double learningRate) {
+        final List<Layer> layers = getLayers();
+        final Vector[] hidden = new Vector[layers.size() + 1];
+        if (input.size() != getInputSize()) {
             throw new IllegalArgumentException("Input size is not correct");
         }
-        if (target.length != getOutputSize()) {
+        if (target.size() != getOutputSize()) {
             throw new IllegalArgumentException("Target size is not correct");
         }
 
         hidden[0] = input;
-        final List<Layer> layers = getLayers();
         for (int i = 0; i < layers.size(); i++) {
             hidden[i + 1] = layers.get(i).compute(hidden[i]);
         }
 
-        double[] error = new double[target.length];
-        {
-            final Layer layer = layers.get(layers.size() - 1);
-            for (int i = 0; i < target.length; i++) {
-                error[i] = hidden[layers.size()][i] - target[i];
-            }
-            error = layer.train(hidden[layers.size() - 1], hidden[layers.size()], error, learningRate);
-        }
-        for (int i = layers.size() - 2; i >= 0; i--) {
+        Vector error = hidden[layers.size()].subtract(target);
+        for (int i = layers.size() - 1; i >= 0; i--) {
             final Layer layer = layers.get(i);
             error = layer.train(hidden[i], hidden[i + 1], error, learningRate);
         }
@@ -53,8 +49,8 @@ public interface Network {
         return hidden[layers.size()];
     }
 
-    default double[] compute(double[] input) {
-        double[] hidden = input;
+    default Vector compute(Vector input) {
+        Vector hidden = input;
         for (Layer layer : getLayers()) {
             hidden = layer.compute(hidden);
         }

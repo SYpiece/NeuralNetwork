@@ -2,24 +2,28 @@ package util.network;
 
 import util.function.DerivableFunction;
 import util.function.Function;
+import util.matrix.Matrices;
+import util.matrix.Matrix;
+import util.matrix.Vector;
+import util.matrix.Vectors;
 
 import java.util.Random;
 
 public class Layers {
-    public static Layer createFullyConnectedLayer(int inputSize, int outputSize, DerivableFunction activationFunction) {
+    public static Layer createFullyConnectedLayer(int inputSize, int outputSize, NetworkFunction activationFunction) {
         return new Layer() {
-            private final double[][] weights = new double[getInputSize()][getOutputSize()];
-            private final double[] biases = new double[getOutputSize()];
+            private Matrix weights = Matrices.createMatrix(inputSize, outputSize);
+            private Vector biases = Vectors.createVector(outputSize);
 
             {
                 Random random = new Random();
                 for (int i = 0; i < getInputSize(); i++) {
                     for (int j = 0; j < getOutputSize(); j++) {
-                        weights[i][j] = random.nextDouble() - .5;
+                        weights.set(i, j, random.nextDouble() - .5);
                     }
                 }
                 for (int j = 0; j < getOutputSize(); j++) {
-                    biases[j] = random.nextDouble() - .5;
+                    biases.set(j, random.nextDouble() - .5);
                 }
             }
 
@@ -34,55 +38,29 @@ public class Layers {
             }
 
             @Override
-            public double[] train(double[] input, double[] output, double[] error, double learningRate) {
-                if (input.length != getInputSize()) {
+            public Vector train(Vector input, Vector output, Vector error, double learningRate) {
+                if (input.size() != getInputSize()) {
                     throw new IllegalArgumentException("Input size is not correct");
                 }
-                if (output.length != getOutputSize()) {
+                if (output.size() != getOutputSize()) {
                     throw new IllegalArgumentException("Output size is not correct");
                 }
-                if (error.length != getOutputSize()) {
+                if (error.size() != getOutputSize()) {
                     throw new IllegalArgumentException("Error size is not correct");
                 }
 
-                final double[] delta = new double[getOutputSize()];
-                final Function derivativeFunction = activationFunction.getDerivativeFunction();
-                for (int i = 0; i < getOutputSize(); i++) {
-                    delta[i] = error[i] * derivativeFunction.calculate(output[i]);
-                }
-
-                for (int i = 0; i < getInputSize(); i++) {
-                    for (int j = 0; j < getOutputSize(); j++) {
-                        weights[i][j] -= learningRate * delta[j] * input[i];
-                    }
-                }
-                for (int j = 0; j < getOutputSize(); j++) {
-                    biases[j] -= learningRate * delta[j];
-                }
-
-                error = new double[getInputSize()];
-                for (int i = 0; i < getInputSize(); i++) {
-                    for (int j = 0; j < getOutputSize(); j++) {
-                        error[i] += weights[i][j] * delta[j];
-                    }
-                }
-                return error;
+                final Vector delta = error.dot(activationFunction.getDerivativeFunction().calculate(output));
+                weights = weights.subtract(input.multiply(delta.transpose()).multiply(learningRate));
+                biases = biases.subtract(delta.multiply(learningRate));
+                return weights.multiply(delta);
             }
 
             @Override
-            public double[] compute(double[] input) {
-                if (input.length != getInputSize()) {
+            public Vector compute(Vector input) {
+                if (input.size() != getInputSize()) {
                     throw new IllegalArgumentException("Input size is not correct");
                 }
-                double[] output = new double[getOutputSize()];
-                for (int i = 0; i < getOutputSize(); i++) {
-                    double sum = 0;
-                    for (int j = 0; j < getInputSize(); j++) {
-                        sum += weights[j][i] * input[j];
-                    }
-                    output[i] = activationFunction.calculate(sum + biases[i]);
-                }
-                return output;
+                return activationFunction.calculate(weights.transpose().multiply(input).add(biases));
             }
         };
     }

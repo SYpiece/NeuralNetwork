@@ -1,10 +1,11 @@
 package util.network;
 
 import util.function.*;
+import util.matrix.MatrixFunction;
 
 public class NetworkFunctions {
-    public final static DerivableFunction HyperbolicTangent = new DerivableFunction() {
-        private final Function derivativeFunction = new Function() {
+    public final static NetworkFunction HyperbolicTangent = new NetworkFunction() {
+        private final MatrixFunction derivativeFunction = new MatrixFunction() {
             @Override
             public Domain getDomain() {
                 return Domains.Real;
@@ -28,13 +29,13 @@ public class NetworkFunctions {
         }
 
         @Override
-        public Function getDerivativeFunction() {
+        public MatrixFunction getDerivativeFunction() {
             return derivativeFunction;
         }
     };
 
-    public final static DerivableFunction RectifiedLinearUnit = new DerivableFunction() {
-        private final Function derivativeFunction = new Function() {
+    public final static NetworkFunction RectifiedLinearUnit = new NetworkFunction() {
+        private final MatrixFunction derivativeFunction = new MatrixFunction() {
             @Override
             public Domain getDomain() {
                 return Domains.Real;
@@ -57,13 +58,13 @@ public class NetworkFunctions {
         }
 
         @Override
-        public Function getDerivativeFunction() {
+        public MatrixFunction getDerivativeFunction() {
             return derivativeFunction;
         }
     };
 
-    public final static DerivableFunction Sigmoid = new DerivableFunction() {
-        private final Function derivativeFunction = new Function() {
+    public final static NetworkFunction Sigmoid = new NetworkFunction() {
+        private final MatrixFunction derivativeFunction = new MatrixFunction() {
             @Override
             public Domain getDomain() {
                 return Domains.Real;
@@ -86,7 +87,7 @@ public class NetworkFunctions {
         }
 
         @Override
-        public Function getDerivativeFunction() {
+        public MatrixFunction getDerivativeFunction() {
             return derivativeFunction;
         }
     };
