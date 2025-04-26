@@ -1,7 +1,7 @@
 package util.network;
 
-import util.function.DerivableFunction;
-import util.matrix.Vector;
+import util.math.matrix.Matrix;
+import util.math.matrix.Vector;
 
 public interface Layer {
     /**
@@ -14,11 +14,11 @@ public interface Layer {
      */
     int getOutputSize();
 
-    Vector train(Vector input, Vector output, Vector error, double learningRate);
+    Matrix train(Matrix input, Matrix output, Matrix error, double learningRate);
 
     /**
      * @param input the input of the layer
      * @return the output of the layer
      */
-    Vector compute(Vector input);
+    Matrix compute(Matrix input);
 }

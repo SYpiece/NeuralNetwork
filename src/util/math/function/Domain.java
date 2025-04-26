@@ -1,4 +1,4 @@
-package util.function;
+package util.math.function;
 
 import java.util.List;
 

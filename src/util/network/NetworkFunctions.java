@@ -1,7 +1,7 @@
 package util.network;
 
-import util.function.*;
-import util.matrix.MatrixFunction;
+import util.math.function.*;
+import util.math.matrix.MatrixFunction;
 
 public class NetworkFunctions {
     public final static NetworkFunction HyperbolicTangent = new NetworkFunction() {

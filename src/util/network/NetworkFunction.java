@@ -1,7 +1,7 @@
 package util.network;
 
-import util.function.DerivableFunction;
-import util.matrix.*;
+import util.math.function.DerivableFunction;
+import util.math.matrix.*;
 
 public interface NetworkFunction extends DerivableFunction, MatrixFunction {
     @Override

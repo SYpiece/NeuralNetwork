@@ -1,4 +1,4 @@
-package util.function;
+package util.math.function;
 
 public interface Point {
     /**

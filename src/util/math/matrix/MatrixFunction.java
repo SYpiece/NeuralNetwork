@@ -1,6 +1,6 @@
-package util.matrix;
+package util.math.matrix;
 
-import util.function.Function;
+import util.math.function.Function;
 
 public interface MatrixFunction extends Function {
     default Matrix calculate(Matrix matrix) {

@@ -1,4 +1,4 @@
-package util.function;
+package util.math.function;
 
 public class Functions {
     public static DerivableFunction createConstantFunction(double c) {

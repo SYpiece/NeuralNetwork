@@ -1,4 +1,4 @@
-package util.function;
+package util.math.function;
 
 public class Sets {
     public final static Set Real = value -> true;
