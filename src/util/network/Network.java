@@ -61,10 +61,10 @@ public interface Network {
     }
 
     default Vector compute(Vector input) {
-        Vector hidden = input;
+        Matrix hidden = input.toMatrix(Orientation.TopToBottom);
         for (Layer layer : getLayers()) {
-            hidden = layer.compute(hidden.toMatrix(Orientation.TopToBottom)).toVector(Orientation.TopToBottom);
+            hidden = layer.compute(hidden);
         }
-        return hidden;
+        return hidden.toVector(Orientation.TopToBottom);
     }
 }

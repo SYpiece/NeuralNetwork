@@ -5,6 +5,14 @@ public class Vectors extends Matrices {
         return new VectorImpl(size);
     }
 
+    public static ColumnVector createColumnVector(int size) {
+        return new ColumnVectorImpl(size);
+    }
+
+    public static RowVector createRowVector(int size) {
+        return new RowVectorImpl(size);
+    }
+
     public static Vector createVector(double... vector) {
         if (vector == null) {
             throw new IllegalArgumentException("Vector must not be null");
@@ -12,8 +20,22 @@ public class Vectors extends Matrices {
         return new VectorImpl(vector);
     }
 
+    public static ColumnVector createColumnVector(double... vector) {
+        if (vector == null) {
+            throw new IllegalArgumentException("Vector must not be null");
+        }
+        return new ColumnVectorImpl(vector);
+    }
+
+    public static RowVector createRowVector(double... vector) {
+        if (vector == null) {
+            throw new IllegalArgumentException("Vector must not be null");
+        }
+        return new RowVectorImpl(vector);
+    }
+
     private static class VectorImpl implements Vector {
-        private final double[] vector;
+        protected final double[] vector;
 
         public VectorImpl(int size) {
             this.vector = new double[size];
@@ -36,6 +58,36 @@ public class Vectors extends Matrices {
         @Override
         public void set(int index, double value) {
             vector[index] = value;
+        }
+    }
+
+    private static class ColumnVectorImpl extends VectorImpl implements ColumnVector {
+        public ColumnVectorImpl(int size) {
+            super(size);
+        }
+
+        public ColumnVectorImpl(double... vector) {
+            super(vector);
+        }
+
+        @Override
+        public Matrix toMatrix(Orientation orientation) {
+            return ColumnVector.super.toMatrix(orientation);
+        }
+    }
+
+    private static class RowVectorImpl extends VectorImpl implements RowVector {
+        public RowVectorImpl(int size) {
+            super(size);
+        }
+
+        public RowVectorImpl(double... vector) {
+            super(vector);
+        }
+
+        @Override
+        public Matrix toMatrix(Orientation orientation) {
+            return RowVector.super.toMatrix(orientation);
         }
     }
 

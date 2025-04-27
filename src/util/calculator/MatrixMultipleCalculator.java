@@ -39,10 +39,8 @@ public class MatrixMultipleCalculator implements MatrixCalculator {
                 }
             });
 
-    private static final int blockSize = 1048576;
-
     private int getBlockRows(Matrix m) {
-        return Math.max(1, m.size() / Runtime.getRuntime().availableProcessors());
+        return Math.max(1, m.getRows() / Runtime.getRuntime().availableProcessors());
     }
 
     @Override

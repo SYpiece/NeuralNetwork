@@ -61,7 +61,7 @@ public class App {
                 double error = Math.pow(output - targets[j].get(0), 2);
                 totalError += error;
             }
-            if (i % 1000 == 0) {
+            if (i % 10 == 0) {
                 System.out.println("Epoch " + i + ": " + totalError);
                 System.out.println("Use Time: " + (System.currentTimeMillis() - startTime));
                 startTime = System.currentTimeMillis();
