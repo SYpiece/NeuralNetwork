@@ -5,12 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="178a7953-d896-482e-b8b2-4acc29c85953" name="更改" comment="">
+      <change afterPath="$PROJECT_DIR$/src/util/calculator/CPUAsyncMatrixCalculator.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/util/calculator/AbstractAsyncMatrixCalculator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/util/calculator/AbstractAsyncMatrixCalculator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/util/calculator/MatrixCalculator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/util/calculator/MatrixCalculator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/util/math/matrix/Matrices.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/util/math/matrix/Matrices.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/util/network/Layer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/util/network/Layer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/util/network/Trainer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/util/network/Trainer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/util/calculator/CPUMatrixCalculator.java" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
