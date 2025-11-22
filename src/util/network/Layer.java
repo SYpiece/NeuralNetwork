@@ -14,11 +14,5 @@ public interface Layer {
      */
     int getOutputSize();
 
-    Matrix train(Matrix input, Matrix output, Matrix error, double learningRate);
-
-    /**
-     * @param input the input of the layer
-     * @return the output of the layer
-     */
-    Matrix compute(Matrix input);
+    Trainer getTrainer();
 }

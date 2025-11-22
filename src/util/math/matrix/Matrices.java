@@ -8,47 +8,47 @@ public class Matrices {
         return new MatrixImpl(rows, columns);
     }
 
-    public static Matrix createMatrix(double[][] matrix) {
-        if (matrix == null) {
-            throw new IllegalArgumentException("Matrix must not be null");
-        }
-        for (double[] row : matrix) {
-            if (row.length != matrix[0].length) {
-                throw new IllegalArgumentException("Matrix must be rectangular");
-            }
-        }
-        return new MatrixImpl(matrix);
-    }
+//    public static Matrix createMatrix(double[][] matrix) {
+//        if (matrix == null) {
+//            throw new IllegalArgumentException("Matrix must not be null");
+//        }
+//        for (double[] row : matrix) {
+//            if (row.length != matrix[0].length) {
+//                throw new IllegalArgumentException("Matrix must be rectangular");
+//            }
+//        }
+//        return new MatrixImpl(matrix);
+//    }
 
     private static class MatrixImpl implements Matrix {
-        private final double[][] matrix;
+        final int rows, columns;
+
+        final double[] matrix;
 
         @Override
         public int getRows() {
-            return matrix.length;
+            return rows;
         }
 
         @Override
         public int getColumns() {
-            return matrix[0].length;
+            return columns;
         }
 
         @Override
         public double get(int row, int column) {
-            return matrix[row][column];
+            return matrix[row * columns + column];
         }
 
         @Override
         public void set(int row, int column, double value) {
-            matrix[row][column] = value;
+            matrix[row * columns + column] = value;
         }
 
         MatrixImpl(int rows, int columns) {
-            matrix = new double[rows][columns];
-        }
-
-        MatrixImpl(double[][] matrix) {
-            this.matrix = matrix;
+            this.rows = rows;
+            this.columns = columns;
+            matrix = new double[rows * columns];
         }
     }
 
