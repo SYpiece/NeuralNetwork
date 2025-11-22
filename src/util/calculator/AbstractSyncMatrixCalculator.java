@@ -24,125 +24,148 @@ public abstract class AbstractSyncMatrixCalculator implements MatrixCalculator {
 
     @Override
     public Future<Matrix> transposeAsync(Matrix source, Matrix result) {
+        transpose(source, result);
+        return new FutureMatrix(result);
     }
 
     @Override
     public Matrix add(Matrix source1, Matrix source2) {
-        return null;
-    }
-
-    @Override
-    public void add(Matrix source1, Matrix source2, Matrix result) {
-
+        Matrix result = Matrices.createMatrix(source1.getRows(), source1.getColumns());
+        add(source1, source2, result);
+        return result;
     }
 
     @Override
     public Future<Matrix> addAsync(Matrix source1, Matrix source2) {
-        return null;
+        return addAsync(source1, source2, Matrices.createMatrix(source1.getRows(), source1.getColumns()));
     }
 
     @Override
     public Future<Matrix> addAsync(Matrix source1, Matrix source2, Matrix result) {
-        return null;
+        add(source1, source2, result);
+        return new FutureMatrix(result);
     }
 
     @Override
     public Matrix subtract(Matrix source1, Matrix source2) {
-        return null;
-    }
-
-    @Override
-    public void subtract(Matrix source1, Matrix source2, Matrix result) {
-
+        Matrix result = Matrices.createMatrix(source1.getRows(), source1.getColumns());
+        subtract(source1, source2, result);
+        return result;
     }
 
     @Override
     public Future<Matrix> subtractAsync(Matrix source1, Matrix source2) {
-        return null;
+        return subtractAsync(source1, source2, Matrices.createMatrix(source1.getRows(), source1.getColumns()));
     }
 
     @Override
     public Future<Matrix> subtractAsync(Matrix source1, Matrix source2, Matrix result) {
-        return null;
+        subtract(source1, source2, result);
+        return new FutureMatrix(result);
     }
 
     @Override
     public Matrix multiply(Matrix source, double scalar) {
-        return null;
-    }
-
-    @Override
-    public void multiply(Matrix source, double scalar, Matrix result) {
-
+        Matrix result = Matrices.createMatrix(source.getRows(), source.getColumns());
+        multiply(source, scalar, result);
+        return result;
     }
 
     @Override
     public Future<Matrix> multiplyAsync(Matrix source, double scalar) {
-        return null;
+        return multiplyAsync(source, scalar, Matrices.createMatrix(source.getRows(), source.getColumns()));
     }
 
     @Override
     public Future<Matrix> multiplyAsync(Matrix source, double scalar, Matrix result) {
-        return null;
+        multiply(source, scalar, result);
+        return new FutureMatrix(result);
     }
 
     @Override
     public Matrix multiply(Matrix source1, Matrix source2) {
-        return null;
-    }
-
-    @Override
-    public void multiply(Matrix source1, Matrix source2, Matrix result) {
-
+        Matrix result = Matrices.createMatrix(source1.getRows(), source2.getColumns());
+        multiply(source1, source2, result);
+        return result;
     }
 
     @Override
     public Future<Matrix> multiplyAsync(Matrix source1, Matrix source2) {
-        return null;
+        return multiplyAsync(source1, source2, Matrices.createMatrix(source1.getRows(), source2.getColumns()));
     }
 
     @Override
     public Future<Matrix> multiplyAsync(Matrix source1, Matrix source2, Matrix result) {
-        return null;
+        multiply(source1, source2, result);
+        return new FutureMatrix(result);
     }
 
     @Override
     public Matrix dot(Matrix source1, Matrix source2) {
-        return null;
-    }
-
-    @Override
-    public void dot(Matrix source1, Matrix source2, Matrix result) {
-
+        Matrix result = Matrices.createMatrix(source1.getRows(), source2.getColumns());
+        dot(source1, source2, result);
+        return result;
     }
 
     @Override
     public Future<Matrix> dotAsync(Matrix source1, Matrix source2) {
-        return null;
+        return dotAsync(source1, source2, Matrices.createMatrix(source1.getRows(), source2.getColumns()));
     }
 
     @Override
     public Future<Matrix> dotAsync(Matrix source1, Matrix source2, Matrix result) {
-        return null;
+        dot(source1, source2, result);
+        return new FutureMatrix(result);
     }
 
     @Override
     public Matrix function(Matrix source, Function transformation) {
-        return null;
-    }
-
-    @Override
-    public void function(Matrix source, Function transformation, Matrix result) {
-
+        Matrix result = Matrices.createMatrix(source.getRows(), source.getColumns());
+        function(source, transformation, result);
+        return result;
     }
 
     @Override
     public Future<Matrix> functionAsync(Matrix source, Function transformation) {
-        return null;
+        return functionAsync(source, transformation, Matrices.createMatrix(source.getRows(), source.getColumns()));
     }
 
     @Override
     public Future<Matrix> functionAsync(Matrix source, Function transformation, Matrix result) {
-        return null;
+        function(source, transformation, result);
+        return new FutureMatrix(result);
+    }
+
+    protected static class FutureMatrix implements Future<Matrix> {
+        final Matrix result;
+
+        FutureMatrix(Matrix result) {
+            this.result = result;
+        }
+
+        @Override
+        public boolean cancel(boolean mayInterruptIfRunning) {
+            return false;
+        }
+
+        @Override
+        public boolean isCancelled() {
+            return false;
+        }
+
+        @Override
+        public boolean isDone() {
+            return true;
+        }
+
+        @Override
+        public Matrix get() throws InterruptedException, ExecutionException {
+            return result;
+        }
+
+        @Override
+        public Matrix get(long timeout, TimeUnit unit) throws InterruptedException, ExecutionException, TimeoutException {
+            return result;
+        }
     }
 }
