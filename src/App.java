@@ -11,8 +11,50 @@ public class App {
     public static void main(String[] args) {
 //        test();
         exampleA();
+        
+        // 示例：使用GPU计算器
+        System.out.println("Setting GPU calculator as default");
+        MatrixCalculators.setDefaultCalculator(MatrixCalculators.getGPUCalculator());
+        
+        // 创建测试矩阵
+        Matrix a = Matrices.createMatrix(3, 3);
+        Matrix b = Matrices.createMatrix(3, 3);
+        
+        // 填充矩阵
+        for (int i = 0; i < 3; i++) {
+            for (int j = 0; j < 3; j++) {
+                a.set(i, j, i * 3 + j + 1);
+                b.set(i, j, (i * 3 + j + 1) * 2);
+            }
+        }
+        
+        System.out.println("Matrix A:");
+        printMatrix(a);
+        
+        System.out.println("Matrix B:");
+        printMatrix(b);
+        
+        // 矩阵相加
+        Matrix sum = MatrixCalculators.add(a, b);
+        System.out.println("A + B:");
+        printMatrix(sum);
+        
+        // 标量乘法
+        Matrix scaled = MatrixCalculators.multiply(a, 2.0);
+        System.out.println("A * 2:");
+        printMatrix(scaled);
     }
-
+    
+    private static void printMatrix(Matrix m) {
+        for (int i = 0; i < m.getRows(); i++) {
+            for (int j = 0; j < m.getColumns(); j++) {
+                System.out.printf("%.2f ", m.get(i, j));
+            }
+            System.out.println();
+        }
+        System.out.println();
+    }
+    
     private static void test() {
         Random random = new Random();
         for (int i = 0; i < 100; i++) {
