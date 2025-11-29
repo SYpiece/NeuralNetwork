@@ -8,7 +8,7 @@ import util.math.matrix.Vector;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 
-public interface MatrixCalculator<M extends Matrix> extends Calculator {
+public interface MatrixCalculator<M extends Matrix, F extends Function> extends Calculator {
     M transpose(M source);
 
     void transpose(M source, M result);
@@ -57,11 +57,11 @@ public interface MatrixCalculator<M extends Matrix> extends Calculator {
 
     Future<M> dotAsync(M source1, M source2, M result);
 
-    M function(M source, Function transformation);
+    M function(M source, F transformation);
 
-    void function(M source, Function transformation, M result);
+    void function(M source, F transformation, M result);
 
-    Future<M> functionAsync(M source, Function transformation);
+    Future<M> functionAsync(M source, F transformation);
 
-    Future<M> functionAsync(M source, Function transformation, M result);
+    Future<M> functionAsync(M source, F transformation, M result);
 }

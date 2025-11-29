@@ -8,7 +8,7 @@ import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
-public abstract class AbstractSyncMatrixCalculator<M extends Matrix> implements MatrixCalculator<M> {
+public abstract class AbstractSyncMatrixCalculator<M extends Matrix, F extends Function> implements MatrixCalculator<M, F> {
     protected abstract M createMatrix(int rows, int columns);
 
     @Override
@@ -120,19 +120,19 @@ public abstract class AbstractSyncMatrixCalculator<M extends Matrix> implements 
     }
 
     @Override
-    public M function(M source, Function transformation) {
+    public M function(M source, F transformation) {
         M result = createMatrix(source.getRows(), source.getColumns());
         function(source, transformation, result);
         return result;
     }
 
     @Override
-    public Future<M> functionAsync(M source, Function transformation) {
+    public Future<M> functionAsync(M source, F transformation) {
         return functionAsync(source, transformation, createMatrix(source.getRows(), source.getColumns()));
     }
 
     @Override
-    public Future<M> functionAsync(M source, Function transformation, M result) {
+    public Future<M> functionAsync(M source, F transformation, M result) {
         function(source, transformation, result);
         return new FutureMatrix<>(result);
     }

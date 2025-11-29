@@ -6,18 +6,13 @@
   <component name="ChangeListManager">
     <list default="true" id="178a7953-d896-482e-b8b2-4acc29c85953" name="更改" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/NeuralNetwork.iml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/util/calculator/AbstractAsyncMatrixCalculator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/util/calculator/AbstractAsyncMatrixCalculator.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/util/calculator/AbstractSyncMatrixCalculator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/util/calculator/AbstractSyncMatrixCalculator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/util/calculator/CPUAsyncMatrixCalculator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/util/calculator/MultithreadingFloatMatrixCalculator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/util/calculator/CPUSyncMatrixCalculator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/util/calculator/SingleThreadedFloatMatrixCalculator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/util/calculator/GPUFloatMatrixCalculator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/util/calculator/GPUFloatMatrixCalculator.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/util/calculator/MatrixCalculator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/util/calculator/MatrixCalculator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/util/math/matrix/ColumnVector.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/util/math/matrix/ColumnVector.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/util/math/matrix/DoubleMatrix.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/util/math/matrix/DoubleMatrix.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/util/math/matrix/FloatMatrix.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/util/math/matrix/Matrices.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/util/math/matrix/Matrices.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/util/math/matrix/RowVector.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/util/math/matrix/RowVector.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/util/math/matrix/Vector.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/util/math/matrix/Vector.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/util/calculator/MultithreadingFloatMatrixCalculator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/util/calculator/MultithreadingFloatMatrixCalculator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/util/calculator/SingleThreadedFloatMatrixCalculator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/util/calculator/SingleThreadedFloatMatrixCalculator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/util/math/function/Function.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/util/math/function/Function.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -28,8 +23,8 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Enum" />
-        <option value="Interface" />
         <option value="Class" />
+        <option value="Interface" />
       </list>
     </option>
   </component>

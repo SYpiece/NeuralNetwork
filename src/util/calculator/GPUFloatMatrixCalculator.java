@@ -2,13 +2,14 @@ package util.calculator;
 
 import com.aparapi.Kernel;
 import com.aparapi.Range;
+import util.math.function.FloatFunction;
 import util.math.function.Function;
 import util.math.matrix.FloatMatrix;
 import util.math.matrix.Matrices;
 
 import java.util.concurrent.Future;
 
-public class GPUFloatMatrixCalculator extends AbstractSyncMatrixCalculator<FloatMatrix> {
+public class GPUFloatMatrixCalculator extends AbstractSyncMatrixCalculator<FloatMatrix, FloatFunction> {
     @Override
     protected FloatMatrix createMatrix(int rows, int columns) {
         return Matrices.createFloatMatrix(rows, columns);
@@ -106,25 +107,41 @@ public class GPUFloatMatrixCalculator extends AbstractSyncMatrixCalculator<Float
         }
     }
 
+    static final MultiplyingKernel dottingKernel = new MultiplyingKernel();
+    static final Object dottingKernelLock = new Object();
+
     @Override
     public synchronized void dot(FloatMatrix source1, FloatMatrix source2, FloatMatrix result) {
         if (source1.getRows() != source2.getRows() || source1.getColumns() != source2.getColumns() ||
             source1.getRows() != result.getRows() || source1.getColumns() != result.getColumns()) {
             throw new IllegalArgumentException("source and result must have the same size");
         }
-        synchronized (multiplyingKernelLock) {
-            multiplyingKernel.rows = source1.getRows();
-            multiplyingKernel.columns = source1.getColumns();
-            multiplyingKernel.source1 = source1.getData();
-            multiplyingKernel.source2 = source2.getData();
-            multiplyingKernel.result = result.getData();
-            multiplyingKernel.execute(Range.create2D(source1.getColumns(), source1.getRows()));
+        synchronized (dottingKernelLock) {
+            dottingKernel.rows = source1.getRows();
+            dottingKernel.columns = source1.getColumns();
+            dottingKernel.source1 = source1.getData();
+            dottingKernel.source2 = source2.getData();
+            dottingKernel.result = result.getData();
+            dottingKernel.execute(Range.create2D(source1.getColumns(), source1.getRows()));
         }
     }
 
-    @Override
-    public synchronized void function(FloatMatrix source, Function transformation, FloatMatrix result) {
+    static final FunctionKernel functionKernel = new FunctionKernel();
+    static final Object functionKernelLock = new Object();
 
+    @Override
+    public synchronized void function(FloatMatrix source, FloatFunction transformation, FloatMatrix result) {
+        if (source.getRows() != result.getRows() || source.getColumns() != result.getColumns()) {
+            throw new IllegalArgumentException("source and result must have the same size");
+        }
+        synchronized (functionKernelLock) {
+            functionKernel.rows = source.getRows();
+            functionKernel.columns = source.getColumns();
+            functionKernel.transformation = transformation;
+            functionKernel.source = source.getData();
+            functionKernel.result = result.getData();
+            functionKernel.execute(Range.create2D(source.getColumns(), source.getRows()));
+        }
     }
 
     private static class TransposingKernel extends Kernel {
@@ -189,6 +206,17 @@ public class GPUFloatMatrixCalculator extends AbstractSyncMatrixCalculator<Float
         public void run() {
             final int column = getGlobalId(0), row = getGlobalId(1);
             result[column * rows + row] = source1[column * rows + row] * source2[column * rows + row];
+        }
+    }
+
+    private static class FunctionKernel extends Kernel {
+        int rows, columns;
+        float[] source, result;
+        FloatFunction transformation;
+        @Override
+        public void run() {
+            final int column = getGlobalId(0), row = getGlobalId(1);
+            result[column * rows + row] = transformation.calculate(source[column * rows + row]);
         }
     }
 }

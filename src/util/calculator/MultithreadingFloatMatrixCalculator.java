@@ -1,5 +1,6 @@
 package util.calculator;
 
+import util.math.function.FloatFunction;
 import util.math.function.Function;
 import util.math.matrix.FloatMatrix;
 import util.math.matrix.Matrices;
@@ -11,7 +12,7 @@ import java.util.concurrent.TimeoutException;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicReference;
 
-public class MultithreadingFloatMatrixCalculator extends AbstractAsyncMatrixCalculator<FloatMatrix> {
+public class MultithreadingFloatMatrixCalculator extends AbstractAsyncMatrixCalculator<FloatMatrix, FloatFunction> {
     static final int THREADS_COUNT = Runtime.getRuntime().availableProcessors() * 2;
 
     static final Thread[] threads = new Thread[THREADS_COUNT];
@@ -98,7 +99,7 @@ public class MultithreadingFloatMatrixCalculator extends AbstractAsyncMatrixCalc
     }
 
     @Override
-    public Future<FloatMatrix> functionAsync(FloatMatrix source, Function transformation, FloatMatrix result) {
+    public Future<FloatMatrix> functionAsync(FloatMatrix source, FloatFunction transformation, FloatMatrix result) {
         CalculationTask task = generateTask();
         task.matrix1 = source;
         task.transformation = transformation;

@@ -1,10 +1,11 @@
 package util.calculator;
 
+import util.math.function.FloatFunction;
 import util.math.function.Function;
 import util.math.matrix.FloatMatrix;
 import util.math.matrix.Matrices;
 
-public class SingleThreadedFloatMatrixCalculator extends AbstractSyncMatrixCalculator<FloatMatrix> {
+public class SingleThreadedFloatMatrixCalculator extends AbstractSyncMatrixCalculator<FloatMatrix, FloatFunction> {
     @Override
     public FloatMatrix createMatrix(int rows, int columns) {
         return Matrices.createFloatMatrix(rows, columns);
@@ -62,7 +63,7 @@ public class SingleThreadedFloatMatrixCalculator extends AbstractSyncMatrixCalcu
         
         for (int i = 0; i < source.getRows(); i++) {
             for (int j = 0; j < source.getColumns(); j++) {
-                result.set(i, j, (float) (source.get(i, j) * scalar));
+                result.set(i, j, source.get(i, j) * (float) scalar);
             }
         }
     }
@@ -103,7 +104,7 @@ public class SingleThreadedFloatMatrixCalculator extends AbstractSyncMatrixCalcu
     }
 
     @Override
-    public void function(FloatMatrix source, Function transformation, FloatMatrix result) {
+    public void function(FloatMatrix source, FloatFunction transformation, FloatMatrix result) {
         // 检查矩阵维度是否匹配
         if (source.getRows() != result.getRows() || source.getColumns() != result.getColumns()) {
             throw new IllegalArgumentException("matrix dimensions do not match for function transformation operation");
@@ -111,7 +112,7 @@ public class SingleThreadedFloatMatrixCalculator extends AbstractSyncMatrixCalcu
         
         for (int i = 0; i < source.getRows(); i++) {
             for (int j = 0; j < source.getColumns(); j++) {
-                result.set(i, j, (float) transformation.calculate(source.get(i, j)));
+                result.set(i, j, transformation.calculate(source.get(i, j)));
             }
         }
     }
