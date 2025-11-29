@@ -19,7 +19,7 @@ public class MatrixSingleCalculator implements MatrixCalculator {
     @Override
     public Matrix add(Matrix m1, Matrix m2) {
         if (m1.getRows() != m2.getRows() || m1.getColumns() != m2.getColumns()) {
-            throw new IllegalArgumentException("Matrix size mismatch");
+            throw new IllegalArgumentException("Matrix.java size mismatch");
         }
         final Matrix result = Matrices.createMatrix(m1.getRows(), m1.getColumns());
         for (int i = 0; i < result.getRows(); i++) {
@@ -33,7 +33,7 @@ public class MatrixSingleCalculator implements MatrixCalculator {
     @Override
     public Matrix subtract(Matrix m1, Matrix m2) {
         if (m1.getRows() != m2.getRows() || m1.getColumns() != m2.getColumns()) {
-            throw new IllegalArgumentException("Matrix size mismatch");
+            throw new IllegalArgumentException("Matrix.java size mismatch");
         }
         final Matrix result = Matrices.createMatrix(m1.getRows(), m1.getColumns());
         for (int i = 0; i < result.getRows(); i++) {
@@ -58,7 +58,7 @@ public class MatrixSingleCalculator implements MatrixCalculator {
     @Override
     public Matrix multiply(Matrix m1, Matrix m2) {
         if (m1.getColumns() != m2.getRows()) {
-            throw new IllegalArgumentException("Matrix size mismatch");
+            throw new IllegalArgumentException("Matrix.java size mismatch");
         }
         final Matrix result = Matrices.createMatrix(m1.getRows(), m2.getColumns());
         for (int i = 0; i < result.getRows(); i++) {
@@ -76,7 +76,7 @@ public class MatrixSingleCalculator implements MatrixCalculator {
     @Override
     public Matrix dot(Matrix m1, Matrix m2) {
         if (m1.getRows() != m2.getRows() || m1.getColumns() != m2.getColumns()) {
-            throw new IllegalArgumentException("Matrix size mismatch");
+            throw new IllegalArgumentException("Matrix.java size mismatch");
         }
         final Matrix result = Matrices.createMatrix(m1.getRows(), m1.getColumns());
         for (int i = 0; i < result.getRows(); i++) {

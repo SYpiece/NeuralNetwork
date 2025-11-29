@@ -28,10 +28,10 @@ public class App {
             }
         }
         
-        System.out.println("Matrix A:");
+        System.out.println("Matrix.java A:");
         printMatrix(a);
         
-        System.out.println("Matrix B:");
+        System.out.println("Matrix.java B:");
         printMatrix(b);
         
         // 矩阵相加

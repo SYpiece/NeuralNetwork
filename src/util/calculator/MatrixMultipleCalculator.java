@@ -28,7 +28,7 @@ public class MatrixMultipleCalculator implements MatrixCalculator {
 
                 @Override
                 public Thread newThread(Runnable r) {
-                    Thread thread = new Thread(threadGroup, r, "Matrix Calculator Thread-" + threadNumber.getAndIncrement());
+                    Thread thread = new Thread(threadGroup, r, "Matrix.java Calculator Thread-" + threadNumber.getAndIncrement());
                     if (thread.isDaemon()) {
                         thread.setDaemon(false);
                     }
@@ -71,7 +71,7 @@ public class MatrixMultipleCalculator implements MatrixCalculator {
     @Override
     public Matrix add(Matrix m1, Matrix m2) {
         if (m1.getRows() != m2.getRows() || m1.getColumns() != m2.getColumns()) {
-            throw new IllegalArgumentException("Matrix size mismatch");
+            throw new IllegalArgumentException("Matrix.java size mismatch");
         }
         Matrix result = Matrices.createMatrix(m1.getRows(), m1.getColumns());
         try {
@@ -99,7 +99,7 @@ public class MatrixMultipleCalculator implements MatrixCalculator {
     @Override
     public Matrix subtract(Matrix m1, Matrix m2) {
         if (m1.getRows() != m2.getRows() || m1.getColumns() != m2.getColumns()) {
-            throw new IllegalArgumentException("Matrix size mismatch");
+            throw new IllegalArgumentException("Matrix.java size mismatch");
         }
         Matrix result = Matrices.createMatrix(m1.getRows(), m1.getColumns());
         try {
@@ -152,7 +152,7 @@ public class MatrixMultipleCalculator implements MatrixCalculator {
     @Override
     public Matrix multiply(Matrix m1, Matrix m2) {
         if (m1.getColumns() != m2.getRows()) {
-            throw new IllegalArgumentException("Matrix size mismatch");
+            throw new IllegalArgumentException("Matrix.java size mismatch");
         }
         Matrix result = Matrices.createMatrix(m1.getRows(), m2.getColumns());
         try {
@@ -184,7 +184,7 @@ public class MatrixMultipleCalculator implements MatrixCalculator {
     @Override
     public Matrix dot(Matrix m1, Matrix m2) {
         if (m1.getRows() != m2.getRows() || m1.getColumns() != m2.getColumns()) {
-            throw new IllegalArgumentException("Matrix size mismatch");
+            throw new IllegalArgumentException("Matrix.java size mismatch");
         }
         Matrix result = Matrices.createMatrix(m1.getRows(), m1.getColumns());
         try {

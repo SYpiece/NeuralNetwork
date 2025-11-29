@@ -8,7 +8,7 @@ public class CPUSyncMatrixCalculator extends AbstractSyncMatrixCalculator{
     public void transpose(Matrix source, Matrix result) {
         // 检查矩阵维度是否匹配
         if (source.getRows() != result.getColumns() || source.getColumns() != result.getRows()) {
-            throw new IllegalArgumentException("Matrix dimensions do not match for transpose operation");
+            throw new IllegalArgumentException("Matrix.java dimensions do not match for transpose operation");
         }
         
         for (int i = 0; i < source.getRows(); i++) {
@@ -23,7 +23,7 @@ public class CPUSyncMatrixCalculator extends AbstractSyncMatrixCalculator{
         // 检查矩阵维度是否匹配
         if (source1.getRows() != source2.getRows() || source1.getColumns() != source2.getColumns() ||
             source1.getRows() != result.getRows() || source1.getColumns() != result.getColumns()) {
-            throw new IllegalArgumentException("Matrix dimensions do not match for addition operation");
+            throw new IllegalArgumentException("Matrix.java dimensions do not match for addition operation");
         }
         
         for (int i = 0; i < source1.getRows(); i++) {
@@ -38,7 +38,7 @@ public class CPUSyncMatrixCalculator extends AbstractSyncMatrixCalculator{
         // 检查矩阵维度是否匹配
         if (source1.getRows() != source2.getRows() || source1.getColumns() != source2.getColumns() ||
             source1.getRows() != result.getRows() || source1.getColumns() != result.getColumns()) {
-            throw new IllegalArgumentException("Matrix dimensions do not match for subtraction operation");
+            throw new IllegalArgumentException("Matrix.java dimensions do not match for subtraction operation");
         }
         
         for (int i = 0; i < source1.getRows(); i++) {
@@ -52,7 +52,7 @@ public class CPUSyncMatrixCalculator extends AbstractSyncMatrixCalculator{
     public void multiply(Matrix source, double scalar, Matrix result) {
         // 检查矩阵维度是否匹配
         if (source.getRows() != result.getRows() || source.getColumns() != result.getColumns()) {
-            throw new IllegalArgumentException("Matrix dimensions do not match for scalar multiplication operation");
+            throw new IllegalArgumentException("Matrix.java dimensions do not match for scalar multiplication operation");
         }
         
         for (int i = 0; i < source.getRows(); i++) {
@@ -68,7 +68,7 @@ public class CPUSyncMatrixCalculator extends AbstractSyncMatrixCalculator{
         if (source1.getColumns() != source2.getRows() || 
             source1.getRows() != result.getRows() || 
             source2.getColumns() != result.getColumns()) {
-            throw new IllegalArgumentException("Matrix dimensions do not match for multiplication operation");
+            throw new IllegalArgumentException("Matrix.java dimensions do not match for multiplication operation");
         }
         
         for (int i = 0; i < source1.getRows(); i++) {
@@ -87,7 +87,7 @@ public class CPUSyncMatrixCalculator extends AbstractSyncMatrixCalculator{
         // 检查矩阵维度是否匹配
         if (source1.getRows() != source2.getRows() || source1.getColumns() != source2.getColumns() ||
             source1.getRows() != result.getRows() || source1.getColumns() != result.getColumns()) {
-            throw new IllegalArgumentException("Matrix dimensions do not match for dot product operation");
+            throw new IllegalArgumentException("Matrix.java dimensions do not match for dot product operation");
         }
 
         for (int i = 0; i < source1.getRows(); i++) {
@@ -101,7 +101,7 @@ public class CPUSyncMatrixCalculator extends AbstractSyncMatrixCalculator{
     public void function(Matrix source, Function transformation, Matrix result) {
         // 检查矩阵维度是否匹配
         if (source.getRows() != result.getRows() || source.getColumns() != result.getColumns()) {
-            throw new IllegalArgumentException("Matrix dimensions do not match for function transformation operation");
+            throw new IllegalArgumentException("Matrix.java dimensions do not match for function transformation operation");
         }
         
         for (int i = 0; i < source.getRows(); i++) {

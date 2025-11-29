@@ -19,7 +19,7 @@ public class CPUAsyncMatrixCalculator extends AbstractAsyncMatrixCalculator {
     static final Object taskLock = new Object();
 
     static {
-        ThreadGroup group = new ThreadGroup("CPU Matrix Calculator Threads");
+        ThreadGroup group = new ThreadGroup("CPU Matrix.java Calculator Threads");
         for (int i = 0; i < threads.length; i++) {
             threads[i] = new CalculationThread(group, i, taskHead);
         }
@@ -139,7 +139,7 @@ public class CPUAsyncMatrixCalculator extends AbstractAsyncMatrixCalculator {
         CalculationTask task;
 
         public CalculationThread(ThreadGroup group, int id, CalculationTask task) {
-            super(group, "CPU Matrix Calculator Thread " + id);
+            super(group, "CPU Matrix.java Calculator Thread " + id);
             setPriority(Thread.MAX_PRIORITY);
             this.id = id;
             this.task = task;
