@@ -15,7 +15,7 @@ public interface ColumnVector extends Vector, Matrix {
     }
 
     @Override
-    default double get(int row, int column) {
+    default float get(int row, int column) {
         if (column != 0) {
             throw new IllegalArgumentException("Column index out of bounds");
         }

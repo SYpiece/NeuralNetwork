@@ -22,7 +22,7 @@ public interface Vector {
                     }
 
                     @Override
-                    public double get(int row, int column) {
+                    public float get(int row, int column) {
                         if (row != 0) {
                             throw new IllegalArgumentException("Invalid row");
                         }
@@ -51,7 +51,7 @@ public interface Vector {
                     }
 
                     @Override
-                    public double get(int row, int column) {
+                    public float get(int row, int column) {
                         if (row != 0) {
                             throw new IllegalArgumentException("Invalid row");
                         }
@@ -80,7 +80,7 @@ public interface Vector {
                     }
 
                     @Override
-                    public double get(int row, int column) {
+                    public float get(int row, int column) {
                         if (column != 0) {
                             throw new IllegalArgumentException("Invalid column");
                         }
@@ -109,7 +109,7 @@ public interface Vector {
                     }
 
                     @Override
-                    public double get(int row, int column) {
+                    public float get(int row, int column) {
                         if (column != 0) {
                             throw new IllegalArgumentException("Invalid column");
                         }

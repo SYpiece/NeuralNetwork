@@ -8,60 +8,60 @@ import util.math.matrix.Vector;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 
-public interface MatrixCalculator extends Calculator {
-    Matrix transpose(Matrix source);
+public interface MatrixCalculator<M extends Matrix> extends Calculator {
+    M transpose(M source);
 
-    void transpose(Matrix source, Matrix result);
+    void transpose(M source, M result);
 
-    Future<Matrix> transposeAsync(Matrix source);
+    Future<M> transposeAsync(M source);
 
-    Future<Matrix> transposeAsync(Matrix source, Matrix result);
+    Future<M> transposeAsync(M source, M result);
 
-    Matrix add(Matrix source1, Matrix source2);
+    M add(M source1, M source2);
 
-    void add(Matrix source1, Matrix source2, Matrix result);
+    void add(M source1, M source2, M result);
 
-    Future<Matrix> addAsync(Matrix source1, Matrix source2);
+    Future<M> addAsync(M source1, M source2);
 
-    Future<Matrix> addAsync(Matrix source1, Matrix source2, Matrix result);
+    Future<M> addAsync(M source1, M source2, M result);
 
-    Matrix subtract(Matrix source1, Matrix source2);
+    M subtract(M source1, M source2);
 
-    void subtract(Matrix source1, Matrix source2, Matrix result);
+    void subtract(M source1, M source2, M result);
 
-    Future<Matrix> subtractAsync(Matrix source1, Matrix source2);
+    Future<M> subtractAsync(M source1, M source2);
 
-    Future<Matrix> subtractAsync(Matrix source1, Matrix source2, Matrix result);
+    Future<M> subtractAsync(M source1, M source2, M result);
 
-    Matrix multiply(Matrix source, double scalar);
+    M multiply(M source, double scalar);
 
-    void multiply(Matrix source, double scalar, Matrix result);
+    void multiply(M source, double scalar, M result);
 
-    Future<Matrix> multiplyAsync(Matrix source, double scalar);
+    Future<M> multiplyAsync(M source, double scalar);
 
-    Future<Matrix> multiplyAsync(Matrix source, double scalar, Matrix result);
+    Future<M> multiplyAsync(M source, double scalar, M result);
 
-    Matrix multiply(Matrix source1, Matrix source2);
+    M multiply(M source1, M source2);
 
-    void multiply(Matrix source1, Matrix source2, Matrix result);
+    void multiply(M source1, M source2, M result);
 
-    Future<Matrix> multiplyAsync(Matrix source1, Matrix source2);
+    Future<M> multiplyAsync(M source1, M source2);
 
-    Future<Matrix> multiplyAsync(Matrix source1, Matrix source2, Matrix result);
+    Future<M> multiplyAsync(M source1, M source2, M result);
 
-    Matrix dot(Matrix source1, Matrix source2);
+    M dot(M source1, M source2);
 
-    void dot(Matrix source1, Matrix source2, Matrix result);
+    void dot(M source1, M source2, M result);
 
-    Future<Matrix> dotAsync(Matrix source1, Matrix source2);
+    Future<M> dotAsync(M source1, M source2);
 
-    Future<Matrix> dotAsync(Matrix source1, Matrix source2, Matrix result);
+    Future<M> dotAsync(M source1, M source2, M result);
 
-    Matrix function(Matrix source, Function transformation);
+    M function(M source, Function transformation);
 
-    void function(Matrix source, Function transformation, Matrix result);
+    void function(M source, Function transformation, M result);
 
-    Future<Matrix> functionAsync(Matrix source, Function transformation);
+    Future<M> functionAsync(M source, Function transformation);
 
-    Future<Matrix> functionAsync(Matrix source, Function transformation, Matrix result);
+    Future<M> functionAsync(M source, Function transformation, M result);
 }

@@ -1,33 +1,46 @@
 package util.calculator;
 
 import util.math.function.Function;
-import util.math.matrix.Matrix;
+import util.math.matrix.FloatMatrix;
+import util.math.matrix.Matrices;
 
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
-import java.util.concurrent.atomic.AtomicIntegerArray;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicReference;
 
-public class CPUAsyncMatrixCalculator extends AbstractAsyncMatrixCalculator {
+public class MultithreadingFloatMatrixCalculator extends AbstractAsyncMatrixCalculator<FloatMatrix> {
     static final int THREADS_COUNT = Runtime.getRuntime().availableProcessors() * 2;
 
     static final Thread[] threads = new Thread[THREADS_COUNT];
 
-    static CalculationTask taskHead = new CalculationTask(), reusedTaskHead;
-    static final Object taskLock = new Object();
+//    static CalculationTask taskHead = new CalculationTask(), reusedTaskHead;
+//    static final Object taskLock = new Object();
+
+    static AtomicReference<CalculationTask> taskHead = new AtomicReference<>(), reusedTaskHead = new AtomicReference<>();
 
     static {
+        CalculationTask task = new CalculationTask();
+        taskHead.set(task);
+        reusedTaskHead.set(task);
+
         ThreadGroup group = new ThreadGroup("CPU Matrix.java Calculator Threads");
         for (int i = 0; i < threads.length; i++) {
-            threads[i] = new CalculationThread(group, i, taskHead);
+            threads[i] = new CalculationThread(group, i, taskHead.get());
         }
     }
 
     @Override
-    public Future<Matrix> transposeAsync(Matrix source, Matrix result) {
-        CalculationTask task = getNextTask();
+    protected FloatMatrix createMatrix(int rows, int columns) {
+        return Matrices.createFloatMatrix(rows, columns);
+    }
+
+
+    @Override
+    public Future<FloatMatrix> transposeAsync(FloatMatrix source, FloatMatrix result) {
+        CalculationTask task = generateTask();
         task.matrix1 = source;
         task.result = result;
         task.taskType = CalculationTask.TRANSPOSE_TASK;
@@ -35,8 +48,8 @@ public class CPUAsyncMatrixCalculator extends AbstractAsyncMatrixCalculator {
     }
 
     @Override
-    public Future<Matrix> addAsync(Matrix source1, Matrix source2, Matrix result) {
-        CalculationTask task = getNextTask();
+    public Future<FloatMatrix> addAsync(FloatMatrix source1, FloatMatrix source2, FloatMatrix result) {
+        CalculationTask task = generateTask();
         task.matrix1 = source1;
         task.matrix2 = source2;
         task.result = result;
@@ -45,8 +58,8 @@ public class CPUAsyncMatrixCalculator extends AbstractAsyncMatrixCalculator {
     }
 
     @Override
-    public Future<Matrix> subtractAsync(Matrix source1, Matrix source2, Matrix result) {
-        CalculationTask task = getNextTask();
+    public Future<FloatMatrix> subtractAsync(FloatMatrix source1, FloatMatrix source2, FloatMatrix result) {
+        CalculationTask task = generateTask();
         task.matrix1 = source1;
         task.matrix2 = source2;
         task.result = result;
@@ -55,8 +68,8 @@ public class CPUAsyncMatrixCalculator extends AbstractAsyncMatrixCalculator {
     }
 
     @Override
-    public Future<Matrix> multiplyAsync(Matrix source, double scalar, Matrix result) {
-        CalculationTask task = getNextTask();
+    public Future<FloatMatrix> multiplyAsync(FloatMatrix source, double scalar, FloatMatrix result) {
+        CalculationTask task = generateTask();
         task.matrix1 = source;
         task.scalar = scalar;
         task.result = result;
@@ -65,8 +78,8 @@ public class CPUAsyncMatrixCalculator extends AbstractAsyncMatrixCalculator {
     }
 
     @Override
-    public Future<Matrix> multiplyAsync(Matrix source1, Matrix source2, Matrix result) {
-        CalculationTask task = getNextTask();
+    public Future<FloatMatrix> multiplyAsync(FloatMatrix source1, FloatMatrix source2, FloatMatrix result) {
+        CalculationTask task = generateTask();
         task.matrix1 = source1;
         task.matrix2 = source2;
         task.result = result;
@@ -75,8 +88,8 @@ public class CPUAsyncMatrixCalculator extends AbstractAsyncMatrixCalculator {
     }
 
     @Override
-    public Future<Matrix> dotAsync(Matrix source1, Matrix source2, Matrix result) {
-        CalculationTask task = getNextTask();
+    public Future<FloatMatrix> dotAsync(FloatMatrix source1, FloatMatrix source2, FloatMatrix result) {
+        CalculationTask task = generateTask();
         task.matrix1 = source1;
         task.matrix2 = source2;
         task.result = result;
@@ -85,8 +98,8 @@ public class CPUAsyncMatrixCalculator extends AbstractAsyncMatrixCalculator {
     }
 
     @Override
-    public Future<Matrix> functionAsync(Matrix source, Function transformation, Matrix result) {
-        CalculationTask task = getNextTask();
+    public Future<FloatMatrix> functionAsync(FloatMatrix source, Function transformation, FloatMatrix result) {
+        CalculationTask task = generateTask();
         task.matrix1 = source;
         task.transformation = transformation;
         task.result = result;
@@ -94,41 +107,49 @@ public class CPUAsyncMatrixCalculator extends AbstractAsyncMatrixCalculator {
         return submitTask(task);
     }
 
-    private CalculationTask getNextTask() {
-        CalculationTask nextTask;
-        synchronized (taskLock) {
-            nextTask = taskHead.nextTask;
-            if (nextTask == null) {
-                taskHead.nextTask = new CalculationTask();
+    private CalculationTask generateTask() {
+        CalculationTask currentTask, currentNextTask;
+        do {
+            currentTask = taskHead.get();
+            currentNextTask = currentTask.nextTask;
+            if (currentNextTask == null) {
+                generateReusedTask();
+            } else if (taskHead.compareAndSet(currentTask, currentNextTask)) {
+                return currentTask;
             }
-            nextTask = taskHead = taskHead.nextTask;
-            if (taskHead == reusedTaskHead) {
-                reusedTaskHead = null;
-            }
-        }
-        return nextTask;
+        } while(true);
     }
 
-    private Future<Matrix> submitTask(CalculationTask task) {
+    private CalculationTask generateReusedTask() {
+        CalculationTask currentReusedTask, nextReusedTask = new CalculationTask();
+        do {
+            currentReusedTask = reusedTaskHead.get();
+        } while (!reusedTaskHead.compareAndSet(currentReusedTask, nextReusedTask));
+        currentReusedTask.nextTask = nextReusedTask;
+        return currentReusedTask;
+    }
+
+    private CalculationTask reuseFinishedTask(CalculationTask nextReusedTask) {
+        CalculationTask currentReusedTask;
+        do {
+            currentReusedTask = reusedTaskHead.get();
+        } while (!reusedTaskHead.compareAndSet(currentReusedTask, nextReusedTask));
+        currentReusedTask.nextTask = nextReusedTask;
+        return currentReusedTask;
+    }
+
+    private Future<FloatMatrix> submitTask(CalculationTask task) {
         return task;
     }
 
-    public void reuseFuture(Future<Matrix> future) {
+    public void reuseTask(Future<FloatMatrix> future) {
         if (taskHead != future && future.isDone() && future instanceof CalculationTask) {
             CalculationTask reusedTask = (CalculationTask) future;
             if (reusedTask.taskType == CalculationTask.NOP_TASK) {
                 throw new IllegalArgumentException("Future is not reusable");
             }
             reusedTask.clean();
-            synchronized (taskLock) {
-                if (reusedTaskHead == null) {
-                    reusedTaskHead = reusedTask;
-                    taskHead.nextTask = reusedTask;
-                } else {
-                    reusedTaskHead.nextTask = reusedTask;
-                    reusedTaskHead = reusedTask;
-                }
-            }
+            reuseFinishedTask(reusedTask);
         } else {
             throw new IllegalArgumentException("Future is not a CalculationTask");
         }
@@ -149,14 +170,17 @@ public class CPUAsyncMatrixCalculator extends AbstractAsyncMatrixCalculator {
         public void run() {
             while (true) {
                 try {
-                    while (task.nextTask == null || task.nextTask.taskType == CalculationTask.NOP_TASK) {
+                    while (task.taskType == CalculationTask.NOP_TASK) {
                         Thread.yield();
                     }
-                    task = task.nextTask;
                     switch (task.taskType) {
 
                     }
-                    task.completedFlags.set(id, 1);
+                    task.finishedCounter.incrementAndGet();
+                    while (task.nextTask == null) {
+                        Thread.yield();
+                    }
+                    task = task.nextTask;
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
@@ -164,7 +188,7 @@ public class CPUAsyncMatrixCalculator extends AbstractAsyncMatrixCalculator {
         }
     }
 
-    private static class CalculationTask implements Future<Matrix> {
+    private static class CalculationTask implements Future<FloatMatrix> {
         public static final int
                 NOP_TASK = 0,
                 TRANSPOSE_TASK = 1,
@@ -177,20 +201,16 @@ public class CPUAsyncMatrixCalculator extends AbstractAsyncMatrixCalculator {
                 TASK_TYPE_COUNT = 8;
 
         volatile int taskType = NOP_TASK;
-        volatile boolean isDone = false;
         volatile double scalar;
         volatile Function transformation;
-        volatile Matrix matrix1, matrix2, result;
+        volatile FloatMatrix matrix1, matrix2, result;
         volatile CalculationTask nextTask;
-        final AtomicIntegerArray completedFlags = new AtomicIntegerArray(THREADS_COUNT);
+        final AtomicInteger finishedCounter = new AtomicInteger(0);
 
         void clean() {
             taskType = CalculationTask.NOP_TASK;
             nextTask = null;
-            isDone = false;
-            for (int i = 0; i < THREADS_COUNT; i++) {
-                completedFlags.set(i, 0);
-            }
+            finishedCounter.set(0);
         }
 
         @Override
@@ -205,43 +225,29 @@ public class CPUAsyncMatrixCalculator extends AbstractAsyncMatrixCalculator {
 
         @Override
         public boolean isDone() {
-            if (isDone) {
-                return true;
-            }
-            for (int i = 0; i < THREADS_COUNT; i++) {
-                if (completedFlags.get(i) == 0)
-                    return false;
-            }
-            isDone = true;
-            return true;
+            return finishedCounter.get() == THREADS_COUNT;
         }
 
         @Override
-        public Matrix get() throws InterruptedException, ExecutionException {
-            if (isDone) {
-                return result;
+        public FloatMatrix get() throws InterruptedException, ExecutionException {
+            while (finishedCounter.get() != THREADS_COUNT) {
+                Thread.yield();
             }
-            for (int i = 0; i < THREADS_COUNT; i++) {
-                while (completedFlags.get(i) == 0) {
-                    Thread.yield();
-                }
-            }
-            isDone = true;
             return result;
         }
         @Override
-        public Matrix get(long timeout, TimeUnit unit) throws InterruptedException, ExecutionException, TimeoutException {
+        public FloatMatrix get(long timeout, TimeUnit unit) throws InterruptedException, ExecutionException, TimeoutException {
+            if (finishedCounter.get() == THREADS_COUNT) {
+                return result;
+            }
             long nanos = unit.toNanos(timeout);
             long deadline = System.nanoTime() + nanos;
-            for (int i = 0; i < THREADS_COUNT; i++) {
-                while (completedFlags.get(i) == 0) {
-                    if (System.nanoTime() >= deadline) {
-                        throw new TimeoutException();
-                    }
-                    Thread.yield();
+            while (finishedCounter.get() != THREADS_COUNT) {
+                if (System.nanoTime() >= deadline) {
+                    throw new TimeoutException();
                 }
+                Thread.yield();
             }
-            isDone = true;
             return result;
         }
     }

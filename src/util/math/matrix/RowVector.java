@@ -15,7 +15,7 @@ public interface RowVector extends Vector, Matrix {
     }
 
     @Override
-    default double get(int row, int column) {
+    default float get(int row, int column) {
         if (row != 0) {
             throw new IllegalArgumentException("Row index out of bounds");
         }

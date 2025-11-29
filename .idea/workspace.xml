@@ -6,14 +6,18 @@
   <component name="ChangeListManager">
     <list default="true" id="178a7953-d896-482e-b8b2-4acc29c85953" name="更改" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/App.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/util/calculator/CPUAsyncMatrixCalculator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/util/calculator/CPUAsyncMatrixCalculator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/util/calculator/CPUSyncMatrixCalculator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/util/calculator/CPUSyncMatrixCalculator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/util/calculator/MatrixMultipleCalculator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/util/calculator/MatrixMultipleCalculator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/util/calculator/MatrixSingleCalculator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/util/calculator/MatrixSingleCalculator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/NeuralNetwork.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/util/calculator/AbstractAsyncMatrixCalculator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/util/calculator/AbstractAsyncMatrixCalculator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/util/calculator/AbstractSyncMatrixCalculator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/util/calculator/AbstractSyncMatrixCalculator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/util/calculator/CPUAsyncMatrixCalculator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/util/calculator/MultithreadingFloatMatrixCalculator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/util/calculator/CPUSyncMatrixCalculator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/util/calculator/SingleThreadedFloatMatrixCalculator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/util/calculator/MatrixCalculator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/util/calculator/MatrixCalculator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/util/math/matrix/ColumnVector.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/util/math/matrix/ColumnVector.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/util/math/matrix/DoubleMatrix.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/util/math/matrix/DoubleMatrix.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/util/math/matrix/FloatMatrix.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/util/math/matrix/Matrices.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/util/math/matrix/Matrices.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/util/math/matrix/Matrix.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/util/math/matrix/DoubleMatrix.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/util/math/matrix/RowVector.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/util/math/matrix/RowVector.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/util/math/matrix/Vector.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/util/math/matrix/Vector.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -31,6 +35,9 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/src/util/math/matrix/Matrices.java" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 0
@@ -51,7 +58,7 @@
     &quot;git-widget-placeholder&quot;: &quot;main&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
     &quot;last_opened_file_path&quot;: &quot;C:/Users/User/Documents/Java/NeuralNetwork&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.general&quot;,
     &quot;应用程序.App.executor&quot;: &quot;Debug&quot;
   }
 }</component>
