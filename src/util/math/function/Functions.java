@@ -1,20 +1,8 @@
 package util.math.function;
 
 public class Functions {
-    public static DerivableFunction createConstantFunction(double c) {
-        return new DerivableFunction() {
-            private final Function derivativeFunction = new Function() {
-                @Override
-                public Domain getDomain() {
-                    return Domains.Real;
-                }
-
-                @Override
-                public double calculate(double x) {
-                    return 0;
-                }
-            };
-
+    public static DoubleFunction createConstantFunction(double c) {
+        return new DoubleFunction() {
             @Override
             public Domain getDomain() {
                 return Domains.Real;
@@ -23,11 +11,6 @@ public class Functions {
             @Override
             public double calculate(double x) {
                 return c;
-            }
-
-            @Override
-            public Function getDerivativeFunction() {
-                return derivativeFunction;
             }
         };
     }

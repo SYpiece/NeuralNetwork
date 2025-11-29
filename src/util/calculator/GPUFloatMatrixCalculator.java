@@ -15,8 +15,8 @@ public class GPUFloatMatrixCalculator extends AbstractSyncMatrixCalculator<Float
         return Matrices.createFloatMatrix(rows, columns);
     }
 
-    static final TransposingKernel transposingKernel = new TransposingKernel();
-    static final Object transposingKernelLock = new Object();
+    final TransposingKernel transposingKernel = new TransposingKernel();
+    final Object transposingKernelLock = new Object();
 
     @Override
     public void transpose(FloatMatrix source, FloatMatrix result) {
@@ -32,8 +32,8 @@ public class GPUFloatMatrixCalculator extends AbstractSyncMatrixCalculator<Float
         }
     }
 
-    static final AddingKernel addingKernel = new AddingKernel();
-    static final Object addingKernelLock = new Object();
+    final AddingKernel addingKernel = new AddingKernel();
+    final Object addingKernelLock = new Object();
 
     @Override
     public void add(FloatMatrix source1, FloatMatrix source2, FloatMatrix result) {
@@ -51,8 +51,8 @@ public class GPUFloatMatrixCalculator extends AbstractSyncMatrixCalculator<Float
         }
     }
 
-    static final SubtractingKernel subtractingKernel = new SubtractingKernel();
-    static final Object subtractingKernelLock = new Object();
+    final SubtractingKernel subtractingKernel = new SubtractingKernel();
+    final Object subtractingKernelLock = new Object();
 
     @Override
     public synchronized void subtract(FloatMatrix source1, FloatMatrix source2, FloatMatrix result) {
@@ -70,8 +70,8 @@ public class GPUFloatMatrixCalculator extends AbstractSyncMatrixCalculator<Float
         }
     }
 
-    static final ScalarMultiplyingKernel scalarMultiplyingKernel = new ScalarMultiplyingKernel();
-    static final Object scalarMultiplyingKernelLock = new Object();
+    final ScalarMultiplyingKernel scalarMultiplyingKernel = new ScalarMultiplyingKernel();
+    final Object scalarMultiplyingKernelLock = new Object();
 
     @Override
     public synchronized void multiply(FloatMatrix source, double scalar, FloatMatrix result) {
@@ -88,8 +88,8 @@ public class GPUFloatMatrixCalculator extends AbstractSyncMatrixCalculator<Float
         }
     }
 
-    static final MultiplyingKernel multiplyingKernel = new MultiplyingKernel();
-    static final Object multiplyingKernelLock = new Object();
+    final MultiplyingKernel multiplyingKernel = new MultiplyingKernel();
+    final Object multiplyingKernelLock = new Object();
 
     @Override
     public synchronized void multiply(FloatMatrix source1, FloatMatrix source2, FloatMatrix result) {
@@ -107,8 +107,8 @@ public class GPUFloatMatrixCalculator extends AbstractSyncMatrixCalculator<Float
         }
     }
 
-    static final MultiplyingKernel dottingKernel = new MultiplyingKernel();
-    static final Object dottingKernelLock = new Object();
+    final MultiplyingKernel dottingKernel = new MultiplyingKernel();
+    final Object dottingKernelLock = new Object();
 
     @Override
     public synchronized void dot(FloatMatrix source1, FloatMatrix source2, FloatMatrix result) {
@@ -126,8 +126,8 @@ public class GPUFloatMatrixCalculator extends AbstractSyncMatrixCalculator<Float
         }
     }
 
-    static final FunctionKernel functionKernel = new FunctionKernel();
-    static final Object functionKernelLock = new Object();
+    final FunctionKernel functionKernel = new FunctionKernel();
+    final Object functionKernelLock = new Object();
 
     @Override
     public synchronized void function(FloatMatrix source, FloatFunction transformation, FloatMatrix result) {

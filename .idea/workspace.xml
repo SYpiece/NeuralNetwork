@@ -5,14 +5,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="178a7953-d896-482e-b8b2-4acc29c85953" name="更改" comment="">
+      <change afterPath="$PROJECT_DIR$/src/util/network/function/NetworkFunction.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/util/calculator/AbstractAsyncMatrixCalculator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/util/calculator/AbstractAsyncMatrixCalculator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/util/calculator/AbstractSyncMatrixCalculator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/util/calculator/AbstractSyncMatrixCalculator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/App.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/util/calculator/GPUFloatMatrixCalculator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/util/calculator/GPUFloatMatrixCalculator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/util/calculator/MatrixCalculator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/util/calculator/MatrixCalculator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/util/calculator/MultithreadingFloatMatrixCalculator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/util/calculator/MultithreadingFloatMatrixCalculator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/util/calculator/SingleThreadedFloatMatrixCalculator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/util/calculator/SingleThreadedFloatMatrixCalculator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/util/math/function/Function.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/util/math/function/Function.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/util/math/function/DerivableFunction.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/util/math/function/Functions.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/util/math/function/Functions.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/util/network/Layers.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/util/network/Layers.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/util/network/NetworkFunction.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/util/network/NetworkFunctions.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/util/network/function/NetworkFunctions.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

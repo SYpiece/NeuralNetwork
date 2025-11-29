@@ -2,7 +2,7 @@ import util.calculator.MatrixCalculators;
 import util.math.matrix.*;
 import util.network.Layers;
 import util.network.Network;
-import util.network.NetworkFunctions;
+import util.network.function.NetworkFunctions;
 import util.network.Networks;
 
 import java.util.Random;
