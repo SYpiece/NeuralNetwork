@@ -5,7 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="178a7953-d896-482e-b8b2-4acc29c85953" name="更改" comment="">
-      <change beforePath="$PROJECT_DIR$/src/util/calculator/GPUFloatMatrixCalculator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/util/calculator/AparapiFloatMatrixCalculator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
