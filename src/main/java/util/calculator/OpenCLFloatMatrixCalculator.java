@@ -6,13 +6,15 @@ import util.math.function.FloatFunction;
 import util.math.matrix.FloatMatrix;
 import util.math.matrix.Matrices;
 
-public class AparapiFloatMatrixCalculator extends AbstractSyncMatrixCalculator<FloatMatrix, FloatFunction> {
+import java.util.Map;
+
+public class OpenCLFloatMatrixCalculator extends AbstractSyncMatrixCalculator<FloatMatrix, FloatFunction> {
     @Override
     protected FloatMatrix createMatrix(int rows, int columns) {
         return Matrices.createFloatMatrix(rows, columns);
     }
 
-    final TransposingKernel transposingKernel = new TransposingKernel();
+    TransposingKernel transposingKernel;
     final Object transposingKernelLock = new Object();
 
     @Override
@@ -21,6 +23,9 @@ public class AparapiFloatMatrixCalculator extends AbstractSyncMatrixCalculator<F
             throw new IllegalArgumentException("source and result must have the same size");
         }
         synchronized (transposingKernelLock) {
+            if (transposingKernel == null) {
+                transposingKernel = new TransposingKernel();
+            }
             transposingKernel.rows = source.getRows();
             transposingKernel.columns = source.getColumns();
             transposingKernel.source = source.getData();
@@ -29,7 +34,7 @@ public class AparapiFloatMatrixCalculator extends AbstractSyncMatrixCalculator<F
         }
     }
 
-    final AddingKernel addingKernel = new AddingKernel();
+    AddingKernel addingKernel;
     final Object addingKernelLock = new Object();
 
     @Override
@@ -39,6 +44,9 @@ public class AparapiFloatMatrixCalculator extends AbstractSyncMatrixCalculator<F
             throw new IllegalArgumentException("source and result must have the same size");
         }
         synchronized (addingKernelLock) {
+            if (addingKernel == null) {
+                addingKernel = new AddingKernel();
+            }
             addingKernel.rows = source1.getRows();
             addingKernel.columns = source1.getColumns();
             addingKernel.source1 = source1.getData();
@@ -48,16 +56,19 @@ public class AparapiFloatMatrixCalculator extends AbstractSyncMatrixCalculator<F
         }
     }
 
-    final SubtractingKernel subtractingKernel = new SubtractingKernel();
+    SubtractingKernel subtractingKernel;
     final Object subtractingKernelLock = new Object();
 
     @Override
-    public synchronized void subtract(FloatMatrix source1, FloatMatrix source2, FloatMatrix result) {
+    public void subtract(FloatMatrix source1, FloatMatrix source2, FloatMatrix result) {
         if (source1.getRows() != source2.getRows() || source1.getColumns() != source2.getColumns() ||
             source1.getRows() != result.getRows() || source1.getColumns() != result.getColumns()) {
             throw new IllegalArgumentException("source and result must have the same size");
         }
         synchronized (subtractingKernelLock) {
+            if (subtractingKernel == null) {
+                subtractingKernel = new SubtractingKernel();
+            }
             subtractingKernel.rows = source1.getRows();
             subtractingKernel.columns = source1.getColumns();
             subtractingKernel.source1 = source1.getData();
@@ -67,15 +78,18 @@ public class AparapiFloatMatrixCalculator extends AbstractSyncMatrixCalculator<F
         }
     }
 
-    final ScalarMultiplyingKernel scalarMultiplyingKernel = new ScalarMultiplyingKernel();
+    ScalarMultiplyingKernel scalarMultiplyingKernel;
     final Object scalarMultiplyingKernelLock = new Object();
 
     @Override
-    public synchronized void multiply(FloatMatrix source, double scalar, FloatMatrix result) {
+    public void multiply(FloatMatrix source, double scalar, FloatMatrix result) {
         if (source.getRows() != result.getRows() || source.getColumns() != result.getColumns()) {
             throw new IllegalArgumentException("source and result must have the same size");
         }
         synchronized (scalarMultiplyingKernelLock) {
+            if (scalarMultiplyingKernel == null) {
+                scalarMultiplyingKernel = new ScalarMultiplyingKernel();
+            }
             scalarMultiplyingKernel.rows = source.getRows();
             scalarMultiplyingKernel.columns = source.getColumns();
             scalarMultiplyingKernel.scalar = (float) scalar;
@@ -85,16 +99,19 @@ public class AparapiFloatMatrixCalculator extends AbstractSyncMatrixCalculator<F
         }
     }
 
-    final MultiplyingKernel multiplyingKernel = new MultiplyingKernel();
+    MultiplyingKernel multiplyingKernel;
     final Object multiplyingKernelLock = new Object();
 
     @Override
-    public synchronized void multiply(FloatMatrix source1, FloatMatrix source2, FloatMatrix result) {
+    public void multiply(FloatMatrix source1, FloatMatrix source2, FloatMatrix result) {
         if (source1.getColumns() != source2.getRows() || source1.getRows() != result.getRows() ||
             source1.getColumns() != result.getColumns()) {
             throw new IllegalArgumentException("source and result must have the same size");
         }
         synchronized (multiplyingKernelLock) {
+            if (multiplyingKernel == null) {
+                multiplyingKernel = new MultiplyingKernel();
+            }
             multiplyingKernel.rows = source1.getRows();
             multiplyingKernel.columns = source1.getColumns();
             multiplyingKernel.source1 = source1.getData();
@@ -104,16 +121,19 @@ public class AparapiFloatMatrixCalculator extends AbstractSyncMatrixCalculator<F
         }
     }
 
-    final MultiplyingKernel dottingKernel = new MultiplyingKernel();
+    MultiplyingKernel dottingKernel;
     final Object dottingKernelLock = new Object();
 
     @Override
-    public synchronized void dot(FloatMatrix source1, FloatMatrix source2, FloatMatrix result) {
+    public void dot(FloatMatrix source1, FloatMatrix source2, FloatMatrix result) {
         if (source1.getRows() != source2.getRows() || source1.getColumns() != source2.getColumns() ||
             source1.getRows() != result.getRows() || source1.getColumns() != result.getColumns()) {
             throw new IllegalArgumentException("source and result must have the same size");
         }
         synchronized (dottingKernelLock) {
+            if (dottingKernel == null) {
+                dottingKernel = new MultiplyingKernel();
+            }
             dottingKernel.rows = source1.getRows();
             dottingKernel.columns = source1.getColumns();
             dottingKernel.source1 = source1.getData();
@@ -123,15 +143,18 @@ public class AparapiFloatMatrixCalculator extends AbstractSyncMatrixCalculator<F
         }
     }
 
-    final FunctionKernel functionKernel = new FunctionKernel();
+    FunctionKernel functionKernel;
     final Object functionKernelLock = new Object();
 
     @Override
-    public synchronized void function(FloatMatrix source, FloatFunction transformation, FloatMatrix result) {
+    public void function(FloatMatrix source, FloatFunction transformation, FloatMatrix result) {
         if (source.getRows() != result.getRows() || source.getColumns() != result.getColumns()) {
             throw new IllegalArgumentException("source and result must have the same size");
         }
         synchronized (functionKernelLock) {
+            if (functionKernel == null) {
+                functionKernel = new FunctionKernel();
+            }
             functionKernel.rows = source.getRows();
             functionKernel.columns = source.getColumns();
             functionKernel.transformation = transformation;

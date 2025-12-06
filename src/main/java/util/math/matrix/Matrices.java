@@ -25,17 +25,6 @@ public class Matrices {
         return new DoubleMatrixImpl(matrix);
     }
 
-//    public static Matrix.java createMatrix(double[][] matrix) {
-//        if (matrix == null) {
-//            throw new IllegalArgumentException("Matrix.java must not be null");
-//        }
-//        for (double[] row : matrix) {
-//            if (row.length != matrix[0].length) {
-//                throw new IllegalArgumentException("Matrix.java must be rectangular");
-//            }
-//        }
-//        return new MatrixImpl(matrix);
-//    }
     private static class FloatMatrixImpl implements FloatMatrix {
         final int rows, columns;
 
@@ -54,16 +43,6 @@ public class Matrices {
         @Override
         public float[] getData() {
             return matrix;
-        }
-
-        @Override
-        public float getData(int index) {
-            return matrix[index];
-        }
-
-        @Override
-        public void setData(int index, float value) {
-            matrix[index] = value;
         }
 
         @Override
@@ -119,6 +98,11 @@ public class Matrices {
         @Override
         public int getColumns() {
             return columns;
+        }
+
+        @Override
+        public double[] getData() {
+            return matrix;
         }
 
         @Override

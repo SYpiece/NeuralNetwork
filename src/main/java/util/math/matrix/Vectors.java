@@ -1,53 +1,74 @@
 package util.math.matrix;
 
 public class Vectors extends Matrices {
-    public static Vector createVector(int size) {
-        return new VectorImpl(size);
+
+    public static FloatVector createFloatVector(int size) {
+        return new FloatVectorImpl(size);
     }
 
-    public static ColumnVector createColumnVector(int size) {
-        return new ColumnVectorImpl(size);
+    public static FloatVector createFloatVector(float[] vector) {
+        return new FloatVectorImpl(vector);
     }
 
-    public static RowVector createRowVector(int size) {
-        return new RowVectorImpl(size);
+    public static DoubleVector createDoubleVector(int size) {
+        return new DoubleVectorImpl(size);
     }
 
-    public static Vector createVector(double... vector) {
-        if (vector == null) {
-            throw new IllegalArgumentException("Vector must not be null");
-        }
-        return new VectorImpl(vector);
+    public static DoubleVector createDoubleVector(double[] vector) {
+        return new DoubleVectorImpl(vector);
     }
 
-    public static ColumnVector createColumnVector(double... vector) {
-        if (vector == null) {
-            throw new IllegalArgumentException("Vector must not be null");
-        }
-        return new ColumnVectorImpl(vector);
-    }
+    private static class FloatVectorImpl implements FloatVector {
+        final float[] vector;
 
-    public static RowVector createRowVector(double... vector) {
-        if (vector == null) {
-            throw new IllegalArgumentException("Vector must not be null");
-        }
-        return new RowVectorImpl(vector);
-    }
-
-    private static class VectorImpl implements Vector {
-        protected final double[] vector;
-
-        public VectorImpl(int size) {
-            this.vector = new double[size];
+        FloatVectorImpl(int size) {
+            vector = new float[size];
         }
 
-        public VectorImpl(double... vector) {
+        FloatVectorImpl(float[] vector) {
             this.vector = vector;
         }
 
         @Override
         public int size() {
             return vector.length;
+        }
+
+        @Override
+        public float[] getData() {
+            return vector;
+        }
+
+        @Override
+        public float get(int index) {
+            return vector[index];
+        }
+
+        @Override
+        public void set(int index, float value) {
+            vector[index] = value;
+        }
+    }
+
+    private static class DoubleVectorImpl implements DoubleVector {
+        final double[] vector;
+
+        DoubleVectorImpl(int size) {
+            vector = new double[size];
+        }
+
+        DoubleVectorImpl(double[] vector) {
+            this.vector = vector;
+        }
+
+        @Override
+        public int size() {
+            return vector.length;
+        }
+
+        @Override
+        public double[] getData() {
+            return vector;
         }
 
         @Override
@@ -58,36 +79,6 @@ public class Vectors extends Matrices {
         @Override
         public void set(int index, double value) {
             vector[index] = value;
-        }
-    }
-
-    private static class ColumnVectorImpl extends VectorImpl implements ColumnVector {
-        public ColumnVectorImpl(int size) {
-            super(size);
-        }
-
-        public ColumnVectorImpl(double... vector) {
-            super(vector);
-        }
-
-        @Override
-        public Matrix toMatrix(Orientation orientation) {
-            return ColumnVector.super.toMatrix(orientation);
-        }
-    }
-
-    private static class RowVectorImpl extends VectorImpl implements RowVector {
-        public RowVectorImpl(int size) {
-            super(size);
-        }
-
-        public RowVectorImpl(double... vector) {
-            super(vector);
-        }
-
-        @Override
-        public Matrix toMatrix(Orientation orientation) {
-            return RowVector.super.toMatrix(orientation);
         }
     }
 

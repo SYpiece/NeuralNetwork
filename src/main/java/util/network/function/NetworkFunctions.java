@@ -1,13 +1,10 @@
 package util.network.function;
 
-import util.math.function.*;
-import util.math.matrix.MatrixFunction;
-
 public class NetworkFunctions {
     public final static ActivationFunction Sigmoid = new ActivationFunction() {
         @Override
-        public int getActivationFunctionType() {
-            return ActivationFunction.SIGMOID;
+        public int getFunctionType() {
+            return NetworkFunction.ACTIVATION_SIGMOID;
         }
 
         @Override
@@ -35,8 +32,8 @@ public class NetworkFunctions {
 
     public final static ActivationFunction Tanh = new ActivationFunction() {
         @Override
-        public int getActivationFunctionType() {
-            return ActivationFunction.TANH;
+        public int getFunctionType() {
+            return NetworkFunction.ACTIVATION_TANH;
         }
 
         @Override
@@ -64,8 +61,8 @@ public class NetworkFunctions {
 
     public final static ActivationFunction ReLU = new ActivationFunction() {
         @Override
-        public int getActivationFunctionType() {
-            return ActivationFunction.RELU;
+        public int getFunctionType() {
+            return NetworkFunction.ACTIVATION_RELU;
         }
 
         @Override
