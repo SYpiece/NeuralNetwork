@@ -3,13 +3,10 @@ package util.calculator;
 import com.aparapi.Kernel;
 import com.aparapi.Range;
 import util.math.function.FloatFunction;
-import util.math.function.Function;
 import util.math.matrix.FloatMatrix;
 import util.math.matrix.Matrices;
 
-import java.util.concurrent.Future;
-
-public class GPUFloatMatrixCalculator extends AbstractSyncMatrixCalculator<FloatMatrix, FloatFunction> {
+public class AparapiFloatMatrixCalculator extends AbstractSyncMatrixCalculator<FloatMatrix, FloatFunction> {
     @Override
     protected FloatMatrix createMatrix(int rows, int columns) {
         return Matrices.createFloatMatrix(rows, columns);
