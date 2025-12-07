@@ -1,11 +1,14 @@
 package util.math.matrix;
 
-public interface Vector extends Matrix, Tensor {
-    int size();
+public interface Scalar extends Vector, Matrix, Tensor {
+    @Override
+    default int size() {
+        return 1;
+    }
 
     @Override
     default int getRows() {
-        return size();
+        return 1;
     }
 
     @Override
@@ -15,19 +18,16 @@ public interface Vector extends Matrix, Tensor {
 
     @Override
     default int[] getRankData() {
-        return new int[] {size()};
+        return new int[0];
     }
 
     @Override
     default int getRankSize() {
-        return 1;
+        return 0;
     }
 
     @Override
     default int getRank(int rank) {
-        if (rank != 0) {
-            throw new IllegalArgumentException("Invalid rank");
-        }
-        return size();
+        throw new IllegalArgumentException("Invalid rank");
     }
 }

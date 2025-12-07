@@ -1,6 +1,6 @@
 package util.math.matrix;
 
-public class Matrices {
+public class Matrices extends Vectors {
     public static FloatMatrix createFloatMatrix(int rows, int columns) {
         return new FloatMatrixImpl(rows, columns);
     }

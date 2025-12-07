@@ -1,7 +1,6 @@
 package util.math.matrix;
 
-public class Vectors extends Matrices {
-
+public class Vectors extends Scalars {
     public static FloatVector createFloatVector(int size) {
         return new FloatVectorImpl(size);
     }
