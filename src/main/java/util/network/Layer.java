@@ -1,18 +1,25 @@
 package util.network;
 
-import util.math.matrix.Matrix;
-import util.math.matrix.Vector;
+import util.math.matrix.Tensor;
 
 public interface Layer {
-    /**
-     * @return the number of inputs of the layer
-     */
-    int getInputSize();
+    String getName();
 
-    /**
-     * @return the number of outputs of the layer
-     */
-    int getOutputSize();
+    Layer setName(String name);
 
-    Trainer getTrainer();
+    Trainer createTrainer();
+
+    Computer createComputer();
+
+    interface Trainer {
+        Layer getLayer();
+
+        void apply();
+    }
+
+    interface Computer {
+        Layer getLayer();
+
+        Tensor compute(Tensor input);
+    }
 }

@@ -1,5 +1,7 @@
 package util.math.matrix;
 
+import java.util.Arrays;
+
 public class Scalars {
     public static FloatScalar createFloatScalar() {
         return new FloatScalarImpl();
@@ -17,7 +19,7 @@ public class Scalars {
         return new DoubleScalarImpl(value);
     }
 
-    private static class FloatScalarImpl implements FloatScalar {
+    private static class FloatScalarImpl implements FloatScalar, Cloneable {
         final float[] data;
 
         FloatScalarImpl() {
@@ -42,9 +44,20 @@ public class Scalars {
         public void set(float value) {
             this.data[0] = value;
         }
+
+        @Override
+        public FloatScalarImpl clone() {
+            try {
+                FloatScalarImpl clone = (FloatScalarImpl) super.clone();
+                System.arraycopy(this.data, 0, clone.data, 0, this.data.length);
+                return clone;
+            } catch (CloneNotSupportedException e) {
+                throw new AssertionError();
+            }
+        }
     }
 
-    private static class DoubleScalarImpl implements DoubleScalar {
+    private static class DoubleScalarImpl implements DoubleScalar, Cloneable {
         final double[] data;
 
         DoubleScalarImpl() {
@@ -68,6 +81,17 @@ public class Scalars {
         @Override
         public void set(double value) {
             this.data[0] = value;
+        }
+
+        @Override
+        public DoubleScalarImpl clone() {
+            try {
+                DoubleScalarImpl clone = (DoubleScalarImpl) super.clone();
+                System.arraycopy(this.data, 0, clone.data, 0, this.data.length);
+                return clone;
+            } catch (CloneNotSupportedException e) {
+                throw new AssertionError();
+            }
         }
     }
 }
