@@ -6,10 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="510f6215-b6d7-46f0-bb38-6abdae5c9063" name="更改" comment="update">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/util/math/matrix/Scalars.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/util/math/matrix/Scalars.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/util/network/FullyConnectedLayer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/util/network/FullyConnectedLayer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/util/network/Layer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/util/network/Layer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/util/network/Trainer.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
