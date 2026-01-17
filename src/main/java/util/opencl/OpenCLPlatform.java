@@ -12,45 +12,40 @@ public class OpenCLPlatform {
             name,
             vendor,
             profile,
-            version,
+            version;
+    String[]
             extensions;
 
     OpenCLPlatform(cl_platform_id platformID) {
         this.platformID = platformID;
+        initializeInfo();
+    }
+
+    protected void initializeInfo() {
+        name = getString(getPlatformInfo(CL_PLATFORM_NAME));
+        vendor = getString(getPlatformInfo(CL_PLATFORM_VENDOR));
+        profile = getString(getPlatformInfo(CL_PLATFORM_PROFILE));
+        version = getString(getPlatformInfo(CL_PLATFORM_VERSION));
+        extensions = getString(getPlatformInfo(CL_PLATFORM_EXTENSIONS)).split(" ");
     }
 
     public String getName() {
-        if (name == null) {
-            name = getString(getPlatformInfo(CL_PLATFORM_NAME));
-        }
         return name;
     }
 
     public String getVendor() {
-        if (vendor == null) {
-            vendor = getString(getPlatformInfo(CL_PLATFORM_VENDOR));
-        }
         return vendor;
     }
 
     public String getProfile() {
-        if (profile == null) {
-            profile = getString(getPlatformInfo(CL_PLATFORM_PROFILE));
-        }
         return profile;
     }
 
     public String getVersion() {
-        if (version == null) {
-            version = getString(getPlatformInfo(CL_PLATFORM_VERSION));
-        }
         return version;
     }
 
-    public String getExtensions() {
-        if (extensions == null) {
-            extensions = getString(getPlatformInfo(CL_PLATFORM_EXTENSIONS));
-        }
+    public String[] getExtensions() {
         return extensions;
     }
 

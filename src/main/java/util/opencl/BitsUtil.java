@@ -5,20 +5,23 @@ class BitsUtil {
         return new String(bits, 0, bits.length - 1);
     }
 
-    public static long getULong(byte[] bits, boolean littleEndian) {
+    public static long getULong(byte[] bits) {
         return 0;
     }
 
-    public static long getLong(byte[] bits, boolean littleEndian) {
+    public static long getUInt(byte[] bits) {
+        assert bits.length == 4;
         return 0;
     }
 
-    public static long getUInt(byte[] bits, boolean littleEndian) {
+    public static long getSizeT(byte[] bits) {
         return 0;
     }
 
     public static boolean getBoolean(byte[] bits) {
-        assert bits.length == 1;
+        if (bits.length != 4) {
+            throw new RuntimeException("Invalid boolean size");
+        }
         return bits[0] != 0;
     }
 
