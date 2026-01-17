@@ -2,8 +2,10 @@ package util.opencl;
 
 import org.jocl.*;
 
+import java.util.Arrays;
+
 import static org.jocl.CL.*;
-import static util.opencl.BitsUtil.*;
+import static util.opencl.OpenCLTypeUtil.*;
 
 public class OpenCLPlatform {
     final cl_platform_id platformID;
@@ -92,5 +94,18 @@ public class OpenCLPlatform {
             throw new RuntimeException("Error: " + result);
         }
         return buffer;
+    }
+
+    @Override
+    public String toString() {
+        return String.format(
+                "OpenCLPlatform{" +
+                        "name='%s', " +
+                        "vendor='%s', " +
+                        "profile='%s', " +
+                        "version='%s', " +
+                        "extensions='%s'" +
+                "}",
+                name, vendor, profile, version, Arrays.toString(extensions));
     }
 }

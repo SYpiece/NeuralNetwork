@@ -7,7 +7,7 @@
     <list default="true" id="510f6215-b6d7-46f0-bb38-6abdae5c9063" name="更改" comment="update">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/App.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/App.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/util/opencl/BitsUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/util/opencl/BitsUtil.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/util/opencl/BitsUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/util/opencl/OpenCLTypeUtil.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/util/opencl/OpenCLDevice.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/util/opencl/OpenCLDevice.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/util/opencl/OpenCLPlatform.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/util/opencl/OpenCLPlatform.java" afterDir="false" />
     </list>
@@ -96,30 +96,5 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="update" />
     <option name="LAST_COMMIT_MESSAGE" value="update" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/util/opencl/BitsUtil.java</url>
-          <line>8</line>
-          <option name="timeStamp" value="5" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/main/java/util/opencl/BitsUtil.java</url>
-          <line>13</line>
-          <option name="timeStamp" value="7" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="java-method">
-          <url>file://$PROJECT_DIR$/src/main/java/util/opencl/BitsUtil.java</url>
-          <line>20</line>
-          <properties class="util.opencl.BitsUtil" method="getBoolean">
-            <option name="EMULATED" value="true" />
-            <option name="WATCH_EXIT" value="false" />
-          </properties>
-          <option name="timeStamp" value="11" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
 </project>

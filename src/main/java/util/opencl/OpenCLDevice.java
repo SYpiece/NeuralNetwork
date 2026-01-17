@@ -4,7 +4,7 @@ import org.jocl.Pointer;
 import org.jocl.cl_device_id;
 
 import static org.jocl.CL.*;
-import static util.opencl.BitsUtil.*;
+import static util.opencl.OpenCLTypeUtil.*;
 
 public class OpenCLDevice {
     public static final long
@@ -80,24 +80,24 @@ public class OpenCLDevice {
 //      hostUnifiedMemory = getBoolean(getDeviceInfo(CL_DEVICE_HOST_UNIFIED_MEMORY));
         imageSupport = getBoolean(getDeviceInfo(CL_DEVICE_IMAGE_SUPPORT));
 
-        addressBits = getUInt(getDeviceInfo(CL_DEVICE_ADDRESS_BITS));
-        globalMemCacheSize = getULong(getDeviceInfo(CL_DEVICE_GLOBAL_MEM_CACHE_SIZE));
-        globalMemCacheLineSize = getUInt(getDeviceInfo(CL_DEVICE_GLOBAL_MEM_CACHELINE_SIZE));
-        globalMemSize = getULong(getDeviceInfo(CL_DEVICE_GLOBAL_MEM_SIZE));
-        image2DMaxHeight = getSizeT(getDeviceInfo(CL_DEVICE_IMAGE2D_MAX_HEIGHT));
-        image2DMaxWidth = getSizeT(getDeviceInfo(CL_DEVICE_IMAGE2D_MAX_WIDTH));
-        image3DMaxDepth = getSizeT(getDeviceInfo(CL_DEVICE_IMAGE3D_MAX_DEPTH));
-        image3DMaxHeight = getSizeT(getDeviceInfo(CL_DEVICE_IMAGE3D_MAX_HEIGHT));
-        image3DMaxWidth = getSizeT(getDeviceInfo(CL_DEVICE_IMAGE3D_MAX_WIDTH));
-        localMemSize = getULong(getDeviceInfo(CL_DEVICE_LOCAL_MEM_SIZE));
-        maxClockFrequency = getUInt(getDeviceInfo(CL_DEVICE_MAX_CLOCK_FREQUENCY));
-        maxComputeUnits = getUInt(getDeviceInfo(CL_DEVICE_MAX_COMPUTE_UNITS));
-        maxConstantArgs = getUInt(getDeviceInfo(CL_DEVICE_MAX_CONSTANT_ARGS));
-        maxConstantBufferSize = getULong(getDeviceInfo(CL_DEVICE_MAX_CONSTANT_BUFFER_SIZE));
-        maxMemAllocSize = getULong(getDeviceInfo(CL_DEVICE_MAX_MEM_ALLOC_SIZE));
-        maxParameterSize = getSizeT(getDeviceInfo(CL_DEVICE_MAX_PARAMETER_SIZE));
-        maxReadImageArgs = getUInt(getDeviceInfo(CL_DEVICE_MAX_READ_IMAGE_ARGS));
-        maxSamples = getUInt(getDeviceInfo(CL_DEVICE_MAX_SAMPLERS));
+        addressBits = getUInt(getDeviceInfo(CL_DEVICE_ADDRESS_BITS), endianLittle);
+        globalMemCacheSize = getULong(getDeviceInfo(CL_DEVICE_GLOBAL_MEM_CACHE_SIZE), endianLittle);
+        globalMemCacheLineSize = getUInt(getDeviceInfo(CL_DEVICE_GLOBAL_MEM_CACHELINE_SIZE), endianLittle);
+        globalMemSize = getULong(getDeviceInfo(CL_DEVICE_GLOBAL_MEM_SIZE), endianLittle);
+        image2DMaxHeight = getSizeT(getDeviceInfo(CL_DEVICE_IMAGE2D_MAX_HEIGHT), endianLittle);
+        image2DMaxWidth = getSizeT(getDeviceInfo(CL_DEVICE_IMAGE2D_MAX_WIDTH), endianLittle);
+        image3DMaxDepth = getSizeT(getDeviceInfo(CL_DEVICE_IMAGE3D_MAX_DEPTH), endianLittle);
+        image3DMaxHeight = getSizeT(getDeviceInfo(CL_DEVICE_IMAGE3D_MAX_HEIGHT), endianLittle);
+        image3DMaxWidth = getSizeT(getDeviceInfo(CL_DEVICE_IMAGE3D_MAX_WIDTH), endianLittle);
+        localMemSize = getULong(getDeviceInfo(CL_DEVICE_LOCAL_MEM_SIZE), endianLittle);
+        maxClockFrequency = getUInt(getDeviceInfo(CL_DEVICE_MAX_CLOCK_FREQUENCY), endianLittle);
+        maxComputeUnits = getUInt(getDeviceInfo(CL_DEVICE_MAX_COMPUTE_UNITS), endianLittle);
+        maxConstantArgs = getUInt(getDeviceInfo(CL_DEVICE_MAX_CONSTANT_ARGS), endianLittle);
+        maxConstantBufferSize = getULong(getDeviceInfo(CL_DEVICE_MAX_CONSTANT_BUFFER_SIZE), endianLittle);
+        maxMemAllocSize = getULong(getDeviceInfo(CL_DEVICE_MAX_MEM_ALLOC_SIZE), endianLittle);
+        maxParameterSize = getSizeT(getDeviceInfo(CL_DEVICE_MAX_PARAMETER_SIZE), endianLittle);
+        maxReadImageArgs = getUInt(getDeviceInfo(CL_DEVICE_MAX_READ_IMAGE_ARGS), endianLittle);
+        maxSamples = getUInt(getDeviceInfo(CL_DEVICE_MAX_SAMPLERS), endianLittle);
         maxWorkGroupSize = getSizeT(getDeviceInfo(CL_DEVICE_MAX_WORK_GROUP_SIZE), endianLittle);
         maxWorkItemDimensions = getUInt(getDeviceInfo(CL_DEVICE_MAX_WORK_ITEM_DIMENSIONS), endianLittle);
         maxWriteImageArgs = getUInt(getDeviceInfo(CL_DEVICE_MAX_WRITE_IMAGE_ARGS), endianLittle);

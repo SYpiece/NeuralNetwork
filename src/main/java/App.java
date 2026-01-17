@@ -10,17 +10,13 @@ public class App {
     }
 
     static void testA() {
-        OpenCLPlatform[] openCLPlatforms = OpenCL.getPlatforms();
-        for (int i = 0; i < openCLPlatforms.length; i++) {
-            OpenCLPlatform openCLPlatform = openCLPlatforms[i];
-            System.out.println("Platform " + i + ": ");
-            System.out.println("Name: " + openCLPlatform.getName());
-            System.out.println("Vendor: " + openCLPlatform.getVendor());
-            System.out.println("Profile: " + openCLPlatform.getProfile());
-            System.out.println("Version: " + openCLPlatform.getVersion());
-            System.out.println("Extensions: " + Arrays.toString(openCLPlatform.getExtensions()));
+        for (OpenCLPlatform platform : OpenCL.getPlatforms()) {
+            System.out.println(platform);
             System.out.println();
-            OpenCLDevice[] openCLDevices = openCLPlatform.getDevices();
+            for (OpenCLDevice device : platform.getDevices()) {
+                System.out.println(device);
+                System.out.println();
+            }
         }
     }
 }
