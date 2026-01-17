@@ -16,7 +16,7 @@ public interface FloatMatrix extends Matrix, FloatTensor {
     }
 
     @Override
-    default void set(float value, int... indices) {
+    default void set(int[] indices, float value) {
         if (indices.length != 2) {
             throw new IllegalArgumentException("Invalid number of indices");
         }
