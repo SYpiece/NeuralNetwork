@@ -7,48 +7,32 @@ import java.util.Arrays;
 import static org.jocl.CL.*;
 import static util.opencl.OpenCLTypeUtil.*;
 
-public class OpenCLPlatform {
+public class OpenCLPlatform extends OpenCLInfoObject<cl_platform_id> {
     final cl_platform_id platformID;
 
-    String
-            name,
-            vendor,
-            profile,
-            version;
-    String[]
-            extensions;
-
     OpenCLPlatform(cl_platform_id platformID) {
+        super(platformID, CL::clGetPlatformInfo);
         this.platformID = platformID;
-        initializeInfo();
-    }
-
-    protected void initializeInfo() {
-        name = getString(getPlatformInfo(CL_PLATFORM_NAME));
-        vendor = getString(getPlatformInfo(CL_PLATFORM_VENDOR));
-        profile = getString(getPlatformInfo(CL_PLATFORM_PROFILE));
-        version = getString(getPlatformInfo(CL_PLATFORM_VERSION));
-        extensions = getString(getPlatformInfo(CL_PLATFORM_EXTENSIONS)).split(" ");
     }
 
     public String getName() {
-        return name;
+        return getStringInfo(CL_PLATFORM_NAME);
     }
 
     public String getVendor() {
-        return vendor;
+        return getStringInfo(CL_PLATFORM_VENDOR);
     }
 
     public String getProfile() {
-        return profile;
+        return getStringInfo(CL_PLATFORM_PROFILE);
     }
 
     public String getVersion() {
-        return version;
+        return getStringInfo(CL_PLATFORM_VERSION);
     }
 
     public String[] getExtensions() {
-        return extensions;
+        return getStringInfo(CL_PLATFORM_EXTENSIONS).split(" ");
     }
 
     public int getDeviceCount() {
@@ -57,10 +41,7 @@ public class OpenCLPlatform {
 
     public int getDeviceCount(long deviceType) {
         int[] numDevices = new int[1];
-        int result = clGetDeviceIDs(platformID, deviceType, 0, null, numDevices);
-        if (result != CL_SUCCESS) {
-            throw new RuntimeException("Error: " + result);
-        }
+        clGetDeviceIDs(platformID, deviceType, 0, null, numDevices);
         return numDevices[0];
     }
 
@@ -71,29 +52,12 @@ public class OpenCLPlatform {
     public OpenCLDevice[] getDevices(long deviceType) {
         int numDevices = getDeviceCount(deviceType);
         cl_device_id[] devices = new cl_device_id[numDevices];
-        int result = clGetDeviceIDs(platformID, deviceType, numDevices, devices, null);
-        if (result != CL_SUCCESS) {
-            throw new RuntimeException("Error: " + result);
-        }
+        clGetDeviceIDs(platformID, deviceType, numDevices, devices, null);
         OpenCLDevice[] openCLDevices = new OpenCLDevice[numDevices];
         for (int i = 0; i < numDevices; i++) {
             openCLDevices[i] = new OpenCLDevice(devices[i]);
         }
         return openCLDevices;
-    }
-
-    protected byte[] getPlatformInfo(int paramName) {
-        long[] size = new long[1];
-        int result = clGetPlatformInfo(platformID, paramName, 0, null, size);
-        if (result != CL_SUCCESS) {
-            throw new RuntimeException("Error: " + result);
-        }
-        byte[] buffer = new byte[(int) size[0]];
-        result = clGetPlatformInfo(platformID, paramName, size[0], Pointer.to(buffer), null);
-        if (result != CL_SUCCESS) {
-            throw new RuntimeException("Error: " + result);
-        }
-        return buffer;
     }
 
     @Override
@@ -106,6 +70,6 @@ public class OpenCLPlatform {
                         "version='%s', " +
                         "extensions='%s'" +
                 "}",
-                name, vendor, profile, version, Arrays.toString(extensions));
+                getName(), getVendor(), getProfile(), getVendor(), Arrays.toString(getExtensions()));
     }
 }

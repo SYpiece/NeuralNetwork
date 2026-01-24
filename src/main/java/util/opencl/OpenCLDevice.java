@@ -1,12 +1,13 @@
 package util.opencl;
 
+import org.jocl.CL;
 import org.jocl.Pointer;
 import org.jocl.cl_device_id;
 
 import static org.jocl.CL.*;
 import static util.opencl.OpenCLTypeUtil.*;
 
-public class OpenCLDevice {
+public class OpenCLDevice extends OpenCLInfoObject<cl_device_id> {
     public static final long
             TYPE_ALL = CL_DEVICE_TYPE_ALL,
             TYPE_CPU = CL_DEVICE_TYPE_CPU,
@@ -68,8 +69,63 @@ public class OpenCLDevice {
 
 
     OpenCLDevice(cl_device_id deviceID) {
+        super(deviceID, CL::clGetDeviceInfo);
         this.deviceID = deviceID;
-        initializeInfo();
+    }
+
+    public int getAddressBits() {
+        return getIntInfo(CL_DEVICE_ADDRESS_BITS);
+    }
+
+    public boolean isAvailable() {
+        return getBooleanInfo(CL_DEVICE_AVAILABLE);
+    }
+
+    public boolean isCompilerAvailable() {
+        return getBooleanInfo(CL_DEVICE_COMPILER_AVAILABLE);
+    }
+
+    public DoubleFPConfig getDoubleFPConfig() {
+        return new DoubleFPConfig(getLongInfo(CL_DEVICE_DOUBLE_FP_CONFIG));
+    }
+
+    public boolean isEndianLittle() {
+        return getBooleanInfo(CL_DEVICE_ENDIAN_LITTLE);
+    }
+
+    public boolean isErrorCorrectionSupport() {
+        return getBooleanInfo(CL_DEVICE_ERROR_CORRECTION_SUPPORT);
+    }
+
+    public () {
+
+    }
+
+    public String[] getExtensions() {
+        return getStringInfo(CL_DEVICE_EXTENSIONS).split(" ");
+    }
+
+    public long getGlobalMemCacheSize() {
+        return getLongInfo(CL_DEVICE_GLOBAL_MEM_CACHE_SIZE);
+    }
+
+    public () {
+
+    }
+
+    public int getGlobalMemCacheLineSize() {
+        return getIntInfo(CL_DEVICE_GLOBAL_MEM_CACHELINE_SIZE);
+    }
+
+    public long getGlobalMemSize() {
+        return getLongInfo(CL_DEVICE_GLOBAL_MEM_SIZE);
+    }
+
+
+
+    @Deprecated
+    public boolean isHostUnifiedMemory() {
+        return getBooleanInfo(CL_DEVICE_HOST_UNIFIED_MEMORY);
     }
 
     protected void initializeInfo() {
@@ -133,5 +189,52 @@ public class OpenCLDevice {
             throw new RuntimeException("Error: " + result);
         }
         return buffer;
+    }
+
+    public static class DoubleFPConfig {
+        public static final long
+                DENORM = CL_FP_DENORM,
+                INF_NAN = CL_FP_INF_NAN,
+                ROUND_TO_NEAREST = CL_FP_ROUND_TO_NEAREST,
+                ROUND_TO_ZERO = CL_FP_ROUND_TO_ZERO,
+                ROUND_TO_INF = CL_FP_ROUND_TO_INF,
+                FMA = CL_FP_FMA;
+
+        public final long value;
+
+        public boolean supportDenorm() {
+            return (value & DENORM) != 0;
+        }
+
+        public boolean supportInfNan() {
+            return (value & INF_NAN) != 0;
+        }
+
+        public boolean supportRoundToNearest() {
+            return (value & ROUND_TO_NEAREST) != 0;
+        }
+
+        public boolean supportRoundToZero() {
+            return (value & ROUND_TO_ZERO) != 0;
+        }
+
+        public boolean supportRoundToInf() {
+            return (value & ROUND_TO_INF) != 0;
+        }
+
+        public boolean supportFMA() {
+            return (value & FMA) != 0;
+        }
+
+        public boolean support(long flag) {
+            return (value & flag) != 0;
+        }
+
+        public DoubleFPConfig(long value) {
+            this.value = value;
+        }
+    }
+
+    public static class ExecutionCapabilities {
     }
 }
