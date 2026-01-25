@@ -5,7 +5,6 @@ import org.jocl.Pointer;
 import org.jocl.cl_device_id;
 
 import static org.jocl.CL.*;
-import static util.opencl.OpenCLTypeUtil.*;
 
 public class OpenCLDevice extends OpenCLInfoObject<cl_device_id> {
     public static final long
@@ -17,56 +16,6 @@ public class OpenCLDevice extends OpenCLInfoObject<cl_device_id> {
             TYPE_DEFAULT = CL_DEVICE_TYPE_DEFAULT;
 
     final cl_device_id deviceID;
-
-    boolean
-            available,
-            compilerAvailable,
-            endianLittle,
-            errorCorrectionSupport,
-//          hostUnifiedMemory,
-            imageSupport;
-
-    long
-            addressBits,
-            globalMemCacheSize,
-            globalMemCacheLineSize,
-            globalMemSize,
-            image2DMaxHeight,
-            image2DMaxWidth,
-            image3DMaxDepth,
-            image3DMaxHeight,
-            image3DMaxWidth,
-            localMemSize,
-            maxClockFrequency,
-            maxComputeUnits,
-            maxConstantArgs,
-            maxConstantBufferSize,
-            maxMemAllocSize,
-            maxParameterSize,
-            maxReadImageArgs,
-            maxSamples,
-            maxWorkGroupSize,
-            maxWorkItemDimensions,
-            maxWriteImageArgs,
-            memBaseAddrAlign,
-            minDataTypeAlignSize,
-            nativeVectorWidthChar,
-            nativeVectorWidthShort,
-            nativeVectorWidthInt,
-            nativeVectorWidthLong,
-            nativeVectorWidthFloat,
-            nativeVectorWidthDouble,
-            nativeVectorWidthHalf,
-            preferredVectorWidthChar,
-            preferredVectorWidthShort,
-            preferredVectorWidthInt,
-            preferredVectorWidthLong,
-            preferredVectorWidthFloat,
-            preferredVectorWidthDouble,
-            preferredVectorWidthHalf,
-            profilingTimerResolution,
-            vendorID;
-
 
     OpenCLDevice(cl_device_id deviceID) {
         super(deviceID, CL::clGetDeviceInfo);
@@ -97,8 +46,8 @@ public class OpenCLDevice extends OpenCLInfoObject<cl_device_id> {
         return getBooleanInfo(CL_DEVICE_ERROR_CORRECTION_SUPPORT);
     }
 
-    public () {
-
+    public ExecutionCapabilities getExecutionCapabilities() {
+        return new ExecutionCapabilities(getLongInfo(CL_DEVICE_EXECUTION_CAPABILITIES));
     }
 
     public String[] getExtensions() {
@@ -109,8 +58,8 @@ public class OpenCLDevice extends OpenCLInfoObject<cl_device_id> {
         return getLongInfo(CL_DEVICE_GLOBAL_MEM_CACHE_SIZE);
     }
 
-    public () {
-
+    public MemoryCacheType getGlobalMemoryCacheType() {
+        return new MemoryCacheType(getIntInfo(CL_DEVICE_GLOBAL_MEM_CACHE_TYPE));
     }
 
     public int getGlobalMemCacheLineSize() {
@@ -121,74 +70,202 @@ public class OpenCLDevice extends OpenCLInfoObject<cl_device_id> {
         return getLongInfo(CL_DEVICE_GLOBAL_MEM_SIZE);
     }
 
-
+    public HalfFPConfig getHalfFPConfig() {
+        return new HalfFPConfig(getLongInfo(CL_DEVICE_HALF_FP_CONFIG));
+    }
 
     @Deprecated
     public boolean isHostUnifiedMemory() {
         return getBooleanInfo(CL_DEVICE_HOST_UNIFIED_MEMORY);
     }
 
-    protected void initializeInfo() {
-        available = getBoolean(getDeviceInfo(CL_DEVICE_AVAILABLE));
-        compilerAvailable = getBoolean(getDeviceInfo(CL_DEVICE_COMPILER_AVAILABLE));
-        endianLittle = getBoolean(getDeviceInfo(CL_DEVICE_ENDIAN_LITTLE));
-        errorCorrectionSupport = getBoolean(getDeviceInfo(CL_DEVICE_ERROR_CORRECTION_SUPPORT));
-//      hostUnifiedMemory = getBoolean(getDeviceInfo(CL_DEVICE_HOST_UNIFIED_MEMORY));
-        imageSupport = getBoolean(getDeviceInfo(CL_DEVICE_IMAGE_SUPPORT));
-
-        addressBits = getUInt(getDeviceInfo(CL_DEVICE_ADDRESS_BITS), endianLittle);
-        globalMemCacheSize = getULong(getDeviceInfo(CL_DEVICE_GLOBAL_MEM_CACHE_SIZE), endianLittle);
-        globalMemCacheLineSize = getUInt(getDeviceInfo(CL_DEVICE_GLOBAL_MEM_CACHELINE_SIZE), endianLittle);
-        globalMemSize = getULong(getDeviceInfo(CL_DEVICE_GLOBAL_MEM_SIZE), endianLittle);
-        image2DMaxHeight = getSizeT(getDeviceInfo(CL_DEVICE_IMAGE2D_MAX_HEIGHT), endianLittle);
-        image2DMaxWidth = getSizeT(getDeviceInfo(CL_DEVICE_IMAGE2D_MAX_WIDTH), endianLittle);
-        image3DMaxDepth = getSizeT(getDeviceInfo(CL_DEVICE_IMAGE3D_MAX_DEPTH), endianLittle);
-        image3DMaxHeight = getSizeT(getDeviceInfo(CL_DEVICE_IMAGE3D_MAX_HEIGHT), endianLittle);
-        image3DMaxWidth = getSizeT(getDeviceInfo(CL_DEVICE_IMAGE3D_MAX_WIDTH), endianLittle);
-        localMemSize = getULong(getDeviceInfo(CL_DEVICE_LOCAL_MEM_SIZE), endianLittle);
-        maxClockFrequency = getUInt(getDeviceInfo(CL_DEVICE_MAX_CLOCK_FREQUENCY), endianLittle);
-        maxComputeUnits = getUInt(getDeviceInfo(CL_DEVICE_MAX_COMPUTE_UNITS), endianLittle);
-        maxConstantArgs = getUInt(getDeviceInfo(CL_DEVICE_MAX_CONSTANT_ARGS), endianLittle);
-        maxConstantBufferSize = getULong(getDeviceInfo(CL_DEVICE_MAX_CONSTANT_BUFFER_SIZE), endianLittle);
-        maxMemAllocSize = getULong(getDeviceInfo(CL_DEVICE_MAX_MEM_ALLOC_SIZE), endianLittle);
-        maxParameterSize = getSizeT(getDeviceInfo(CL_DEVICE_MAX_PARAMETER_SIZE), endianLittle);
-        maxReadImageArgs = getUInt(getDeviceInfo(CL_DEVICE_MAX_READ_IMAGE_ARGS), endianLittle);
-        maxSamples = getUInt(getDeviceInfo(CL_DEVICE_MAX_SAMPLERS), endianLittle);
-        maxWorkGroupSize = getSizeT(getDeviceInfo(CL_DEVICE_MAX_WORK_GROUP_SIZE), endianLittle);
-        maxWorkItemDimensions = getUInt(getDeviceInfo(CL_DEVICE_MAX_WORK_ITEM_DIMENSIONS), endianLittle);
-        maxWriteImageArgs = getUInt(getDeviceInfo(CL_DEVICE_MAX_WRITE_IMAGE_ARGS), endianLittle);
-        memBaseAddrAlign = getUInt(getDeviceInfo(CL_DEVICE_MEM_BASE_ADDR_ALIGN), endianLittle);
-        minDataTypeAlignSize = getUInt(getDeviceInfo(CL_DEVICE_MIN_DATA_TYPE_ALIGN_SIZE), endianLittle);
-        nativeVectorWidthChar = getUInt(getDeviceInfo(CL_DEVICE_NATIVE_VECTOR_WIDTH_CHAR), endianLittle);
-        nativeVectorWidthShort = getUInt(getDeviceInfo(CL_DEVICE_NATIVE_VECTOR_WIDTH_SHORT), endianLittle);
-        nativeVectorWidthInt = getUInt(getDeviceInfo(CL_DEVICE_NATIVE_VECTOR_WIDTH_INT), endianLittle);
-        nativeVectorWidthLong = getUInt(getDeviceInfo(CL_DEVICE_NATIVE_VECTOR_WIDTH_LONG), endianLittle);
-        nativeVectorWidthFloat = getUInt(getDeviceInfo(CL_DEVICE_NATIVE_VECTOR_WIDTH_FLOAT), endianLittle);
-        nativeVectorWidthDouble = getUInt(getDeviceInfo(CL_DEVICE_NATIVE_VECTOR_WIDTH_DOUBLE), endianLittle);
-        nativeVectorWidthHalf = getUInt(getDeviceInfo(CL_DEVICE_NATIVE_VECTOR_WIDTH_HALF), endianLittle);
-        preferredVectorWidthChar = getUInt(getDeviceInfo(CL_DEVICE_PREFERRED_VECTOR_WIDTH_CHAR), endianLittle);
-        preferredVectorWidthShort = getUInt(getDeviceInfo(CL_DEVICE_PREFERRED_VECTOR_WIDTH_SHORT), endianLittle);
-        preferredVectorWidthInt = getUInt(getDeviceInfo(CL_DEVICE_PREFERRED_VECTOR_WIDTH_INT), endianLittle);
-        preferredVectorWidthLong = getUInt(getDeviceInfo(CL_DEVICE_PREFERRED_VECTOR_WIDTH_LONG), endianLittle);
-        preferredVectorWidthFloat = getUInt(getDeviceInfo(CL_DEVICE_PREFERRED_VECTOR_WIDTH_FLOAT), endianLittle);
-        preferredVectorWidthDouble = getUInt(getDeviceInfo(CL_DEVICE_PREFERRED_VECTOR_WIDTH_DOUBLE), endianLittle);
-        preferredVectorWidthHalf = getUInt(getDeviceInfo(CL_DEVICE_PREFERRED_VECTOR_WIDTH_HALF), endianLittle);
-        profilingTimerResolution = getSizeT(getDeviceInfo(CL_DEVICE_PROFILING_TIMER_RESOLUTION), endianLittle);
-        vendorID = getUInt(getDeviceInfo(CL_DEVICE_VENDOR_ID), endianLittle);
+    public boolean isImageSupport() {
+        return getBooleanInfo(CL_DEVICE_IMAGE_SUPPORT);
     }
 
-    protected byte[] getDeviceInfo(int paramName) {
-        long[] size = new long[1];
-        int result = clGetDeviceInfo(deviceID, paramName, 0, null, size);
-        if (result != CL_SUCCESS) {
-            throw new RuntimeException("Error: " + result);
-        }
-        byte[] buffer = new byte[(int) size[0]];
-        result = clGetDeviceInfo(deviceID, paramName, size[0], Pointer.to(buffer), null);
-        if (result != CL_SUCCESS) {
-            throw new RuntimeException("Error: " + result);
-        }
-        return buffer;
+    public long getImage2DMaxHeight() {
+        return getSizeTInfo(CL_DEVICE_IMAGE2D_MAX_HEIGHT);
+    }
+
+    public long getImage2DMaxWidth() {
+        return getSizeTInfo(CL_DEVICE_IMAGE2D_MAX_WIDTH);
+    }
+
+    public long getImage3DMaxDepth() {
+        return getSizeTInfo(CL_DEVICE_IMAGE3D_MAX_DEPTH);
+    }
+
+    public long getImage3DMaxHeight() {
+        return getSizeTInfo(CL_DEVICE_IMAGE3D_MAX_HEIGHT);
+    }
+
+    public long getImage3DMaxWidth() {
+        return getSizeTInfo(CL_DEVICE_IMAGE3D_MAX_WIDTH);
+    }
+
+    public long getLocalMemSize() {
+        return getLongInfo(CL_DEVICE_LOCAL_MEM_SIZE);
+    }
+
+    public LocalMemoryType getLocalMemoryType() {
+        return new LocalMemoryType(getIntInfo(CL_DEVICE_LOCAL_MEM_TYPE));
+    }
+
+    public int getMaxClockFrequency() {
+        return getIntInfo(CL_DEVICE_MAX_CLOCK_FREQUENCY);
+    }
+
+    public int getMaxComputeUnits() {
+        return getIntInfo(CL_DEVICE_MAX_COMPUTE_UNITS);
+    }
+
+    public int getMaxConstantArgs() {
+        return getIntInfo(CL_DEVICE_MAX_CONSTANT_ARGS);
+    }
+
+    public long getMaxConstantBufferSize() {
+        return getLongInfo(CL_DEVICE_MAX_CONSTANT_BUFFER_SIZE);
+    }
+
+    public long getMaxMemAllocSize() {
+        return getLongInfo(CL_DEVICE_MAX_MEM_ALLOC_SIZE);
+    }
+
+    public long getMaxParameterSize() {
+        return getSizeTInfo(CL_DEVICE_MAX_PARAMETER_SIZE);
+    }
+
+    public int getMaxReadImageArgs() {
+        return getIntInfo(CL_DEVICE_MAX_READ_IMAGE_ARGS);
+    }
+
+    public int getMaxSamples() {
+        return getIntInfo(CL_DEVICE_MAX_SAMPLERS);
+    }
+
+    public long getMaxWorkGroupSize() {
+        return getSizeTInfo(CL_DEVICE_MAX_WORK_GROUP_SIZE);
+    }
+
+    public int getMaxWorkItemDimensions() {
+        return getIntInfo(CL_DEVICE_MAX_WORK_ITEM_DIMENSIONS);
+    }
+
+    public long[] getMaxWorkItemSizes() {
+        return getSizeTArrayInfo(CL_DEVICE_MAX_WORK_ITEM_SIZES);
+    }
+
+    public int getMaxWriteImageArgs() {
+        return getIntInfo(CL_DEVICE_MAX_WRITE_IMAGE_ARGS);
+    }
+
+    public int getMemBaseAddrAlign() {
+        return getIntInfo(CL_DEVICE_MEM_BASE_ADDR_ALIGN);
+    }
+
+    public int getMinDataTypeAlignSize() {
+        return getIntInfo(CL_DEVICE_MIN_DATA_TYPE_ALIGN_SIZE);
+    }
+
+    public String getName() {
+        return getStringInfo(CL_DEVICE_NAME);
+    }
+
+    public int getNativeVectorWidthChar() {
+        return getIntInfo(CL_DEVICE_NATIVE_VECTOR_WIDTH_CHAR);
+    }
+
+    public int getNativeVectorWidthShort() {
+        return getIntInfo(CL_DEVICE_NATIVE_VECTOR_WIDTH_SHORT);
+    }
+
+    public int getNativeVectorWidthInt() {
+        return getIntInfo(CL_DEVICE_NATIVE_VECTOR_WIDTH_INT);
+    }
+
+    public int getNativeVectorWidthLong() {
+        return getIntInfo(CL_DEVICE_NATIVE_VECTOR_WIDTH_LONG);
+    }
+
+    public int getNativeVectorWidthFloat() {
+        return getIntInfo(CL_DEVICE_NATIVE_VECTOR_WIDTH_FLOAT);
+    }
+
+    public int getNativeVectorWidthDouble() {
+        return getIntInfo(CL_DEVICE_NATIVE_VECTOR_WIDTH_DOUBLE);
+    }
+
+    public int getNativeVectorWidthHalf() {
+        return getIntInfo(CL_DEVICE_NATIVE_VECTOR_WIDTH_HALF);
+    }
+
+    public String getOpenCLCVersion() {
+        return getStringInfo(CL_DEVICE_OPENCL_C_VERSION);
+    }
+
+    public OpenCLPlatform getPlatform() {
+        return getPlatformInfo(CL_DEVICE_PLATFORM);
+    }
+
+    public int getPreferredVectorWidthChar() {
+        return getIntInfo(CL_DEVICE_PREFERRED_VECTOR_WIDTH_CHAR);
+    }
+
+    public int getPreferredVectorWidthShort() {
+        return getIntInfo(CL_DEVICE_PREFERRED_VECTOR_WIDTH_SHORT);
+    }
+
+    public int getPreferredVectorWidthInt() {
+        return getIntInfo(CL_DEVICE_PREFERRED_VECTOR_WIDTH_INT);
+    }
+
+    public int getPreferredVectorWidthLong() {
+        return getIntInfo(CL_DEVICE_PREFERRED_VECTOR_WIDTH_LONG);
+    }
+
+    public int getPreferredVectorWidthFloat() {
+        return getIntInfo(CL_DEVICE_PREFERRED_VECTOR_WIDTH_FLOAT);
+    }
+
+    public int getPreferredVectorWidthDouble() {
+        return getIntInfo(CL_DEVICE_PREFERRED_VECTOR_WIDTH_DOUBLE);
+    }
+
+    public int getPreferredVectorWidthHalf() {
+        return getIntInfo(CL_DEVICE_PREFERRED_VECTOR_WIDTH_HALF);
+    }
+
+    public String getProfile() {
+        return getStringInfo(CL_DEVICE_PROFILE);
+    }
+
+    @Deprecated
+    public QueueProperties getQueueProperties() {
+        return new QueueProperties(getLongInfo(CL_DEVICE_QUEUE_PROPERTIES));
+    }
+
+    public SingleFPConfig getSingleFPConfig() {
+        return new SingleFPConfig(getLongInfo(CL_DEVICE_SINGLE_FP_CONFIG));
+    }
+
+    public long getType() {
+        return getLongInfo(CL_DEVICE_TYPE);
+    }
+
+    public String getVendor() {
+        return getStringInfo(CL_DEVICE_VENDOR);
+    }
+
+    public int getVendorID() {
+        return getIntInfo(CL_DEVICE_VENDOR_ID);
+    }
+
+    public String getVersion() {
+        return getStringInfo(CL_DEVICE_VERSION);
+    }
+
+    public String getDriverVersion() {
+        return getStringInfo(CL_DRIVER_VERSION);
     }
 
     public static class DoubleFPConfig {
@@ -230,11 +307,207 @@ public class OpenCLDevice extends OpenCLInfoObject<cl_device_id> {
             return (value & flag) != 0;
         }
 
-        public DoubleFPConfig(long value) {
+        DoubleFPConfig(long value) {
             this.value = value;
         }
     }
 
     public static class ExecutionCapabilities {
+        public static final long
+                EXEC_KERNEL = CL_EXEC_KERNEL,
+                EXEC_NATIVE_KERNEL = CL_EXEC_NATIVE_KERNEL;
+
+        public final long value;
+
+        ExecutionCapabilities(long value) {
+            this.value = value;
+        }
+
+        public boolean supportKernel() {
+            return (value & EXEC_KERNEL) != 0;
+        }
+
+        public boolean supportNativeKernel() {
+            return (value & EXEC_NATIVE_KERNEL) != 0;
+        }
+
+        public boolean support(long flag) {
+            return (value & flag) != 0;
+        }
+    }
+
+    public static class MemoryCacheType {
+        public static final int
+                NONE = CL_NONE,
+                READ_ONLY_CACHE = CL_READ_ONLY_CACHE,
+                READ_WRITE_CACHE = CL_READ_WRITE_CACHE;
+
+        public final int value;
+
+        MemoryCacheType(int value) {
+            this.value = value;
+        }
+
+        public boolean isNone() {
+            return value == NONE;
+        }
+
+        public boolean isReadOnlyCache() {
+            return value == READ_ONLY_CACHE;
+        }
+
+        public boolean isReadWriteCache() {
+            return value == READ_WRITE_CACHE;
+        }
+
+        public boolean is(int flag) {
+            return value == flag;
+        }
+    }
+
+    public static class HalfFPConfig {
+        public static final long
+                DENORM = CL_FP_DENORM,
+                INF_NAN = CL_FP_INF_NAN,
+                ROUND_TO_NEAREST = CL_FP_ROUND_TO_NEAREST,
+                ROUND_TO_ZERO = CL_FP_ROUND_TO_ZERO,
+                ROUND_TO_INF = CL_FP_ROUND_TO_INF,
+                FMA = CL_FP_FMA,
+                SOFT_FLOAT = CL_FP_SOFT_FLOAT;
+
+        public final long value;
+
+        HalfFPConfig(long value) {
+            this.value = value;
+        }
+
+        public boolean supportDenorm() {
+            return (value & DENORM) != 0;
+        }
+
+        public boolean supportInfNan() {
+            return (value & INF_NAN) != 0;
+        }
+
+        public boolean supportRoundToNearest() {
+            return (value & ROUND_TO_NEAREST) != 0;
+        }
+
+        public boolean supportRoundToZero() {
+            return (value & ROUND_TO_ZERO) != 0;
+        }
+
+        public boolean supportRoundToInf() {
+            return (value & ROUND_TO_INF) != 0;
+        }
+
+        public boolean supportFMA() {
+            return (value & FMA) != 0;
+        }
+
+        public boolean supportSoftFloat() {
+            return (value & SOFT_FLOAT) != 0;
+        }
+
+        public boolean support(long flag) {
+            return (value & flag) != 0;
+        }
+    }
+
+    public static class LocalMemoryType {
+        public static final int
+                LOCAL = CL_LOCAL,
+                GLOBAL = CL_GLOBAL;
+
+        public final int value;
+
+        LocalMemoryType(int value) {
+            this.value = value;
+        }
+
+        public boolean isLocal() {
+            return value == LOCAL;
+        }
+
+        public boolean isGlobal() {
+            return value == GLOBAL;
+        }
+
+        public boolean is(int flag) {
+            return value == flag;
+        }
+    }
+
+    public static class QueueProperties {
+        public static final long
+                OUT_OF_ORDER_EXEC_MODE_ENABLE = CL_QUEUE_OUT_OF_ORDER_EXEC_MODE_ENABLE,
+                PROFILING_ENABLE = CL_QUEUE_PROFILING_ENABLE;
+
+        public final long value;
+
+        QueueProperties(long value) {
+            this.value = value;
+        }
+
+        public boolean supportOutOfOrderExecMode() {
+            return (value & OUT_OF_ORDER_EXEC_MODE_ENABLE) != 0;
+        }
+
+        public boolean supportProfiling() {
+            return (value & PROFILING_ENABLE) != 0;
+        }
+
+        public boolean support(long flag) {
+            return (value & flag) != 0;
+        }
+    }
+
+    public static class SingleFPConfig {
+        public static final long
+                DENORM = CL_FP_DENORM,
+                INF_NAN = CL_FP_INF_NAN,
+                ROUND_TO_NEAREST = CL_FP_ROUND_TO_NEAREST,
+                ROUND_TO_ZERO = CL_FP_ROUND_TO_ZERO,
+                ROUND_TO_INF = CL_FP_ROUND_TO_INF,
+                FMA = CL_FP_FMA,
+                SOFT_FLOAT = CL_FP_SOFT_FLOAT;
+
+        public final long value;
+
+        SingleFPConfig(long value) {
+            this.value = value;
+        }
+
+        public boolean supportDenorm() {
+            return (value & DENORM) != 0;
+        }
+
+        public boolean supportInfNan() {
+            return (value & INF_NAN) != 0;
+        }
+
+        public boolean supportRoundToNearest() {
+            return (value & ROUND_TO_NEAREST) != 0;
+        }
+
+        public boolean supportRoundToZero() {
+            return (value & ROUND_TO_ZERO) != 0;
+        }
+
+        public boolean supportRoundToInf() {
+            return (value & ROUND_TO_INF) != 0;
+        }
+
+        public boolean supportFMA() {
+            return (value & FMA) != 0;
+        }
+
+        public boolean supportSoftFloat() {
+            return (value & SOFT_FLOAT) != 0;
+        }
+
+        public boolean support(long flag) {
+            return (value & flag) != 0;
+        }
     }
 }
