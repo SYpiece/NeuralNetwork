@@ -5,7 +5,6 @@ import org.jocl.*;
 import java.util.Arrays;
 
 import static org.jocl.CL.*;
-import static util.opencl.OpenCLTypeUtil.*;
 
 public class OpenCLPlatform extends OpenCLInfoObject<cl_platform_id> {
     final cl_platform_id platformID;

@@ -1,8 +1,6 @@
 package util.opencl;
 
-import org.jocl.Pointer;
-import org.jocl.Sizeof;
-import org.jocl.cl_platform_id;
+import org.jocl.*;
 
 abstract class OpenCLInfoObject<T> {
     final T baseObject;
@@ -53,12 +51,20 @@ abstract class OpenCLInfoObject<T> {
         return buffer[0];
     }
 
-    protected long[] getSizeTArrayInfo(int paramName) {
+    protected OpenCLContext getContextInfo(int paramName) {
         long[] size = new long[1];
         infoGetter.getInfo(baseObject, paramName, 0, null, size);
-        long[] buffer = new long[(int) size[0] / Sizeof.size_t];
+        cl_context[] buffer = new cl_context[(int) size[0] / Sizeof.cl_context];
         infoGetter.getInfo(baseObject, paramName, size[0], Pointer.to(buffer), null);
-        return buffer;
+        return new OpenCLContext(buffer[0]);
+    }
+
+    public OpenCLDevice getDeviceInfo(int paramName) {
+        long[] size = new long[1];
+        infoGetter.getInfo(baseObject, paramName, 0, null, size);
+        cl_device_id[] buffer = new cl_device_id[(int) size[0] / Sizeof.cl_device_id];
+        infoGetter.getInfo(baseObject, paramName, size[0], Pointer.to(buffer), null);
+        return new OpenCLDevice(buffer[0]);
     }
 
     protected OpenCLPlatform getPlatformInfo(int paramName) {
@@ -67,6 +73,26 @@ abstract class OpenCLInfoObject<T> {
         cl_platform_id[] buffer = new cl_platform_id[(int) size[0] / Sizeof.cl_platform_id];
         infoGetter.getInfo(baseObject, paramName, size[0], Pointer.to(buffer), null);
         return new OpenCLPlatform(buffer[0]);
+    }
+
+    protected long[] getSizeTArrayInfo(int paramName) {
+        long[] size = new long[1];
+        infoGetter.getInfo(baseObject, paramName, 0, null, size);
+        long[] buffer = new long[(int) size[0] / Sizeof.size_t];
+        infoGetter.getInfo(baseObject, paramName, size[0], Pointer.to(buffer), null);
+        return buffer;
+    }
+
+    protected OpenCLDevice[] getDeviceArrayInfo(int paramName) {
+        long[] size = new long[1];
+        infoGetter.getInfo(baseObject, paramName, 0, null, size);
+        cl_device_id[] buffer = new cl_device_id[(int) size[0] / Sizeof.cl_device_id];
+        infoGetter.getInfo(baseObject, paramName, size[0], Pointer.to(buffer), null);
+        OpenCLDevice[] devices = new OpenCLDevice[buffer.length];
+        for (int i = 0; i < buffer.length; i++) {
+            devices[i] = new OpenCLDevice(buffer[i]);
+        }
+        return devices;
     }
 
     interface InfoGetter<T> {

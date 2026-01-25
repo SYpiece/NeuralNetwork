@@ -13,7 +13,7 @@ public class OpenCLKernel implements AutoCloseable {
     }
 
     @Override
-    public void close() throws Exception {
+    public void close() {
         clReleaseKernel(kernel);
     }
 }

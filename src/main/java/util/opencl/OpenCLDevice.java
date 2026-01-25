@@ -1,7 +1,6 @@
 package util.opencl;
 
 import org.jocl.CL;
-import org.jocl.Pointer;
 import org.jocl.cl_device_id;
 
 import static org.jocl.CL.*;
@@ -58,8 +57,8 @@ public class OpenCLDevice extends OpenCLInfoObject<cl_device_id> {
         return getLongInfo(CL_DEVICE_GLOBAL_MEM_CACHE_SIZE);
     }
 
-    public MemoryCacheType getGlobalMemoryCacheType() {
-        return new MemoryCacheType(getIntInfo(CL_DEVICE_GLOBAL_MEM_CACHE_TYPE));
+    public GlobalMemoryCacheType getGlobalMemoryCacheType() {
+        return new GlobalMemoryCacheType(getIntInfo(CL_DEVICE_GLOBAL_MEM_CACHE_TYPE));
     }
 
     public int getGlobalMemCacheLineSize() {
@@ -336,7 +335,7 @@ public class OpenCLDevice extends OpenCLInfoObject<cl_device_id> {
         }
     }
 
-    public static class MemoryCacheType {
+    public static class GlobalMemoryCacheType {
         public static final int
                 NONE = CL_NONE,
                 READ_ONLY_CACHE = CL_READ_ONLY_CACHE,
@@ -344,7 +343,7 @@ public class OpenCLDevice extends OpenCLInfoObject<cl_device_id> {
 
         public final int value;
 
-        MemoryCacheType(int value) {
+        GlobalMemoryCacheType(int value) {
             this.value = value;
         }
 
