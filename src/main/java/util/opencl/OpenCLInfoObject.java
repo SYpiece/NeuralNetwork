@@ -51,6 +51,14 @@ abstract class OpenCLInfoObject<T> {
         return buffer[0];
     }
 
+    protected OpenCLMemory getMemoryInfo(int paramName) {
+        long[] size = new long[1];
+        infoGetter.getInfo(baseObject, paramName, 0, null, size);
+        cl_mem[] buffer = new cl_mem[(int) size[0] / Sizeof.cl_mem];
+        infoGetter.getInfo(baseObject, paramName, size[0], Pointer.to(buffer), null);
+        return new OpenCLMemory(buffer[0]);
+    }
+
     protected OpenCLContext getContextInfo(int paramName) {
         long[] size = new long[1];
         infoGetter.getInfo(baseObject, paramName, 0, null, size);

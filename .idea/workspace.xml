@@ -6,13 +6,9 @@
   <component name="ChangeListManager">
     <list default="true" id="510f6215-b6d7-46f0-bb38-6abdae5c9063" name="更改" comment="update">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/App.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/App.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/util/opencl/OpenCLCommandQueue.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/util/opencl/OpenCLCommandQueue.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/util/opencl/OpenCLContext.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/util/opencl/OpenCLContext.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/util/opencl/OpenCLDevice.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/util/opencl/OpenCLDevice.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/util/opencl/OpenCLInfoObject.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/util/opencl/OpenCLInfoObject.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/util/opencl/OpenCLKernel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/util/opencl/OpenCLKernel.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/util/opencl/OpenCLPlatform.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/util/opencl/OpenCLPlatform.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/util/opencl/OpenCLMemory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/util/opencl/OpenCLMemory.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/util/opencl/OpenCLProgram.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/util/opencl/OpenCLProgram.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -98,7 +94,7 @@
       <option name="presentableId" value="Default" />
       <updated>1760766310100</updated>
       <workItem from="1769219674674" duration="8411000" />
-      <workItem from="1769315102552" duration="8310000" />
+      <workItem from="1769315102552" duration="11076000" />
     </task>
     <task id="LOCAL-00001" summary="update">
       <option name="closed" value="true" />

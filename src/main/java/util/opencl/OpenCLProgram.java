@@ -16,6 +16,10 @@ public class OpenCLProgram implements AutoCloseable {
         clBuildProgram(program, 0, null, null, null, null);
     }
 
+    public OpenCLKernel createKernel(String kernelName) {
+        return new OpenCLKernel(clCreateKernel(program, kernelName, null));
+    }
+
     @Override
     public void close() {
         clReleaseProgram(program);
