@@ -6,10 +6,14 @@ import org.jocl.cl_program;
 import static org.jocl.CL.*;
 
 public class OpenCLProgram implements AutoCloseable {
+    public static OpenCLProgram create(OpenCLContext context, String... source) {
+        return new OpenCLProgram(clCreateProgramWithSource(context.context, source.length, source, null, null));
+    }
+
     final cl_program program;
 
-    public OpenCLProgram(OpenCLContext context, String... source) {
-        program = clCreateProgramWithSource(context.context, source.length, source, null, null);
+    OpenCLProgram(cl_program program) {
+        this.program = program;
     }
 
     public void build() {

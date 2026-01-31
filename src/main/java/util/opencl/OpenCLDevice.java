@@ -6,14 +6,6 @@ import org.jocl.cl_device_id;
 import static org.jocl.CL.*;
 
 public class OpenCLDevice extends OpenCLInfoObject<cl_device_id> {
-    public static final long
-            TYPE_ALL = CL_DEVICE_TYPE_ALL,
-            TYPE_CPU = CL_DEVICE_TYPE_CPU,
-            TYPE_GPU = CL_DEVICE_TYPE_GPU,
-            TYPE_ACCELERATOR = CL_DEVICE_TYPE_ACCELERATOR,
-            TYPE_CUSTOM = CL_DEVICE_TYPE_CUSTOM,
-            TYPE_DEFAULT = CL_DEVICE_TYPE_DEFAULT;
-
     final cl_device_id deviceID;
 
     OpenCLDevice(cl_device_id deviceID) {
@@ -247,8 +239,8 @@ public class OpenCLDevice extends OpenCLInfoObject<cl_device_id> {
         return new SingleFPConfig(getLongInfo(CL_DEVICE_SINGLE_FP_CONFIG));
     }
 
-    public long getType() {
-        return getLongInfo(CL_DEVICE_TYPE);
+    public Type getType() {
+        return Type.valueOf(getLongInfo(CL_DEVICE_TYPE));
     }
 
     public String getVendor() {
@@ -265,6 +257,30 @@ public class OpenCLDevice extends OpenCLInfoObject<cl_device_id> {
 
     public String getDriverVersion() {
         return getStringInfo(CL_DRIVER_VERSION);
+    }
+
+    public enum Type {
+        ALL(CL_DEVICE_TYPE_ALL),
+        CPU(CL_DEVICE_TYPE_CPU),
+        GPU(CL_DEVICE_TYPE_GPU),
+        ACCELERATOR(CL_DEVICE_TYPE_ACCELERATOR),
+        CUSTOM(CL_DEVICE_TYPE_CUSTOM),
+        DEFAULT(CL_DEVICE_TYPE_DEFAULT);
+
+        public final long value;
+
+        Type(long value) {
+            this.value = value;
+        }
+
+        public static Type valueOf(long value) {
+            for (Type type : Type.values()) {
+                if (type.value == value) {
+                    return type;
+                }
+            }
+            throw new RuntimeException("Invalid value");
+        }
     }
 
     public static class DoubleFPConfig {

@@ -11,91 +11,108 @@ abstract class OpenCLInfoObject<T> {
         this.infoGetter = infoGetter;
     }
 
-    protected String getStringInfo(int paramName) {
+    protected long getInfoSize(int paramName) {
         long[] size = new long[1];
         infoGetter.getInfo(baseObject, paramName, 0, null, size);
-        byte[] buffer = new byte[(int) size[0] / Sizeof.cl_char];
-        infoGetter.getInfo(baseObject, paramName, size[0], Pointer.to(buffer), null);
+        return size[0];
+    }
+
+    protected String getStringInfo(int paramName) {
+        long size = getInfoSize(paramName);
+        byte[] buffer = new byte[(int)size / Sizeof.cl_char];
+        infoGetter.getInfo(baseObject, paramName, size, Pointer.to(buffer), null);
         return new String(buffer, 0, buffer.length - 1);
     }
 
     protected boolean getBooleanInfo(int paramName) {
-        long[] size = new long[1];
-        infoGetter.getInfo(baseObject, paramName, 0, null, size);
-        int[] buffer = new int[(int) size[0] / Sizeof.cl_int];
-        infoGetter.getInfo(baseObject, paramName, size[0], Pointer.to(buffer), null);
+        int[] buffer = new int[1];
+        infoGetter.getInfo(baseObject, paramName, Sizeof.cl_int, Pointer.to(buffer), null);
         return buffer[0] != 0;
     }
 
     protected int getIntInfo(int paramName) {
-        long[] size = new long[1];
-        infoGetter.getInfo(baseObject, paramName, 0, null, size);
-        int[] buffer = new int[(int) size[0] / Sizeof.cl_int];
-        infoGetter.getInfo(baseObject, paramName, size[0], Pointer.to(buffer), null);
+        int[] buffer = new int[1];
+        infoGetter.getInfo(baseObject, paramName, Sizeof.cl_int, Pointer.to(buffer), null);
         return buffer[0];
     }
 
     protected long getLongInfo(int paramName) {
-        long[] size = new long[1];
-        infoGetter.getInfo(baseObject, paramName, 0, null, size);
-        long[] buffer = new long[(int) size[0] / Sizeof.cl_long];
-        infoGetter.getInfo(baseObject, paramName, size[0], Pointer.to(buffer), null);
+        long[] buffer = new long[1];
+        infoGetter.getInfo(baseObject, paramName, Sizeof.cl_long, Pointer.to(buffer), null);
         return buffer[0];
     }
 
     protected long getSizeTInfo(int paramName) {
-        long[] size = new long[1];
-        infoGetter.getInfo(baseObject, paramName, 0, null, size);
-        long[] buffer = new long[(int) size[0] / Sizeof.size_t];
-        infoGetter.getInfo(baseObject, paramName, size[0], Pointer.to(buffer), null);
-        return buffer[0];
+        if (Sizeof.size_t == 4) {
+            int[] buffer = new int[1];
+            infoGetter.getInfo(baseObject, paramName, Sizeof.size_t, Pointer.to(buffer), null);
+            return buffer[0];
+        } else if (Sizeof.size_t == 8) {
+            long[] buffer = new long[1];
+            infoGetter.getInfo(baseObject, paramName, Sizeof.size_t, Pointer.to(buffer), null);
+            return buffer[0];
+        } else {
+            throw new RuntimeException("Unknown size_t size");
+        }
     }
 
     protected OpenCLMemory getMemoryInfo(int paramName) {
-        long[] size = new long[1];
-        infoGetter.getInfo(baseObject, paramName, 0, null, size);
-        cl_mem[] buffer = new cl_mem[(int) size[0] / Sizeof.cl_mem];
-        infoGetter.getInfo(baseObject, paramName, size[0], Pointer.to(buffer), null);
+        cl_mem[] buffer = new cl_mem[1];
+        infoGetter.getInfo(baseObject, paramName, Sizeof.cl_mem, Pointer.to(buffer), null);
         return new OpenCLMemory(buffer[0]);
     }
 
+    protected OpenCLCommandQueue getCommandQueueInfo(int paramName) {
+        cl_command_queue[] buffer = new cl_command_queue[1];
+        infoGetter.getInfo(baseObject, paramName, Sizeof.cl_command_queue, Pointer.to(buffer), null);
+        return new OpenCLCommandQueue(buffer[0]);
+    }
+
+    protected OpenCLProgram getProgramInfo(int paramName) {
+        cl_program[] buffer = new cl_program[1];
+        infoGetter.getInfo(baseObject, paramName, Sizeof.cl_program, Pointer.to(buffer), null);
+        return new OpenCLProgram(buffer[0]);
+    }
+
     protected OpenCLContext getContextInfo(int paramName) {
-        long[] size = new long[1];
-        infoGetter.getInfo(baseObject, paramName, 0, null, size);
-        cl_context[] buffer = new cl_context[(int) size[0] / Sizeof.cl_context];
-        infoGetter.getInfo(baseObject, paramName, size[0], Pointer.to(buffer), null);
+        cl_context[] buffer = new cl_context[1];
+        infoGetter.getInfo(baseObject, paramName, Sizeof.cl_context, Pointer.to(buffer), null);
         return new OpenCLContext(buffer[0]);
     }
 
     public OpenCLDevice getDeviceInfo(int paramName) {
-        long[] size = new long[1];
-        infoGetter.getInfo(baseObject, paramName, 0, null, size);
-        cl_device_id[] buffer = new cl_device_id[(int) size[0] / Sizeof.cl_device_id];
-        infoGetter.getInfo(baseObject, paramName, size[0], Pointer.to(buffer), null);
+        cl_device_id[] buffer = new cl_device_id[1];
+        infoGetter.getInfo(baseObject, paramName, Sizeof.cl_device_id, Pointer.to(buffer), null);
         return new OpenCLDevice(buffer[0]);
     }
 
     protected OpenCLPlatform getPlatformInfo(int paramName) {
-        long[] size = new long[1];
-        infoGetter.getInfo(baseObject, paramName, 0, null, size);
-        cl_platform_id[] buffer = new cl_platform_id[(int) size[0] / Sizeof.cl_platform_id];
-        infoGetter.getInfo(baseObject, paramName, size[0], Pointer.to(buffer), null);
+        cl_platform_id[] buffer = new cl_platform_id[1];
+        infoGetter.getInfo(baseObject, paramName, Sizeof.cl_platform_id, Pointer.to(buffer), null);
         return new OpenCLPlatform(buffer[0]);
     }
 
     protected long[] getSizeTArrayInfo(int paramName) {
-        long[] size = new long[1];
-        infoGetter.getInfo(baseObject, paramName, 0, null, size);
-        long[] buffer = new long[(int) size[0] / Sizeof.size_t];
-        infoGetter.getInfo(baseObject, paramName, size[0], Pointer.to(buffer), null);
-        return buffer;
+        long size = getInfoSize(paramName);
+        long[] array = new long[(int) size / Sizeof.size_t];
+        if (Sizeof.size_t == 4) {
+            int[] buffer = new int[(int) size / Sizeof.size_t];
+            infoGetter.getInfo(baseObject, paramName, size, Pointer.to(buffer), null);
+            for (int i = 0; i < buffer.length; i++) {
+                array[i] = buffer[i];
+            }
+        } else if (Sizeof.size_t == 8) {
+            infoGetter.getInfo(baseObject, paramName, size, Pointer.to(array), null);
+        } else {
+            throw new RuntimeException("Unknown size_t size");
+        }
+        return array;
     }
 
     protected OpenCLDevice[] getDeviceArrayInfo(int paramName) {
-        long[] size = new long[1];
-        infoGetter.getInfo(baseObject, paramName, 0, null, size);
-        cl_device_id[] buffer = new cl_device_id[(int) size[0] / Sizeof.cl_device_id];
-        infoGetter.getInfo(baseObject, paramName, size[0], Pointer.to(buffer), null);
+        long size = getInfoSize(paramName);
+        cl_device_id[] buffer = new cl_device_id[(int) size / Sizeof.cl_device_id];
+        infoGetter.getInfo(baseObject, paramName, size, Pointer.to(buffer), null);
         OpenCLDevice[] devices = new OpenCLDevice[buffer.length];
         for (int i = 0; i < buffer.length; i++) {
             devices[i] = new OpenCLDevice(buffer[i]);

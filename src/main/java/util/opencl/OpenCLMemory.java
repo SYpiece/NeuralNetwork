@@ -8,10 +8,6 @@ import org.jocl.cl_mem;
 import static org.jocl.CL.*;
 
 public class OpenCLMemory extends OpenCLInfoObject<cl_mem> implements AutoCloseable {
-    public static final int
-            TYPE_BUFFER = CL_MEM_OBJECT_BUFFER,
-            TYPE_IMAGE2D = CL_MEM_OBJECT_IMAGE2D,
-            TYPE_IMAGE3D = CL_MEM_OBJECT_IMAGE3D;
 
     public static OpenCLMemory create(OpenCLContext context, Flags flags, byte[] values) {
         return new OpenCLMemory(clCreateBuffer(context.context, flags.value, (long) Sizeof.cl_char * values.length, Pointer.to(values), null));
@@ -44,12 +40,12 @@ public class OpenCLMemory extends OpenCLInfoObject<cl_mem> implements AutoClosea
         this.memory = memory;
     }
 
-    public int getType() {
-        return getIntInfo(CL_MEM_TYPE);
+    public Type getType() {
+        return Type.valueOf(getIntInfo(CL_MEM_TYPE));
     }
 
-    public ReadOnlyFlags getFlags() {
-        return new ReadOnlyFlags(getLongInfo(CL_MEM_FLAGS));
+    public Flags getFlags() {
+        return new Flags(getLongInfo(CL_MEM_FLAGS));
     }
 
     public long getSize() {
@@ -81,7 +77,28 @@ public class OpenCLMemory extends OpenCLInfoObject<cl_mem> implements AutoClosea
         clReleaseMemObject(memory);
     }
 
-    public static class ReadOnlyFlags {
+    public enum Type {
+        BUFFER(CL_MEM_OBJECT_BUFFER),
+        IMAGE2D(CL_MEM_OBJECT_IMAGE2D),
+        IMAGE3D(CL_MEM_OBJECT_IMAGE3D);
+
+        public final int value;
+
+        Type(int value) {
+            this.value = value;
+        }
+
+        public static Type valueOf(int value) {
+            for (Type type : values()) {
+                if (type.value == value) {
+                    return type;
+                }
+            }
+            throw new IllegalArgumentException("Unknown OpenCLMemory.Type value: " + value);
+        }
+    }
+
+    public static class Flags {
         public static final long
                 READ_WRITE = CL_MEM_READ_WRITE,
                 WRITE_ONLY = CL_MEM_WRITE_ONLY,
@@ -92,7 +109,11 @@ public class OpenCLMemory extends OpenCLInfoObject<cl_mem> implements AutoClosea
 
         public long value;
 
-        public ReadOnlyFlags(long value) {
+        public Flags() {
+            this(0);
+        }
+
+        public Flags(long value) {
             this.value = value;
         }
 
@@ -123,19 +144,14 @@ public class OpenCLMemory extends OpenCLInfoObject<cl_mem> implements AutoClosea
         public boolean is(long flag) {
             return (value & flag) != 0;
         }
-    }
-
-    public static class Flags extends ReadOnlyFlags {
-        public Flags() {
-            super(0);
-        }
-
-        public Flags(long value) {
-            super(value);
-        }
 
         public Flags setReadWrite() {
             value |= READ_WRITE;
+            return this;
+        }
+
+        public Flags unsetReadWrite() {
+            value &= ~READ_WRITE;
             return this;
         }
 
@@ -144,8 +160,18 @@ public class OpenCLMemory extends OpenCLInfoObject<cl_mem> implements AutoClosea
             return this;
         }
 
+        public Flags unsetWriteOnly() {
+            value &= ~WRITE_ONLY;
+            return this;
+        }
+
         public Flags setReadOnly() {
             value |= READ_ONLY;
+            return this;
+        }
+
+        public Flags unsetReadOnly() {
+            value &= ~READ_ONLY;
             return this;
         }
 
@@ -154,8 +180,18 @@ public class OpenCLMemory extends OpenCLInfoObject<cl_mem> implements AutoClosea
             return this;
         }
 
+        public Flags unsetUseHostPtr() {
+            value &= ~USE_HOST_PTR;
+            return this;
+        }
+
         public Flags setAllocHostPtr() {
             value |= ALLOC_HOST_PTR;
+            return this;
+        }
+
+        public Flags unsetAllocHostPtr() {
+            value &= ~ALLOC_HOST_PTR;
             return this;
         }
 
@@ -164,8 +200,18 @@ public class OpenCLMemory extends OpenCLInfoObject<cl_mem> implements AutoClosea
             return this;
         }
 
+        public Flags unsetCopyHostPtr() {
+            value &= ~COPY_HOST_PTR;
+            return this;
+        }
+
         public Flags set(long flag) {
             value |= flag;
+            return this;
+        }
+
+        public Flags unset(long flag) {
+            value &= ~flag;
             return this;
         }
     }

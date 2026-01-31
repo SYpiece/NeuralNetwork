@@ -4,7 +4,7 @@ import java.util.Arrays;
 
 public class App {
     public static void main(String[] args) {
-        testC();
+        testD();
     }
 
     static void testA() {
@@ -19,23 +19,35 @@ public class App {
     }
 
     static void testB() {
-        OpenCLDevice device = OpenCL.getPlatforms()[0].getDevices()[0];
-        device.getDoubleFPConfig();
-        device.getExecutionCapabilities();
-        device.getGlobalMemoryCacheType();
-        device.getHalfFPConfig();
-        device.getLocalMemoryType();
-        device.getQueueProperties();
-        device.getSingleFPConfig();
+        OpenCLDevice device = OpenCL.getPlatforms()[0].getDevices(OpenCLDevice.Type.GPU)[0];
+        OpenCLContext context1 = null;
+        try (
+                OpenCLContext context = OpenCLContext.create(device);
+                OpenCLCommandQueue queue = OpenCLCommandQueue.create(context, device);
+                ) {
+            context1 = queue.getContext();
+            System.out.println(context1.getReferenceCount());
+        }
+        System.out.println(context1.getReferenceCount());
     }
 
     static void testC() {
-        OpenCLDevice device = OpenCL.getPlatforms()[0].getDevices(OpenCLDevice.TYPE_GPU)[0];
+        OpenCLDevice device = OpenCL.getPlatforms()[0].getDevices(OpenCLDevice.Type.GPU)[0];
         try (
                 OpenCLContext context = OpenCLContext.create(device);
                 OpenCLCommandQueue queue = OpenCLCommandQueue.create(context, device);
         ) {
 
+        }
+    }
+
+    static void testD() {
+        OpenCLDevice device = OpenCL.getPlatforms()[0].getDevices(OpenCLDevice.Type.GPU)[0];
+        long[] buffer = new long[16];
+        try (
+                OpenCLContext context = OpenCLContext.create(device);
+                OpenCLMemory memory = OpenCLMemory.create(context, new OpenCLMemory.Flags().setReadWrite().setUseHostPtr(), buffer);
+        ) {
         }
     }
 }

@@ -35,23 +35,23 @@ public class OpenCLPlatform extends OpenCLInfoObject<cl_platform_id> {
     }
 
     public int getDeviceCount() {
-        return getDeviceCount(OpenCLDevice.TYPE_ALL);
+        return getDeviceCount(OpenCLDevice.Type.ALL);
     }
 
-    public int getDeviceCount(long deviceType) {
+    public int getDeviceCount(OpenCLDevice.Type deviceType) {
         int[] numDevices = new int[1];
-        clGetDeviceIDs(platformID, deviceType, 0, null, numDevices);
+        clGetDeviceIDs(platformID, deviceType.value, 0, null, numDevices);
         return numDevices[0];
     }
 
     public OpenCLDevice[] getDevices() {
-        return getDevices(OpenCLDevice.TYPE_ALL);
+        return getDevices(OpenCLDevice.Type.ALL);
     }
 
-    public OpenCLDevice[] getDevices(long deviceType) {
+    public OpenCLDevice[] getDevices(OpenCLDevice.Type deviceType) {
         int numDevices = getDeviceCount(deviceType);
         cl_device_id[] devices = new cl_device_id[numDevices];
-        clGetDeviceIDs(platformID, deviceType, numDevices, devices, null);
+        clGetDeviceIDs(platformID, deviceType.value, numDevices, devices, null);
         OpenCLDevice[] openCLDevices = new OpenCLDevice[numDevices];
         for (int i = 0; i < numDevices; i++) {
             openCLDevices[i] = new OpenCLDevice(devices[i]);
