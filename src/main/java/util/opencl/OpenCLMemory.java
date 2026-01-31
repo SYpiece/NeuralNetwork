@@ -7,30 +7,54 @@ import org.jocl.cl_mem;
 
 import static org.jocl.CL.*;
 
-public class OpenCLMemory extends OpenCLInfoObject<cl_mem> implements AutoCloseable {
+public abstract class OpenCLMemory extends OpenCLInfoObject<cl_mem> implements AutoCloseable {
 
-    public static OpenCLMemory create(OpenCLContext context, Flags flags, byte[] values) {
-        return new OpenCLMemory(clCreateBuffer(context.context, flags.value, (long) Sizeof.cl_char * values.length, Pointer.to(values), null));
+    public static OpenCLMemory createByteBuffer(OpenCLContext context, Flags flags, long size) {
+        return new OpenCLMemory.Byte(clCreateBuffer(context.context, flags.value, Sizeof.cl_char * size, null, null));
     }
 
-    public static OpenCLMemory create(OpenCLContext context, Flags flags, short[] values) {
-        return new OpenCLMemory(clCreateBuffer(context.context, flags.value, (long) Sizeof.cl_short * values.length, Pointer.to(values), null));
+    public static OpenCLMemory.Byte createByteBuffer(OpenCLContext context, Flags flags, byte[] values) {
+        return new OpenCLMemory.Byte(clCreateBuffer(context.context, flags.value, (long) Sizeof.cl_char * values.length, Pointer.to(values), null));
     }
 
-    public static OpenCLMemory create(OpenCLContext context, Flags flags, int[] values) {
-        return new OpenCLMemory(clCreateBuffer(context.context, flags.value, (long) Sizeof.cl_int * values.length, Pointer.to(values), null));
+    public static OpenCLMemory.Short createBuffer(OpenCLContext context, Flags flags, long size) {
+        return new OpenCLMemory.Short(clCreateBuffer(context.context, flags.value, Sizeof.cl_short * size, null, null));
     }
 
-    public static OpenCLMemory create(OpenCLContext context, Flags flags, long[] values) {
-        return new OpenCLMemory(clCreateBuffer(context.context, flags.value, (long) Sizeof.cl_long * values.length, Pointer.to(values), null));
+    public static OpenCLMemory.Short createBuffer(OpenCLContext context, Flags flags, short[] values) {
+        return new OpenCLMemory.Short(clCreateBuffer(context.context, flags.value, (long) Sizeof.cl_short * values.length, Pointer.to(values), null));
     }
 
-    public static OpenCLMemory create(OpenCLContext context, Flags flags, float[] values) {
-        return new OpenCLMemory(clCreateBuffer(context.context, flags.value, (long) Sizeof.cl_float * values.length, Pointer.to(values), null));
+    public static OpenCLMemory.Integer createIntegerBuffer(OpenCLContext context, Flags flags, long size) {
+        return new OpenCLMemory.Integer(clCreateBuffer(context.context, flags.value, Sizeof.cl_int * size, null, null));
     }
 
-    public static OpenCLMemory create(OpenCLContext context, Flags flags, double[] values) {
-        return new OpenCLMemory(clCreateBuffer(context.context, flags.value, (long) Sizeof.cl_double * values.length, Pointer.to(values), null));
+    public static OpenCLMemory.Integer createIntegerBuffer(OpenCLContext context, Flags flags, int[] values) {
+        return new OpenCLMemory.Integer(clCreateBuffer(context.context, flags.value, (long) Sizeof.cl_int * values.length, Pointer.to(values), null));
+    }
+
+    public static OpenCLMemory.Long createLongBuffer(OpenCLContext context, Flags flags, long size) {
+        return new OpenCLMemory.Long(clCreateBuffer(context.context, flags.value, Sizeof.cl_long * size, null, null));
+    }
+
+    public static OpenCLMemory.Long createLongBuffer(OpenCLContext context, Flags flags, long[] values) {
+        return new OpenCLMemory.Long(clCreateBuffer(context.context, flags.value, (long) Sizeof.cl_long * values.length, Pointer.to(values), null));
+    }
+
+    public static OpenCLMemory.Float createFloatBuffer(OpenCLContext context, Flags flags, long size) {
+        return new OpenCLMemory.Float(clCreateBuffer(context.context, flags.value, Sizeof.cl_float * size, null, null));
+    }
+
+    public static OpenCLMemory.Float createFloatBuffer(OpenCLContext context, Flags flags, float[] values) {
+        return new OpenCLMemory.Float(clCreateBuffer(context.context, flags.value, (long) Sizeof.cl_float * values.length, Pointer.to(values), null));
+    }
+
+    public static OpenCLMemory.Double createDoubleBuffer(OpenCLContext context, Flags flags, long size) {
+        return new OpenCLMemory.Double(clCreateBuffer(context.context, flags.value, Sizeof.cl_double * size, null, null));
+    }
+
+    public static OpenCLMemory.Double createDoubleBuffer(OpenCLContext context, Flags flags, double[] values) {
+        return new OpenCLMemory.Double(clCreateBuffer(context.context, flags.value, (long) Sizeof.cl_double * values.length, Pointer.to(values), null));
     }
 
     final cl_mem memory;
@@ -64,9 +88,9 @@ public class OpenCLMemory extends OpenCLInfoObject<cl_mem> implements AutoClosea
         return getContextInfo(CL_MEM_CONTEXT);
     }
 
-    public OpenCLMemory getAssociatedMemObject() {
-        return getMemoryInfo(CL_MEM_ASSOCIATED_MEMOBJECT);
-    }
+//    public OpenCLMemory getAssociatedMemObject() {
+//        return getMemoryInfo(CL_MEM_ASSOCIATED_MEMOBJECT);
+//    }
 
     public long getOffset() {
         return getSizeTInfo(CL_MEM_OFFSET);
@@ -213,6 +237,42 @@ public class OpenCLMemory extends OpenCLInfoObject<cl_mem> implements AutoClosea
         public Flags unset(long flag) {
             value &= ~flag;
             return this;
+        }
+    }
+
+    public static class Byte extends OpenCLMemory {
+        Byte(cl_mem memory) {
+            super(memory);
+        }
+    }
+
+    public static class Short extends OpenCLMemory {
+        Short(cl_mem memory) {
+            super(memory);
+        }
+    }
+
+    public static class Integer extends OpenCLMemory {
+        Integer(cl_mem memory) {
+            super(memory);
+        }
+    }
+
+    public static class Long extends OpenCLMemory {
+        Long(cl_mem memory) {
+            super(memory);
+        }
+    }
+
+    public static class Float extends OpenCLMemory {
+        Float(cl_mem memory) {
+            super(memory);
+        }
+    }
+
+    public static class Double extends OpenCLMemory {
+        Double(cl_mem memory) {
+            super(memory);
         }
     }
 }

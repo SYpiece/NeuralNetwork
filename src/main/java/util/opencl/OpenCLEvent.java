@@ -11,7 +11,7 @@ public class OpenCLEvent extends OpenCLInfoObject<cl_event> implements AutoClose
         for (int i = 0; i < events.length; i++) {
             eventArray[i] = events[i].event;
         }
-        CL.clWaitForEvents(eventArray.length, eventArray);
+        clWaitForEvents(eventArray.length, eventArray);
     }
 
     final cl_event event;
@@ -43,6 +43,18 @@ public class OpenCLEvent extends OpenCLInfoObject<cl_event> implements AutoClose
 
     public int getReferenceCount() {
         return getIntInfo(CL_EVENT_REFERENCE_COUNT);
+    }
+
+    public OpenCLEvent waitFor() {
+        clWaitForEvents(1, new cl_event[]{event});
+        return this;
+    }
+
+    public <T> OpenCLEvent setCallback(CommandExecutionStatus status, Callback<T> callback, T userData) {
+        clSetEventCallback(event, status.value, (cl_event event, int command_exec_callback_type, Object user_data) -> {
+            callback.call(this, status, userData);
+        }, null);
+        return this;
     }
 
     @Override
@@ -131,5 +143,9 @@ public class OpenCLEvent extends OpenCLInfoObject<cl_event> implements AutoClose
         public long getEnd() {
             return getLongInfo(CL_PROFILING_COMMAND_END);
         }
+    }
+
+    public interface Callback<T> {
+        void call(OpenCLEvent event, CommandExecutionStatus status, T userData);
     }
 }

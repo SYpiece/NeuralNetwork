@@ -56,11 +56,11 @@ abstract class OpenCLInfoObject<T> {
         }
     }
 
-    protected OpenCLMemory getMemoryInfo(int paramName) {
-        cl_mem[] buffer = new cl_mem[1];
-        infoGetter.getInfo(baseObject, paramName, Sizeof.cl_mem, Pointer.to(buffer), null);
-        return new OpenCLMemory(buffer[0]);
-    }
+//    protected OpenCLMemory getMemoryInfo(int paramName) {
+//        cl_mem[] buffer = new cl_mem[1];
+//        infoGetter.getInfo(baseObject, paramName, Sizeof.cl_mem, Pointer.to(buffer), null);
+//        return new OpenCLMemory(buffer[0]);
+//    }
 
     protected OpenCLCommandQueue getCommandQueueInfo(int paramName) {
         cl_command_queue[] buffer = new cl_command_queue[1];
