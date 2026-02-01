@@ -1,8 +1,8 @@
 package util.network.layers;
 
-import util.math.matrix.Matrix;
-import util.math.matrix.Tensor;
-import util.math.matrix.Vector;
+import util.math.tensors.Matrix;
+import util.math.tensors.Tensor;
+import util.math.tensors.Vector;
 import util.network.function.ActivationFunction;
 
 public class FullyConnectedLayer extends AbstractLayer {

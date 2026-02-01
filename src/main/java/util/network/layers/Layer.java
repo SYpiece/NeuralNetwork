@@ -1,6 +1,6 @@
 package util.network.layers;
 
-import util.math.matrix.Tensor;
+import util.math.tensors.Tensor;
 
 public interface Layer {
     String getName();

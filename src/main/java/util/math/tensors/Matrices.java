@@ -1,4 +1,4 @@
-package util.math.matrix;
+package util.math.tensors;
 
 public class Matrices extends Vectors {
     public static FloatMatrix createFloatMatrix(int rows, int columns) {

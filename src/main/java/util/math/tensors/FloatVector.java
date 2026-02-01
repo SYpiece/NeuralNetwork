@@ -1,4 +1,4 @@
-package util.math.matrix;
+package util.math.tensors;
 
 public class FloatVector extends Vector, FloatMatrix, FloatTensor {
     public float[] getData();

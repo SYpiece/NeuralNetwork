@@ -1,4 +1,4 @@
-package util.math.matrix;
+package util.math.tensors;
 
 public class Vectors extends Scalars {
     public static FloatVector createFloatVector(int size) {

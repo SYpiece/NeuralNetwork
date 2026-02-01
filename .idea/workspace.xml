@@ -5,18 +5,38 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="510f6215-b6d7-46f0-bb38-6abdae5c9063" name="更改" comment="update">
+      <change afterPath="$PROJECT_DIR$/src/main/java/util/calculator/AbstractAsyncCalculator.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/util/math/tensors/Matrix.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/util/math/tensors/Tensor.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/util/math/tensors/Vector.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/util/math/matrix/FloatScalar.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/util/math/matrix/FloatScalar.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/util/math/matrix/FloatVector.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/util/math/matrix/FloatVector.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/util/math/matrix/Matrix.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/util/math/matrix/Matrix.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/util/math/matrix/Scalar.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/util/math/matrix/Scalar.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/util/network/AbstractLayer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/util/network/layers/AbstractLayer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/util/network/FullyConnectedLayer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/util/network/layers/FullyConnectedLayer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/util/network/Layer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/util/network/layers/Layer.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/util/network/Layers.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/util/calculator/AbstractAsyncMatrixCalculator.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/util/calculator/AbstractSyncMatrixCalculator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/util/calculator/AbstractSyncMatrixCalculator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/util/calculator/Calculator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/util/calculator/Calculator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/util/calculator/MatrixCalculator.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/util/calculator/MultithreadingFloatMatrixCalculator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/util/calculator/MultithreadingFloatMatrixCalculator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/util/calculator/OpenCLFloatMatrixCalculator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/util/calculator/AparapiFloatMatrixCalculator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/util/calculator/SingleThreadedFloatMatrixCalculator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/util/calculator/SingleThreadedFloatMatrixCalculator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/util/math/matrix/DoubleMatrix.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/util/math/tensors/DoubleMatrix.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/util/math/matrix/DoubleScalar.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/util/math/tensors/DoubleScalar.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/util/math/matrix/DoubleTensor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/util/math/tensors/DoubleTensor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/util/math/matrix/DoubleVector.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/util/math/tensors/DoubleVector.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/util/math/matrix/FloatMatrix.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/util/math/tensors/FloatMatrix.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/util/math/matrix/FloatScalar.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/util/math/tensors/FloatScalar.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/util/math/matrix/FloatTensor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/util/math/tensors/FloatTensor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/util/math/matrix/FloatVector.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/util/math/tensors/FloatVector.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/util/math/matrix/Matrices.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/util/math/tensors/Matrices.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/util/math/matrix/Matrix.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/util/math/matrix/Orientation.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/util/math/tensors/Orientation.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/util/math/matrix/Scalar.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/util/math/tensors/Scalar.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/util/math/matrix/Scalars.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/util/math/tensors/Scalars.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/util/math/matrix/Tensor.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/util/math/matrix/Tensors.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/util/math/tensors/Tensors.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/util/math/matrix/Vector.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/util/math/matrix/Vectors.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/util/math/tensors/Vectors.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/util/network/Network.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/util/network/Network.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/util/opencl/OpenCLInfoObject.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/util/opencl/OpenCLInfoObject.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/util/opencl/OpenCLMemory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/util/opencl/OpenCLMemory.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/util/network/layers/FullyConnectedLayer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/util/network/layers/FullyConnectedLayer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/util/network/layers/Layer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/util/network/layers/Layer.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -26,8 +46,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Interface" />
         <option value="Class" />
+        <option value="Interface" />
       </list>
     </option>
   </component>
@@ -82,6 +102,11 @@
     &quot;应用程序.app.executor&quot;: &quot;Debug&quot;
   }
 }</component>
+  <component name="RecentsManager">
+    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="util.math.matrix" />
+    </key>
+  </component>
   <component name="RunManager">
     <configuration name="app" type="Application" factoryName="Application">
       <option name="MAIN_CLASS_NAME" value="App" />
@@ -111,7 +136,8 @@
       <workItem from="1769854024206" duration="423000" />
       <workItem from="1769854467839" duration="14752000" />
       <workItem from="1769912534624" duration="1777000" />
-      <workItem from="1769914472580" duration="1588000" />
+      <workItem from="1769914472580" duration="1610000" />
+      <workItem from="1769923886238" duration="9933000" />
     </task>
     <task id="LOCAL-00001" summary="update">
       <option name="closed" value="true" />
@@ -127,6 +153,17 @@
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="update" />
     <option name="LAST_COMMIT_MESSAGE" value="update" />
@@ -138,6 +175,11 @@
           <url>file://$PROJECT_DIR$/src/main/java/util/opencl/OpenCLCommandQueue.java</url>
           <line>323</line>
           <option name="timeStamp" value="7" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/App.java</url>
+          <line>93</line>
+          <option name="timeStamp" value="8" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

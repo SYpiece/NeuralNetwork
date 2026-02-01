@@ -1,7 +1,7 @@
 package util.network;
 
-import util.math.matrix.Matrix;
-import util.math.matrix.Vector;
+import util.math.tensors.Matrix;
+import util.math.tensors.Vector;
 import util.network.layers.Layer;
 
 import java.util.List;

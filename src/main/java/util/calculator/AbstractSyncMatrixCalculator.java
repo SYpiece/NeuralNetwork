@@ -1,14 +1,14 @@
 package util.calculator;
 
 import util.math.function.Function;
-import util.math.matrix.Matrix;
+import util.math.tensors.Matrix;
 
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
-public abstract class AbstractSyncMatrixCalculator<M extends Matrix, F extends Function> implements MatrixCalculator<M, F> {
+public abstract class AbstractSyncMatrixCalculator<M extends Matrix, F extends Function> implements Calculator<M, F> {
     protected abstract M createMatrix(int rows, int columns);
 
     @Override

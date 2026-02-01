@@ -1,6 +1,4 @@
-package util.math.matrix;
-
-import java.util.Arrays;
+package util.math.tensors;
 
 public class Scalars {
     public static FloatScalar createFloatScalar() {

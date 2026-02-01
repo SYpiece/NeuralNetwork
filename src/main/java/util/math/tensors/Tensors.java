@@ -1,4 +1,4 @@
-package util.math.matrix;
+package util.math.tensors;
 
 public class Tensors extends Matrices {
     public static FloatTensor createFloatTensor(int... ranks) {
@@ -49,18 +49,18 @@ public class Tensors extends Matrices {
         }
 
         @Override
-        public int[] getRankData() {
+        public int[] getLengthData() {
             return dimensions;
         }
 
         @Override
-        public int getRankSize() {
+        public int getRank() {
             return dimensions.length;
         }
 
         @Override
-        public int getRank(int rank) {
-            return dimensions[rank];
+        public int getLength(int dimension) {
+            return dimensions[dimension];
         }
 
         @Override
@@ -122,18 +122,18 @@ public class Tensors extends Matrices {
         }
 
         @Override
-        public int[] getRankData() {
+        public int[] getLengthData() {
             return dimensions;
         }
 
         @Override
-        public int getRankSize() {
+        public int getRank() {
             return dimensions.length;
         }
 
         @Override
-        public int getRank(int rank) {
-            return dimensions[rank];
+        public int getLength(int dimension) {
+            return dimensions[dimension];
         }
 
         @Override

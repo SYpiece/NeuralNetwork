@@ -3,12 +3,10 @@ package util.calculator;
 import com.aparapi.Kernel;
 import com.aparapi.Range;
 import util.math.function.FloatFunction;
-import util.math.matrix.FloatMatrix;
-import util.math.matrix.Matrices;
+import util.math.tensors.FloatMatrix;
+import util.math.tensors.Matrices;
 
-import java.util.Map;
-
-public class OpenCLFloatMatrixCalculator extends AbstractSyncMatrixCalculator<FloatMatrix, FloatFunction> {
+public class AparapiFloatMatrixCalculator extends AbstractSyncMatrixCalculator<FloatMatrix, FloatFunction> {
     @Override
     protected FloatMatrix createMatrix(int rows, int columns) {
         return Matrices.createFloatMatrix(rows, columns);

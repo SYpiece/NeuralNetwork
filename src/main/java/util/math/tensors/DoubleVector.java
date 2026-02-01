@@ -1,4 +1,4 @@
-package util.math.matrix;
+package util.math.tensors;
 
 public interface DoubleVector extends Vector {
     double[] getData();

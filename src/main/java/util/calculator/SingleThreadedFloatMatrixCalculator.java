@@ -1,9 +1,8 @@
 package util.calculator;
 
 import util.math.function.FloatFunction;
-import util.math.function.Function;
-import util.math.matrix.FloatMatrix;
-import util.math.matrix.Matrices;
+import util.math.tensors.FloatMatrix;
+import util.math.tensors.Matrices;
 
 public class SingleThreadedFloatMatrixCalculator extends AbstractSyncMatrixCalculator<FloatMatrix, FloatFunction> {
     @Override

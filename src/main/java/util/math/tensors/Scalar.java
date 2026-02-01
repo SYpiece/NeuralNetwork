@@ -1,6 +1,30 @@
-package util.math.matrix;
+package util.math.tensors;
 
 public interface Scalar {
+    static Scalar.Byte clone(Scalar.Byte scalar) {
+        return new Scalar.Byte(scalar.value);
+    }
+
+    static Scalar.Short clone(Scalar.Short scalar) {
+        return new Scalar.Short(scalar.value);
+    }
+
+    static Scalar.Integer clone(Scalar.Integer scalar) {
+        return new Scalar.Integer(scalar.value);
+    }
+
+    static Scalar.Long clone(Scalar.Long scalar) {
+        return new Scalar.Long(scalar.value);
+    }
+
+    static Scalar.Float clone(Scalar.Float scalar) {
+        return new Scalar.Float(scalar.value);
+    }
+
+    static Scalar.Double clone(Scalar.Double scalar) {
+        return new Scalar.Double(scalar.value);
+    }
+
     class Byte implements Scalar {
         byte value;
 
