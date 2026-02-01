@@ -1,8 +1,8 @@
 package util.network;
 
 import util.math.matrix.Matrix;
-import util.math.matrix.Orientation;
 import util.math.matrix.Vector;
+import util.network.layers.Layer;
 
 import java.util.List;
 

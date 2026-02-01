@@ -1,14 +1,14 @@
 package util.math.matrix;
 
-public interface FloatVector extends Vector, FloatMatrix, FloatTensor {
-    float[] getData();
+public class FloatVector extends Vector, FloatMatrix, FloatTensor {
+    public float[] getData();
 
-    float get(int index);
+    public float get(int index);
 
-    void set(int index, float value);
+    public void set(int index, float value);
 
     @Override
-    default float get(int row, int column) {
+    public float get(int row, int column) {
         if (column != 0) {
             throw new IllegalArgumentException("Column index out of bounds");
         }
@@ -16,7 +16,7 @@ public interface FloatVector extends Vector, FloatMatrix, FloatTensor {
     }
 
     @Override
-    default void set(int row, int column, float value) {
+    public void set(int row, int column, float value) {
         if (column != 0) {
             throw new IllegalArgumentException("Column index out of bounds");
         }
@@ -24,7 +24,7 @@ public interface FloatVector extends Vector, FloatMatrix, FloatTensor {
     }
 
     @Override
-    default float get(int...  indices) {
+    public float get(int...  indices) {
         if (indices.length != 1) {
             throw new IllegalArgumentException("Column index out of bounds");
         }
@@ -32,7 +32,7 @@ public interface FloatVector extends Vector, FloatMatrix, FloatTensor {
     }
 
     @Override
-    default void set(int[] indices, float value) {
+    public void set(int[] indices, float value) {
         if (indices.length != 1) {
             throw new IllegalArgumentException("Column index out of bounds");
         }

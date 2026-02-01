@@ -1,6 +1,4 @@
-package util.network;
-
-import util.math.matrix.Tensor;
+package util.network.layers;
 
 public abstract class AbstractLayer implements Layer {
     protected String name;

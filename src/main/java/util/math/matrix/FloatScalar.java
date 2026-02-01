@@ -1,57 +1,25 @@
 package util.math.matrix;
 
-public interface FloatScalar extends Scalar, FloatVector, FloatMatrix, FloatTensor {
-    float[] getData();
+public class FloatScalar implements Scalar {
+    final float[] value;
 
-    float get();
-
-    void set(float value);
-
-    @Override
-    default float get(int index) {
-        if (index != 0) {
-            throw new IllegalArgumentException("Invalid index");
-        }
-        return get();
+    public float[] getData() {
+        return value;
     }
 
-    @Override
-    default void set(int index, float value) {
-        if (index != 0) {
-            throw new IllegalArgumentException("Invalid index");
-        }
-        set(value);
+    public float get() {
+        return value[0];
     }
 
-    @Override
-    default float get(int row, int column) {
-        if (row != 0 || column != 0) {
-            throw new IllegalArgumentException("Invalid index");
-        }
-        return get();
+    public void set(float value) {
+        this.value[0] = value;
     }
 
-    @Override
-    default void set(int row, int column, float value) {
-        if (row != 0 || column != 0) {
-            throw new IllegalArgumentException("Invalid index");
-        }
-        set(value);
+    public FloatScalar() {
+        this(0);
     }
 
-    @Override
-    default float get(int... indices) {
-        if (indices.length != 0) {
-            throw new IllegalArgumentException("Invalid number of indices");
-        }
-        return get();
-    }
-
-    @Override
-    default void set(int[] indices, float value) {
-        if (indices.length != 0) {
-            throw new IllegalArgumentException("Invalid number of indices");
-        }
-        set(value);
+    public FloatScalar(float value) {
+        this.value = new float[] {value};
     }
 }

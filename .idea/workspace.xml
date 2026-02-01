@@ -6,10 +6,17 @@
   <component name="ChangeListManager">
     <list default="true" id="510f6215-b6d7-46f0-bb38-6abdae5c9063" name="更改" comment="update">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/util/math/matrix/FloatScalar.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/util/math/matrix/FloatScalar.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/util/math/matrix/FloatVector.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/util/math/matrix/FloatVector.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/util/math/matrix/Matrix.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/util/math/matrix/Matrix.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/util/math/matrix/Scalar.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/util/math/matrix/Scalar.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/util/network/AbstractLayer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/util/network/layers/AbstractLayer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/util/network/FullyConnectedLayer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/util/network/layers/FullyConnectedLayer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/util/network/Layer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/util/network/layers/Layer.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/util/network/Layers.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/util/network/Network.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/util/network/Network.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/util/opencl/OpenCLInfoObject.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/util/opencl/OpenCLInfoObject.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/util/opencl/OpenCLKernel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/util/opencl/OpenCLKernel.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/util/opencl/OpenCLMemory.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/util/opencl/OpenCLMemory.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/util/opencl/OpenCLProgram.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/util/opencl/OpenCLProgram.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -39,6 +46,9 @@
     &quot;accountId&quot;: &quot;f23371f9-bc64-4f1f-a469-b9e0fe02bb74&quot;
   }
 }</component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="jar://$MAVEN_REPOSITORY$/org/jocl/jocl/2.0.6/jocl-2.0.6-sources.jar!/org/jocl/EventCallbackFunction.java" root0="SKIP_INSPECTION" />
+  </component>
   <component name="ProblemsViewState">
     <option name="selectedTabId" value="CurrentFile" />
   </component>
@@ -64,7 +74,10 @@
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
     &quot;last_opened_file_path&quot;: &quot;C:/Users/User/IdeaProjects/NeuralNetwork/src/main/java&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;advanced.settings&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;项目&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;,
     &quot;应用程序.app.executor&quot;: &quot;Debug&quot;
   }
@@ -95,6 +108,10 @@
       <updated>1760766310100</updated>
       <workItem from="1769219674674" duration="8411000" />
       <workItem from="1769315102552" duration="11076000" />
+      <workItem from="1769854024206" duration="423000" />
+      <workItem from="1769854467839" duration="14752000" />
+      <workItem from="1769912534624" duration="1777000" />
+      <workItem from="1769914472580" duration="1588000" />
     </task>
     <task id="LOCAL-00001" summary="update">
       <option name="closed" value="true" />
@@ -113,5 +130,16 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="update" />
     <option name="LAST_COMMIT_MESSAGE" value="update" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/main/java/util/opencl/OpenCLCommandQueue.java</url>
+          <line>323</line>
+          <option name="timeStamp" value="7" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

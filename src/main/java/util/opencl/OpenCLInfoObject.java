@@ -56,40 +56,40 @@ abstract class OpenCLInfoObject<T> {
         }
     }
 
-//    protected OpenCLMemory getMemoryInfo(int paramName) {
-//        cl_mem[] buffer = new cl_mem[1];
-//        infoGetter.getInfo(baseObject, paramName, Sizeof.cl_mem, Pointer.to(buffer), null);
-//        return new OpenCLMemory(buffer[0]);
-//    }
+    protected OpenCLMemory getMemoryInfo(int paramName) {
+        cl_mem[] buffer = new cl_mem[1];
+        infoGetter.getInfo(baseObject, paramName, Sizeof.cl_mem, Pointer.to(buffer), null);
+        return buffer[0] == null ? null : new OpenCLMemory(buffer[0]);
+    }
 
     protected OpenCLCommandQueue getCommandQueueInfo(int paramName) {
         cl_command_queue[] buffer = new cl_command_queue[1];
         infoGetter.getInfo(baseObject, paramName, Sizeof.cl_command_queue, Pointer.to(buffer), null);
-        return new OpenCLCommandQueue(buffer[0]);
+        return buffer[0] == null ? null : new OpenCLCommandQueue(buffer[0]);
     }
 
     protected OpenCLProgram getProgramInfo(int paramName) {
         cl_program[] buffer = new cl_program[1];
         infoGetter.getInfo(baseObject, paramName, Sizeof.cl_program, Pointer.to(buffer), null);
-        return new OpenCLProgram(buffer[0]);
+        return buffer[0] == null ? null : new OpenCLProgram(buffer[0]);
     }
 
     protected OpenCLContext getContextInfo(int paramName) {
         cl_context[] buffer = new cl_context[1];
         infoGetter.getInfo(baseObject, paramName, Sizeof.cl_context, Pointer.to(buffer), null);
-        return new OpenCLContext(buffer[0]);
+        return buffer[0] == null ? null : new OpenCLContext(buffer[0]);
     }
 
     public OpenCLDevice getDeviceInfo(int paramName) {
         cl_device_id[] buffer = new cl_device_id[1];
         infoGetter.getInfo(baseObject, paramName, Sizeof.cl_device_id, Pointer.to(buffer), null);
-        return new OpenCLDevice(buffer[0]);
+        return buffer[0] == null ? null : new OpenCLDevice(buffer[0]);
     }
 
     protected OpenCLPlatform getPlatformInfo(int paramName) {
         cl_platform_id[] buffer = new cl_platform_id[1];
         infoGetter.getInfo(baseObject, paramName, Sizeof.cl_platform_id, Pointer.to(buffer), null);
-        return new OpenCLPlatform(buffer[0]);
+        return buffer[0] == null ? null : new OpenCLPlatform(buffer[0]);
     }
 
     protected long[] getSizeTArrayInfo(int paramName) {
@@ -115,7 +115,7 @@ abstract class OpenCLInfoObject<T> {
         infoGetter.getInfo(baseObject, paramName, size, Pointer.to(buffer), null);
         OpenCLDevice[] devices = new OpenCLDevice[buffer.length];
         for (int i = 0; i < buffer.length; i++) {
-            devices[i] = new OpenCLDevice(buffer[i]);
+            devices[i] = buffer[i] == null ? null : new OpenCLDevice(buffer[i]);
         }
         return devices;
     }

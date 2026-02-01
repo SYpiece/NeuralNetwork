@@ -1,4 +1,4 @@
-package util.network;
+package util.network.layers;
 
 import util.math.matrix.Tensor;
 

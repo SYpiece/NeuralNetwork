@@ -1,60 +1,88 @@
 package util.opencl;
 
-import org.jocl.CL;
-import org.jocl.Pointer;
-import org.jocl.Sizeof;
-import org.jocl.cl_mem;
+import org.jocl.*;
 
 import static org.jocl.CL.*;
 
-public abstract class OpenCLMemory extends OpenCLInfoObject<cl_mem> implements AutoCloseable {
+public class OpenCLMemory extends OpenCLInfoObject<cl_mem> implements AutoCloseable {
+    public static OpenCLMemory createBuffer(OpenCLContext context, Flags flags, long size) {
+        return new OpenCLMemory(clCreateBuffer(context.context, flags.value, size, null, null));
+    }
 
-    public static OpenCLMemory createByteBuffer(OpenCLContext context, Flags flags, long size) {
-        return new OpenCLMemory.Byte(clCreateBuffer(context.context, flags.value, Sizeof.cl_char * size, null, null));
+    public static OpenCLMemory.Byte createByteBuffer(OpenCLContext context, Flags flags, long length) {
+        return new OpenCLMemory.Byte(clCreateBuffer(context.context, flags.value, Sizeof.cl_char * length, null, null));
     }
 
     public static OpenCLMemory.Byte createByteBuffer(OpenCLContext context, Flags flags, byte[] values) {
         return new OpenCLMemory.Byte(clCreateBuffer(context.context, flags.value, (long) Sizeof.cl_char * values.length, Pointer.to(values), null));
     }
 
-    public static OpenCLMemory.Short createBuffer(OpenCLContext context, Flags flags, long size) {
-        return new OpenCLMemory.Short(clCreateBuffer(context.context, flags.value, Sizeof.cl_short * size, null, null));
+    public static OpenCLMemory.Short createShortBuffer(OpenCLContext context, Flags flags, long length) {
+        return new OpenCLMemory.Short(clCreateBuffer(context.context, flags.value, Sizeof.cl_short * length, null, null));
     }
 
-    public static OpenCLMemory.Short createBuffer(OpenCLContext context, Flags flags, short[] values) {
+    public static OpenCLMemory.Short createShortBuffer(OpenCLContext context, Flags flags, short[] values) {
         return new OpenCLMemory.Short(clCreateBuffer(context.context, flags.value, (long) Sizeof.cl_short * values.length, Pointer.to(values), null));
     }
 
-    public static OpenCLMemory.Integer createIntegerBuffer(OpenCLContext context, Flags flags, long size) {
-        return new OpenCLMemory.Integer(clCreateBuffer(context.context, flags.value, Sizeof.cl_int * size, null, null));
+    public static OpenCLMemory.Integer createIntegerBuffer(OpenCLContext context, Flags flags, long length) {
+        return new OpenCLMemory.Integer(clCreateBuffer(context.context, flags.value, Sizeof.cl_int * length, null, null));
     }
 
     public static OpenCLMemory.Integer createIntegerBuffer(OpenCLContext context, Flags flags, int[] values) {
         return new OpenCLMemory.Integer(clCreateBuffer(context.context, flags.value, (long) Sizeof.cl_int * values.length, Pointer.to(values), null));
     }
 
-    public static OpenCLMemory.Long createLongBuffer(OpenCLContext context, Flags flags, long size) {
-        return new OpenCLMemory.Long(clCreateBuffer(context.context, flags.value, Sizeof.cl_long * size, null, null));
+    public static OpenCLMemory.Long createLongBuffer(OpenCLContext context, Flags flags, long length) {
+        return new OpenCLMemory.Long(clCreateBuffer(context.context, flags.value, Sizeof.cl_long * length, null, null));
     }
 
     public static OpenCLMemory.Long createLongBuffer(OpenCLContext context, Flags flags, long[] values) {
         return new OpenCLMemory.Long(clCreateBuffer(context.context, flags.value, (long) Sizeof.cl_long * values.length, Pointer.to(values), null));
     }
 
-    public static OpenCLMemory.Float createFloatBuffer(OpenCLContext context, Flags flags, long size) {
-        return new OpenCLMemory.Float(clCreateBuffer(context.context, flags.value, Sizeof.cl_float * size, null, null));
+    public static OpenCLMemory.Float createFloatBuffer(OpenCLContext context, Flags flags, long length) {
+        return new OpenCLMemory.Float(clCreateBuffer(context.context, flags.value, Sizeof.cl_float * length, null, null));
     }
 
     public static OpenCLMemory.Float createFloatBuffer(OpenCLContext context, Flags flags, float[] values) {
         return new OpenCLMemory.Float(clCreateBuffer(context.context, flags.value, (long) Sizeof.cl_float * values.length, Pointer.to(values), null));
     }
 
-    public static OpenCLMemory.Double createDoubleBuffer(OpenCLContext context, Flags flags, long size) {
-        return new OpenCLMemory.Double(clCreateBuffer(context.context, flags.value, Sizeof.cl_double * size, null, null));
+    public static OpenCLMemory.Double createDoubleBuffer(OpenCLContext context, Flags flags, long length) {
+        return new OpenCLMemory.Double(clCreateBuffer(context.context, flags.value, Sizeof.cl_double * length, null, null));
     }
 
     public static OpenCLMemory.Double createDoubleBuffer(OpenCLContext context, Flags flags, double[] values) {
         return new OpenCLMemory.Double(clCreateBuffer(context.context, flags.value, (long) Sizeof.cl_double * values.length, Pointer.to(values), null));
+    }
+
+    public static OpenCLMemory createSubBuffer(OpenCLMemory parent, Flags flags, long offset, long size) {
+        return new OpenCLMemory(clCreateSubBuffer(parent.memory, flags.value, CL_BUFFER_CREATE_TYPE_REGION, new cl_buffer_region(offset, size), null));
+    }
+
+    public static OpenCLMemory.Byte createSubByteBuffer(OpenCLMemory parent, Flags flags, long offset, long length) {
+        return new OpenCLMemory.Byte(clCreateSubBuffer(parent.memory, flags.value, CL_BUFFER_CREATE_TYPE_REGION, new cl_buffer_region(offset, Sizeof.cl_char * length), null));
+    }
+
+    public static OpenCLMemory.Short createSubShortBuffer(OpenCLMemory parent, Flags flags, long offset, long length) {
+        return new OpenCLMemory.Short(clCreateSubBuffer(parent.memory, flags.value, CL_BUFFER_CREATE_TYPE_REGION, new cl_buffer_region(offset, Sizeof.cl_short * length), null));
+    }
+
+    public static OpenCLMemory.Integer createSubIntegerBuffer(OpenCLMemory parent, Flags flags, long offset, long length) {
+        return new OpenCLMemory.Integer(clCreateSubBuffer(parent.memory, flags.value, CL_BUFFER_CREATE_TYPE_REGION, new cl_buffer_region(offset, Sizeof.cl_int * length), null));
+    }
+
+    public static OpenCLMemory.Long createSubLongBuffer(OpenCLMemory parent, Flags flags, long offset, long length) {
+        return new OpenCLMemory.Long(clCreateSubBuffer(parent.memory, flags.value, CL_BUFFER_CREATE_TYPE_REGION, new cl_buffer_region(offset, Sizeof.cl_long * length), null));
+    }
+
+    public static OpenCLMemory.Float createSubFloatBuffer(OpenCLMemory parent, Flags flags, long offset, long length) {
+        return new OpenCLMemory.Float(clCreateSubBuffer(parent.memory, flags.value, CL_BUFFER_CREATE_TYPE_REGION, new cl_buffer_region(offset, Sizeof.cl_float * length), null));
+    }
+
+    public static OpenCLMemory.Double createSubDoubleBuffer(OpenCLMemory parent, Flags flags, long offset, long length) {
+        return new OpenCLMemory.Double(clCreateSubBuffer(parent.memory, flags.value, CL_BUFFER_CREATE_TYPE_REGION, new cl_buffer_region(offset, Sizeof.cl_double * length), null));
     }
 
     final cl_mem memory;
@@ -88,12 +116,36 @@ public abstract class OpenCLMemory extends OpenCLInfoObject<cl_mem> implements A
         return getContextInfo(CL_MEM_CONTEXT);
     }
 
-//    public OpenCLMemory getAssociatedMemObject() {
-//        return getMemoryInfo(CL_MEM_ASSOCIATED_MEMOBJECT);
-//    }
+    public OpenCLMemory getAssociatedMemObject() {
+        return getMemoryInfo(CL_MEM_ASSOCIATED_MEMOBJECT);
+    }
 
     public long getOffset() {
         return getSizeTInfo(CL_MEM_OFFSET);
+    }
+
+    public Byte toByteBuffer() {
+        return new Byte(memory);
+    }
+
+    public Short toShortBuffer() {
+        return new Short(memory);
+    }
+
+    public Integer toIntegerBuffer() {
+        return new Integer(memory);
+    }
+
+    public Long toLongBuffer() {
+        return new Long(memory);
+    }
+
+    public Float toFloatBuffer() {
+        return new Float(memory);
+    }
+
+    public Double toDoubleBuffer() {
+        return new Double(memory);
     }
 
     @Override

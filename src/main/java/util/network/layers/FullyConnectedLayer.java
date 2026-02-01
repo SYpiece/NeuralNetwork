@@ -1,6 +1,5 @@
-package util.network;
+package util.network.layers;
 
-import util.math.matrix.Matrices;
 import util.math.matrix.Matrix;
 import util.math.matrix.Tensor;
 import util.math.matrix.Vector;

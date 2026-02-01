@@ -1,35 +1,49 @@
 package util.math.matrix;
 
-public interface Matrix extends Tensor {
+public interface Matrix {
     int getRows();
 
     int getColumns();
 
-    @Override
-    default int size() {
-        return getRows() * getColumns();
-    }
+    class Float implements Matrix {
+        final float[] matrix;
+        final int rows, columns;
 
-    @Override
-    default int[] getRankData() {
-        return new int[] {getRows(), getColumns()};
-    }
-
-    @Override
-    default int getRankSize() {
-        return 2;
-    }
-
-    @Override
-    default int getRank(int rank) {
-        if (rank == 0) {
-            return getRows();
+        @Override
+        public int getRows() {
+            return rows;
         }
-        if (rank == 1) {
-            return getColumns();
+
+        @Override
+        public int getColumns() {
+            return columns;
         }
-        throw new IllegalArgumentException("Invalid rank");
+
+        public Float(int rows, int columns) {
+            this.rows = rows;
+            this.columns = columns;
+            matrix = new float[rows * columns];
+        }
+
+        public Float(int rows, int columns, float[] matrix) {
+            if (matrix.length != rows * columns) {
+                throw new IllegalArgumentException("matrix must be rectangular");
+            }
+            this.rows = rows;
+            this.columns = columns;
+            this.matrix = matrix;
+        }
+
+        public Float(float[][] matrix) {
+            this.rows = matrix.length;
+            this.columns = matrix[0].length;
+            this.matrix = new float[rows * columns];
+            for (int i = 0; i < rows; i++) {
+                if (matrix[i].length != columns) {
+                    throw new IllegalArgumentException("matrix must be rectangular");
+                }
+                System.arraycopy(matrix[i], 0, this.matrix, i * columns, columns);
+            }
+        }
     }
-
-
 }
